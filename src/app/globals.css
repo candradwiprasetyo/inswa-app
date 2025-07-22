@@ -28,6 +28,10 @@ body {
   color: #111a30;
 }
 
+.text-primary-dark {
+  color: #f9fafb;
+}
+
 .text-secondary-light {
   color: #364463;
 }
@@ -38,6 +42,10 @@ body {
 
 .text-action-hover {
   color: #4b8631;
+}
+
+.text-action {
+  color: #6abd45;
 }
 
 .text-disabled {
@@ -66,11 +74,40 @@ body {
   background-size: cover;
 }
 
+.bg-about-us {
+  background: url("/assets/images/about-us/hero.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-program {
+  background: url("/assets/images/program/hero.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-visi-misi {
+  background: url("/assets/images/about-us/visi-misi.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .bg-stay-updated-gradient {
   background: linear-gradient(
     90deg,
     rgba(106, 189, 69, 0.9) 0%,
     rgba(8, 35, 99, 0.9) 100%
+  );
+}
+
+.bg-bod {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(209, 235, 197, 0.3) 100%
   );
 }
 
@@ -135,6 +172,10 @@ body {
 
 .border-tertiary-light {
   border-color: #c3cad9;
+}
+
+.border-green {
+  border-color: #6abd45;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

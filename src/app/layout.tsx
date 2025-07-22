@@ -12,7 +12,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 const pathwayExtreme = Pathway_Extreme({
   variable: "--font-pathway-extreme",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
