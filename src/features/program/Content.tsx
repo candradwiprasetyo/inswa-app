@@ -44,8 +44,8 @@ export default function Content() {
         </strong>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-16">
-        {programData.map((data) => (
-          <div className="flex gap-4">
+        {programData.map((data, index) => (
+          <div className="flex gap-4" key={index}>
             <div className="flex-none">
               <Image
                 src="/assets/icons/point-leaf.svg"
