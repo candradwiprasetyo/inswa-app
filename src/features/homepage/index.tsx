@@ -1,12 +1,13 @@
 "use client";
 
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Hero from "./Hero";
 import AboutUs from "./AboutUs";
 import OurProgram from "./OurProgram";
 import Highlight from "./Highlight";
 import Member from "./Member";
+import StayUpdated from "@/components/StayUpdated";
 
 export default function Homepage() {
   return (
@@ -17,6 +18,7 @@ export default function Homepage() {
       <OurProgram />
       <Highlight />
       <Member />
+      <StayUpdated />
       <Footer />
     </>
   );

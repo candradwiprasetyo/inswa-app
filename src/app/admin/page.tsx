@@ -1,7 +1,7 @@
 "use client";
 
-import AdminHeader from "@/components/admin-header";
-import AdminNavigation from "@/components/admin-navigation";
+import AdminHeader from "@/components/AdminHeader";
+import AdminNavigation from "@/components/AdminNavigation";
 
 export default function AdminPage() {
   return (
