@@ -52,11 +52,11 @@ export default function BoardOfDirector() {
 
   return (
     <div className="container mx-auto px-4 md:px-44 py-10 md:py-20 bg-bod">
-      <div className="flex justify-between items-center">
+      <div className="md:flex justify-between items-center">
         <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
           Dewan Pengurus dan Keahlian
         </div>
-        <div className="flex gap-4">
+        <div className="hidden md:flex gap-4">
           <button
             onClick={scrollPrev}
             className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
@@ -81,7 +81,8 @@ export default function BoardOfDirector() {
           </button>
         </div>
       </div>
-      <div className="embla md:mt-10" ref={emblaRef}>
+
+      <div className="embla md:mt-10 hidden md:block" ref={emblaRef}>
         <div className="embla__container flex gap-6">
           {boardOfDirectorData.map((data, index) => (
             <div
@@ -114,17 +115,22 @@ export default function BoardOfDirector() {
           ))}
         </div>
       </div>
-      <button className="mt-8 h-10 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
-        <div className="text-action-hover font-semibold">
-          Lihat Lebih Banyak
-        </div>
-        <Image
-          src="/assets/icons/arrow-right-green.svg"
-          alt="Arrow right"
-          width={24}
-          height={24}
-        />
-      </button>
+
+      <div className="grid grid-cols-2 gap-4 md:hidden">
+        {boardOfDirectorData.map((data, index) => (
+          <div key={index}>
+            <Image
+              src={`/assets/images/board-of-director/${data.url}`}
+              alt="BOD"
+              width={240}
+              height={320}
+              className="w-full h-[220px] object-cover rounded-tl-[40px] rounded-tr-md rounded-br-[40px] rounded-bl-md mb-2"
+            />
+            <div className="text-base font-bold">{data.name}</div>
+            <div className="text-sm text-action-hover">{data.position}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

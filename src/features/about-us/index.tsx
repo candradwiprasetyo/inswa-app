@@ -8,6 +8,7 @@ import History from "./History";
 import VisionMission from "./VisionMission";
 import OrganizationStructure from "./OrganizationStructure";
 import BoardOfDirector from "./BoardOfDirector";
+import Contact from "./Contact";
 
 export default function AboutUs() {
   return (
@@ -19,6 +20,7 @@ export default function AboutUs() {
       <VisionMission />
       <OrganizationStructure />
       <BoardOfDirector />
+      <Contact />
       <Footer />
     </>
   );
