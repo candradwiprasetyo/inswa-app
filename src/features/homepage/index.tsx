@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/HeaderTmp";
+import Footer from "@/components/FooterTmp";
 import Hero from "./Hero";
 import AboutUs from "./AboutUs";
 import OurProgram from "./OurProgram";

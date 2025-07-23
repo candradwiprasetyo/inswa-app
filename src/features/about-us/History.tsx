@@ -44,7 +44,7 @@ export default function History() {
         <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
           Sejarah InSWA
         </div>
-        <div className="flex gap-4">
+        <div className="gap-4 hidden md:flex">
           <button
             onClick={scrollPrev}
             className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
@@ -73,10 +73,10 @@ export default function History() {
         <div className="embla__container flex gap-8">
           {historyData.map((data, index) => (
             <div
-              className="embla__slide shrink-0 w-[500px] bg-white border-b-2 border-primary-light"
+              className="embla__slide shrink-0 w-full md:w-[500px] bg-white"
               key={index}
             >
-              <div className="px-2 pt-3 pb-8">
+              <div className="pt-3 pb-8">
                 <div className="flex text-green font-semibold items-center gap-4 mb-6">
                   <div className="flex-none">{data.year}</div>
                   <div className="flex-grow border-t-2 border-dashed border-green -mt-1"></div>
@@ -92,7 +92,33 @@ export default function History() {
           ))}
         </div>
       </div>
-      <button className="mt-8 h-10 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
+
+      <div className="gap-4 flex md:hidden mt-2">
+        <button
+          onClick={scrollPrev}
+          className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
+        >
+          <Image
+            src="/assets/icons/arrow-left-green.svg"
+            alt="Arrow left"
+            width={24}
+            height={24}
+          />
+        </button>
+        <button
+          onClick={scrollNext}
+          className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
+        >
+          <Image
+            src="/assets/icons/arrow-right-green.svg"
+            alt="Arrow right"
+            width={24}
+            height={24}
+          />
+        </button>
+      </div>
+
+      <button className="mt-8 h-10 border border-secondary-light hidden md:flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
         <div className="text-action-hover font-semibold">
           Lihat Lebih Banyak
         </div>

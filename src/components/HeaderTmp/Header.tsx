@@ -13,7 +13,7 @@ const navItems = [
   { label: "Media", href: "/media" },
 ];
 
-export default function HeaderComponent() {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 

@@ -32,12 +32,20 @@ body {
   color: #f9fafb;
 }
 
+.text-secondary-dark {
+  color: #d3d7df;
+}
+
 .text-secondary-light {
   color: #364463;
 }
 
 .text-tertiary-light {
   color: #566380;
+}
+
+.text-tertiary-dark {
+  color: #98a0b3;
 }
 
 .text-action-hover {
@@ -88,11 +96,25 @@ body {
   background-size: cover;
 }
 
-.bg-visi-misi {
-  background: url("/assets/images/about-us/visi-misi.png");
+.bg-vision-mission {
+  background: url("/assets/images/about-us/vision-mission.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.bg-contact {
+  background: url("/assets/images/about-us/contact.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-form-contact {
+  backdrop-filter: blur(40px);
+  box-shadow: 1px 2px 12px 0px rgba(103, 103, 103, 0.06);
+  border: 1px solid #69bd453a;
+  background: rgba(209, 235, 197, 0.1);
 }
 
 .bg-stay-updated-gradient {
@@ -156,6 +178,10 @@ body {
       rgba(0, 0, 0, 0.7) 100%
     ),
     linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+}
+
+.bg-overlay-contact {
+  background: rgba(11, 20, 38, 0.7);
 }
 
 .bg-surface-green {
