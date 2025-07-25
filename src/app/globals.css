@@ -82,20 +82,6 @@ body {
   background-size: cover;
 }
 
-.bg-about-us {
-  background: url("/assets/images/about-us/hero.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bg-program {
-  background: url("/assets/images/program/hero.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .bg-vision-mission {
   background: url("/assets/images/about-us/vision-mission.png");
   background-position: center;
@@ -131,6 +117,17 @@ body {
     rgba(255, 255, 255, 0.3) 0%,
     rgba(209, 235, 197, 0.3) 100%
   );
+}
+
+.bg-join-now {
+  background: linear-gradient(90deg, #030f2a 0%, #4b8631 100%);
+}
+
+.bg-join-now-form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(40px);
+  box-shadow: 1px 2px 12px 0px rgba(0, 0, 0, 0.06);
+  border: 1px solid #69bd4563;
 }
 
 .bg-primary {
