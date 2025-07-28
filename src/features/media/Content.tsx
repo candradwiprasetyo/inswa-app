@@ -89,8 +89,11 @@ export default function Content() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-10 gap-y-16 mb-16">
-          {articleData.map((article) => (
-            <div className="md:min-w-0 md:flex-1 bg-white border-b-2 border-primary-light">
+          {articleData.map((article, index) => (
+            <div
+              className="md:min-w-0 md:flex-1 bg-white border-b-2 border-primary-light"
+              key={index}
+            >
               <Image
                 src={`/assets/images/homepage/${article.images}`}
                 width={320}

@@ -39,6 +39,7 @@ export default function Content() {
       <div className="space-y-6">
         {programData.map((data, index) => (
           <div
+            key={index}
             className="md:flex justify-between items-center py-10 px-10 md:px-10 rounded-tl-[64px] rounded-bl-lg rounded-br-[64px] rounded-tr-lg relative overflow-hidden bg-center bg-cover gap-10"
             style={{
               backgroundImage: `url("/assets/images/program/${data.images}")`,

@@ -20,7 +20,7 @@ export default function Content() {
         </div>
         <div className="w-2/3 border-l pl-5">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div className="py-5 flex items-center">
+            <div className="py-5 flex items-center" key={i}>
               <div className="flex flex-grow items-center">
                 <div className="flex-none">
                   <Image
