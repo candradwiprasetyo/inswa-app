@@ -7,17 +7,17 @@ export default function Footer() {
     <>
       <div className="bg-tertiary-light">
         <div className="container mx-auto px-4 md:px-44 pt-12 pb-5">
-          <div className="md:flex justify-between items-start pb-5 mb-5 border-b border-tertiary-light">
+          <div className="md:flex justify-between items-start pb-5 mb-5 border-b border-tertiary-light items-center">
             <div className="flex-1 mb-6 md:mb-0">
               <Image
                 src="/assets/images/footer-logo.png"
                 alt="Footer Logo"
-                width={200}
-                height={51}
+                width={112}
+                height={120}
               />
             </div>
             <div className="flex-1 text-[32px] md:text-5xl font-medium font-pathway-extreme md:text-right">
-              halo@inswa.or.id
+              sekretariat@inswa.or.id
             </div>
           </div>
           <div className="md:flex border-b border-tertiary-light pb-5">

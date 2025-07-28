@@ -160,6 +160,12 @@ body {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.bg-header-white {
+  border: 1px solid var(--Border-Primary-light, rgba(228, 232, 240, 1));
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.05);
+}
+
 .bg-green-gradient {
   background: linear-gradient(
     90deg,
@@ -175,6 +181,16 @@ body {
       rgba(0, 0, 0, 0.7) 100%
     ),
     linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+}
+
+.bg-overlay-white {
+  backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.05);
+}
+
+.bg-table-green {
+  background-color: #f0f8ec;
 }
 
 .bg-overlay-contact {
