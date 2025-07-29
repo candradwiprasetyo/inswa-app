@@ -3,6 +3,7 @@ import Image from "next/image";
 export default function JoinNow() {
   return (
     <div className="w-full relative bg-join-now">
+      <div className="absolute inset-0 bg-overlay"></div>
       <div className="container mx-auto px-4 md:px-44 py-10 md:py-20 relative flex gap-16 items-center">
         <div className="w-2/3">
           <div className="text-[32px] md:text-[32px] font-medium font-pathway-extreme text-white mb-6 md:mb-6">

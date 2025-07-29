@@ -61,9 +61,9 @@ export default function Header({ variant = "default" }: HeaderProps) {
           <Link href="/">
             <Image
               src={
-                variant === "default"
-                  ? "/assets/images/header-logo.png"
-                  : "/assets/images/header-logo-white.png"
+                isScrolled
+                  ? "/assets/images/header-logo-white.png"
+                  : "/assets/images/header-logo.png"
               }
               width={97}
               height={36}
@@ -74,8 +74,8 @@ export default function Header({ variant = "default" }: HeaderProps) {
         </div>
         <div
           className={clsx(
-            `flex-grow gap-8 font-medium hidden md:flex`,
-            variant === "default" ? "text-white" : "text-tertiary-light"
+            `flex-grow gap-8 font-medium hidden md:flex `,
+            isScrolled ? "text-tertiary-light" : "text-white"
           )}
         >
           {navItems.map((item) => (
