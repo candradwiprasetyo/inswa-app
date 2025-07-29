@@ -186,8 +186,17 @@ body {
 .bg-green-gradient {
   background: linear-gradient(
     90deg,
-    rgba(155, 211, 130, 1) 100%,
+    rgba(155, 211, 130, 1) 0%,
     rgba(106, 189, 69, 1) 100%
+  );
+  transition: background 1s ease;
+}
+
+.bg-green-gradient:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(106, 189, 69, 1) 0%,
+    rgba(80, 160, 40, 1) 100%
   );
 }
 

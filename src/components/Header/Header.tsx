@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import Button from "../Button";
 
 const navItems = [
   { label: "Tentang Kami", href: "/tentang-kami" },
@@ -42,11 +43,6 @@ export default function Header({ variant = "default" }: HeaderProps) {
 
   return (
     <div
-      // className={`transition-colors duration-500 max-w-7xl md:mx-auto h-14 md:h-16 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex items-center fixed z-50 top-3 ${
-      //   isScrolled ? "" : "bg-header-primary"
-      // }
-      //   ${variant === "default" ? "bg-header-secondary" : "bg-white"}
-      // `}
       className={clsx(
         `transition-colors duration-500 max-w-7xl md:mx-auto h-14 md:h-16 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex items-center fixed z-50 top-3`,
         variant === "default"
@@ -61,7 +57,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
           <Link href="/">
             <Image
               src={
-                isScrolled
+                isScrolled || variant !== "default"
                   ? "/assets/images/header-logo-white.png"
                   : "/assets/images/header-logo.png"
               }
@@ -74,8 +70,10 @@ export default function Header({ variant = "default" }: HeaderProps) {
         </div>
         <div
           className={clsx(
-            `flex-grow gap-8 font-medium hidden md:flex `,
-            isScrolled ? "text-tertiary-light" : "text-white"
+            "flex-grow gap-8 font-medium hidden md:flex",
+            isScrolled || variant !== "default"
+              ? "text-tertiary-light"
+              : "text-white"
           )}
         >
           {navItems.map((item) => (
@@ -93,17 +91,20 @@ export default function Header({ variant = "default" }: HeaderProps) {
       </div>
 
       <div className="flex-none gap-2 hidden md:flex">
-        <div
+        {/* <div
           className={clsx(
             `h-9 w-24 font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr border  text-green`,
             variant === "default" ? "border-white" : "border-secondary-light"
           )}
         >
           Masuk
-        </div>
-        <div className="h-9 w-24 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr text-primary-light">
-          Daftar
-        </div>
+        </div> */}
+        <Button
+          title="Masuk"
+          customClass={`h-8 text-sm border text-action border-secondary-light`}
+          variant="transparent"
+        />
+        <Button title="Daftar" customClass="h-8 text-sm" />
       </div>
 
       <div className="flex-none md:hidden inline">
