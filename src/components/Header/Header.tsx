@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 const navItems = [
   { label: "Tentang Kami", href: "/tentang-kami" },
@@ -13,7 +14,11 @@ const navItems = [
   { label: "Media", href: "/media" },
 ];
 
-export default function Header() {
+export type HeaderProps = {
+  variant?: "default" | "white";
+};
+
+export default function Header({ variant = "default" }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -37,29 +42,48 @@ export default function Header() {
 
   return (
     <div
-      className={`transition-colors duration-500 max-w-7xl md:mx-auto h-14 md:h-16 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex items-center fixed z-50 top-3 ${
-        isScrolled ? "bg-header-secondary" : "bg-header-primary"
-      }`}
+      // className={`transition-colors duration-500 max-w-7xl md:mx-auto h-14 md:h-16 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex items-center fixed z-50 top-3 ${
+      //   isScrolled ? "" : "bg-header-primary"
+      // }
+      //   ${variant === "default" ? "bg-header-secondary" : "bg-white"}
+      // `}
+      className={clsx(
+        `transition-colors duration-500 max-w-7xl md:mx-auto h-14 md:h-16 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex items-center fixed z-50 top-3`,
+        variant === "default"
+          ? isScrolled
+            ? "bg-header-secondary"
+            : "bg-header-primary"
+          : "bg-header-white"
+      )}
     >
       <div className="flex-grow flex items-center gap-8">
         <div className="flex-none">
           <Link href="/">
             <Image
-              src={"/assets/images/header-logo.png"}
-              width={157}
+              src={
+                variant === "default"
+                  ? "/assets/images/header-logo.png"
+                  : "/assets/images/header-logo-white.png"
+              }
+              width={97}
               height={36}
               alt="Header Logo"
-              className="w-32 md:w-36"
+              className="w-28 md:w-32"
             />
           </Link>
         </div>
-        <div className="flex-grow gap-8 text-white font-medium hidden md:flex">
+        <div
+          className={clsx(
+            `flex-grow gap-8 font-medium hidden md:flex`,
+            variant === "default" ? "text-white" : "text-tertiary-light"
+          )}
+        >
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors hover:text-green-500 ${
-                pathname === item.href ? "text-green-500" : "text-white"
+              className={`transition-colors hover:text-green ${
+                pathname === item.href ? "text-green" : ""
               }`}
             >
               {item.label}
@@ -69,7 +93,12 @@ export default function Header() {
       </div>
 
       <div className="flex-none gap-2 hidden md:flex">
-        <div className="h-9 w-24 font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr border border-white text-green">
+        <div
+          className={clsx(
+            `h-9 w-24 font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr border  text-green`,
+            variant === "default" ? "border-white" : "border-secondary-light"
+          )}
+        >
           Masuk
         </div>
         <div className="h-9 w-24 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr text-primary-light">

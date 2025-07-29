@@ -2,7 +2,7 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Hero from "./Hero";
+import Hero from "@/components/Hero";
 import Tab from "./Tab";
 import History from "./History";
 import VisionMission from "./VisionMission";
@@ -14,7 +14,7 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <Hero />
+      <Hero title="About Us" background="about-us/hero.png" />
       <Tab />
       <History />
       <VisionMission />
