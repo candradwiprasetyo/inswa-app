@@ -11,7 +11,11 @@ export default function Membership() {
   return (
     <>
       <Header />
-      <Hero title="InSWA Membership" background="about-us/hero.png" />
+      <Hero
+        title="InSWA Membership"
+        background="about-us/hero.png"
+        variant="green"
+      />
       <JoinNow />
       <Highlight />
       <Contact />

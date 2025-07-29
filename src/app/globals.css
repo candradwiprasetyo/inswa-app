@@ -75,6 +75,12 @@ body {
   /* background-size: contain; */
 }
 
+.bg-line-membership {
+  background: url("/assets/images/membership/bg-line.png");
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
 .bg-stay-updated {
   background: url("/assets/images/homepage/bg-stay-updated.png");
   background-position: center;
@@ -120,7 +126,10 @@ body {
 }
 
 .bg-join-now {
-  background: linear-gradient(90deg, #030f2a 0%, #4b8631 100%);
+  background: url("/assets/images/membership/bg-join-us.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .bg-join-now-form {
@@ -150,6 +159,14 @@ body {
 }
 
 .bg-header-secondary {
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(228, 232, 240, 0.2);
+  background: rgba(255, 255, 255, 0.3);
+  color: #566380;
+}
+
+/* .bg-header-secondary {
   -webkit-box-shadow: 0 7px rgba(127, 126, 126, 0.1);
   -moz-box-shadow: 0 0 7px rgba(127, 126, 126, 0.1);
   box-shadow: 0 0 7px rgba(127, 126, 126, 0.1);
@@ -158,7 +175,7 @@ body {
   backdrop-filter: blur(8px);
   color: rgb(236, 254, 255);
   background-color: rgba(0, 0, 0, 0.2);
-}
+} */
 
 .bg-header-white {
   border: 1px solid var(--Border-Primary-light, rgba(228, 232, 240, 1));
@@ -199,6 +216,10 @@ body {
 
 .bg-surface-green {
   background-color: #6abd45;
+}
+
+.bg-hero-green {
+  background: linear-gradient(180deg, #3a6826 0%, #6abd45 100%);
 }
 
 .border-secondary-light {
