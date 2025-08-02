@@ -14,6 +14,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -46,14 +50,6 @@ body {
 
 .text-tertiary-dark {
   color: #98a0b3;
-}
-
-.text-action-hover {
-  color: #4b8631;
-}
-
-.text-action {
-  color: #6abd45;
 }
 
 .text-disabled {
@@ -229,14 +225,6 @@ body {
 
 .bg-hero-green {
   background: linear-gradient(180deg, #3a6826 0%, #6abd45 100%);
-}
-
-.border-secondary-light {
-  border-color: #d3d8e5;
-}
-
-.border-primary-light {
-  border-color: #e4e8f0;
 }
 
 .border-tertiary-light {

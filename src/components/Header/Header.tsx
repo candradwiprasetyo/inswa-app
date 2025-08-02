@@ -80,7 +80,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors hover:text-green ${
+              className={`transition-colors hover:text-action-hover ${
                 pathname === item.href ? "text-green" : ""
               }`}
             >
@@ -91,17 +91,9 @@ export default function Header({ variant = "default" }: HeaderProps) {
       </div>
 
       <div className="flex-none gap-2 hidden md:flex">
-        {/* <div
-          className={clsx(
-            `h-9 w-24 font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr border  text-green`,
-            variant === "default" ? "border-white" : "border-secondary-light"
-          )}
-        >
-          Masuk
-        </div> */}
         <Button
           title="Masuk"
-          customClass={`h-8 text-sm border text-action border-secondary-light`}
+          customClass={`h-8 text-sm border text-action-hover border-secondary-light`}
           variant="transparent"
         />
         <Button title="Daftar" customClass="h-8 text-sm" />

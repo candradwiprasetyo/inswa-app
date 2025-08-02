@@ -48,7 +48,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${plusJakartaSans.variable} ${pathwayExtreme.variable} antialiased`}
+        className={`${plusJakartaSans.variable} ${pathwayExtreme.variable} antialiased scroll-smooth`}
       >
         {children}
       </body>

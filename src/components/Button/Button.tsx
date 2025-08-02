@@ -12,7 +12,7 @@ export default function Button({
   return (
     <button
       className={clsx(
-        `h-10 px-8 text-base font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2`,
+        `h-10 px-8 text-base font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr flex gap-2`,
         variant === "default" && "bg-green-gradient",
         customClass
       )}
