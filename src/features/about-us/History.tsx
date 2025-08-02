@@ -70,7 +70,7 @@ export default function History() {
         <div className="gap-4 hidden md:flex">
           <button
             onClick={scrollPrev}
-            className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
+            className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
           >
             <Image
               src="/assets/icons/arrow-left-green.svg"
@@ -81,7 +81,7 @@ export default function History() {
           </button>
           <button
             onClick={scrollNext}
-            className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
+            className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
           >
             <Image
               src="/assets/icons/arrow-right-green.svg"
@@ -119,7 +119,7 @@ export default function History() {
       <div className="gap-4 flex md:hidden mt-2">
         <button
           onClick={scrollPrev}
-          className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
+          className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
         >
           <Image
             src="/assets/icons/arrow-left-green.svg"
@@ -130,7 +130,7 @@ export default function History() {
         </button>
         <button
           onClick={scrollNext}
-          className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
+          className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
         >
           <Image
             src="/assets/icons/arrow-right-green.svg"
@@ -141,7 +141,7 @@ export default function History() {
         </button>
       </div>
 
-      <button className="mt-8 h-10 border border-secondary-light hidden md:flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
+      <button className="mt-8 h-10 border border-secondary-light hover:border-secondary-light-hover hidden md:flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
         <div className="text-action-hover font-semibold">
           Lihat Lebih Banyak
         </div>

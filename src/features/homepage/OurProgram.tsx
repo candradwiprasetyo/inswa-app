@@ -26,45 +26,6 @@ export default function OurProgram() {
               Program kami dirancang untuk mendorong solusi inovatif dan
               kolaboratif dalam pengelolaan sampah yang berkelanjutan.
             </div>
-            {/* <div className="flex mt-10 gap-5">
-              <div className="py-4 border-t-[3px] border-action-hover flex-1 group hover:border-secondary-light-hover transition-all duration-300">
-                <div className="text-tertiary-light">Program</div>
-                <div className="text-2xl font-pathway-extreme my-4 cursor-pointer">
-                  Clean Ocean through Clean Communities (CLOCC)
-                </div>
-                <span className="font-pathway-extreme font-semibold text-sm text-action group-hover:text-action-hover cursor-pointer transition-all duration-300">
-                  Baca Selengkapnya
-                </span>
-              </div>
-              <div className="py-4 border-t-[3px] border-action-hover flex-1 group hover:border-secondary-light-hover transition-all duration-300">
-                <div className="text-tertiary-light">Program</div>
-                <div className="text-2xl font-pathway-extreme my-4 cursor-pointer">
-                  Pelatihan Sistem Pengelolaan Sampah
-                </div>
-                <span className="font-pathway-extreme font-semibold text-sm text-action group-hover:text-action-hover cursor-pointer transition-all duration-300">
-                  Baca Selengkapnya
-                </span>
-              </div>
-            </div>
-            <div className="mt-12 flex gap-4 justify-center md:justify-start">
-              <button className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover font-semibold flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] rounded-br rounded-tl text-primary-light">
-                <Image
-                  src="/assets/icons/arrow-left-green.svg"
-                  alt="Arrow left"
-                  width={24}
-                  height={24}
-                />
-              </button>
-              <button className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light">
-                <Image
-                  src="/assets/icons/arrow-right-green.svg"
-                  alt="Arrow right"
-                  width={24}
-                  height={24}
-                />
-              </button>
-            </div> */}
-
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
                 {[1, 2, 3, 4].map((item, index) => (

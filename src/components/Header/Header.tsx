@@ -81,7 +81,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
               key={item.href}
               href={item.href}
               className={`transition-colors hover:text-action-hover ${
-                pathname === item.href ? "text-green" : ""
+                pathname.startsWith(item.href) ? "text-green" : ""
               }`}
             >
               {item.label}

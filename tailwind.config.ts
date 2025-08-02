@@ -22,7 +22,11 @@ export default {
           light: "#d3d8e5",
           "light-hover": "#9bd382",
         },
-        "primary-light": "#d3d8e5",
+        primary: {
+          light: "#d3d8e5",
+          "light-border": "#e4e8f0",
+        },
+        "surface-secondary-light": "#f5f7fa",
       },
       keyframes: {
         scroll: {

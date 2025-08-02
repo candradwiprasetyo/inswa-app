@@ -1,0 +1,10 @@
+"use client";
+
+import React from "react";
+import Profile from "@/features/profile";
+
+const ProfilePage = () => {
+  return <Profile />;
+};
+
+export default ProfilePage;
