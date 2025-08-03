@@ -128,7 +128,7 @@ export default function BoardOfDirector() {
           {boardOfDirectorData.map((data, index) => (
             <div key={index}>
               <Image
-                src={`/assets/images/board-of-director/${data.url}`}
+                src={`/assets/images/board-of-director/${data.images}`}
                 alt="BOD"
                 width={240}
                 height={320}

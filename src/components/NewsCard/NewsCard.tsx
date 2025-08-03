@@ -3,7 +3,6 @@ import Image from "next/image";
 import { NewsType } from "@/types/news";
 
 export default function NewsCard({
-  id,
   title,
   description,
   date,

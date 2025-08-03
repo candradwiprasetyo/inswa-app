@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { ProgramType } from "@/types/program";
-import Link from "next/link";
 
 const programData: ProgramType[] = [
   {
