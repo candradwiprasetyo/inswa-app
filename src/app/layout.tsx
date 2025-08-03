@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Pathway_Extreme } from "next/font/google";
 import "./globals.css";
+import MotionLayout from "@/components/MotionLayout";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -50,7 +51,7 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${pathwayExtreme.variable} antialiased scroll-smooth`}
       >
-        {children}
+        <MotionLayout>{children}</MotionLayout>
       </body>
     </html>
   );

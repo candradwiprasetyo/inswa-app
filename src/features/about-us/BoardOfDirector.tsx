@@ -27,31 +27,31 @@ export default function BoardOfDirector() {
       id: 1,
       name: "Ir. Sri Bebassari Msi",
       position: "KETUA UMUM INSWA",
-      url: "1.png",
+      images: "1.png",
     },
     {
       id: 2,
       name: "Mohammad Helmy",
       position: "KETUA DEWAN PEMBINA INSWA",
-      url: "2.png",
+      images: "2.png",
     },
     {
       id: 3,
       name: "Djoko Heru Martono",
       position: "WAKIL KETUA UMUM INSWA",
-      url: "3.png",
+      images: "3.png",
     },
     {
       id: 4,
       name: "Nurina A. Herminindian",
       position: "SEKJEN INSWA",
-      url: "4.png",
+      images: "4.png",
     },
     {
       id: 5,
       name: "Dini Trisyanti",
       position: "DEPUTI BIDANG PENINGKATAN KAPASITAS DAN PEMBINAAN TEKNIS",
-      url: "5.png",
+      images: "5.png",
     },
   ];
 
@@ -97,7 +97,7 @@ export default function BoardOfDirector() {
               >
                 <Link href={`/profile/${data.id}`}>
                   <Image
-                    src={`/assets/images/board-of-director/${data.url}`}
+                    src={`/assets/images/board-of-director/${data.images}`}
                     alt="BOD 1"
                     width={240}
                     height={320}
