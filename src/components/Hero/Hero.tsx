@@ -5,6 +5,7 @@ export default function Hero({
   variant = "default",
   title,
   background,
+  detailPage = false,
 }: HeroProps) {
   return (
     <>
@@ -12,7 +13,9 @@ export default function Hero({
         className={clsx(`w-full relative bg-cover bg-center bg-hero-green`)}
         style={{
           backgroundImage:
-            variant === "default" ? `url(assets/images/${background})` : "",
+            variant === "default" ? `url(/assets/images/${background})` : "",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
         id="hero"
       >
@@ -23,7 +26,12 @@ export default function Hero({
         )}
 
         <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative h-80">
-          <div className="absolute text-4xl md:text-[56px] font-medium font-pathway-extreme text-white bottom-10 leading-snug md:leading-normal">
+          <div
+            className={clsx(
+              "absolute text-4xl font-medium font-pathway-extreme text-primary-dark bottom-10 leading-snug md:leading-normal",
+              detailPage ? "md:text-[48px]" : "md:text-[56px]"
+            )}
+          >
             {title}
           </div>
         </div>

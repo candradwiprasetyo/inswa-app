@@ -14,6 +14,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -46,14 +50,6 @@ body {
 
 .text-tertiary-dark {
   color: #98a0b3;
-}
-
-.text-action-hover {
-  color: #4b8631;
-}
-
-.text-action {
-  color: #6abd45;
 }
 
 .text-disabled {
@@ -152,10 +148,14 @@ body {
 }
 
 .bg-header-primary {
-  backdrop-filter: blur(24px);
+  /* backdrop-filter: blur(24px);16px
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(228, 232, 240, 0.2);
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.3); */
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(228, 232, 240, 0.3);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.05);
+  background: rgba(237, 240, 247, 0.3);
 }
 
 .bg-header-secondary {
@@ -186,8 +186,17 @@ body {
 .bg-green-gradient {
   background: linear-gradient(
     90deg,
-    rgba(155, 211, 130, 1) 100%,
+    rgba(155, 211, 130, 1) 0%,
     rgba(106, 189, 69, 1) 100%
+  );
+  transition: background 1s ease;
+}
+
+.bg-green-gradient:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(106, 189, 69, 1) 0%,
+    rgba(80, 160, 40, 1) 100%
   );
 }
 
@@ -218,16 +227,20 @@ body {
   background-color: #6abd45;
 }
 
+.bg-surface-secondary-light {
+  background-color: #f5f7fa;
+}
+
 .bg-hero-green {
   background: linear-gradient(180deg, #3a6826 0%, #6abd45 100%);
 }
 
-.border-secondary-light {
-  border-color: #d3d8e5;
+.bg-table-program {
+  background-color: #f0f8ec;
 }
 
-.border-primary-light {
-  border-color: #e4e8f0;
+.bg-profile {
+  background: linear-gradient(90deg, #d1ebc5 0%, #f0f8ec 100%);
 }
 
 .border-tertiary-light {

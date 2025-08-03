@@ -1,9 +1,11 @@
 import Label from "@/components/Label/Label";
 import Image from "next/image";
-import { ArticleType } from "@/types/article";
+import { NewsType } from "@/types/news";
+import NewsCard from "@/components/NewsCard";
 
-const articleData: ArticleType[] = [
+const newsData: NewsType[] = [
   {
+    id: 1,
     title:
       "Peluncuran Peraturan Bupati Banyuwangi No. 1 Tahun 2024 tentang Dokumen Rencana",
     description:
@@ -12,6 +14,7 @@ const articleData: ArticleType[] = [
     date: "31 Agu 2025",
   },
   {
+    id: 2,
     title:
       "Diskusi dan Peluncuran Buku Pengelolaan Sampah Kebersihan adalah Investasi, Sampahku Tanggung Jawabku",
     description:
@@ -20,6 +23,7 @@ const articleData: ArticleType[] = [
     date: "1 Juli 2025",
   },
   {
+    id: 3,
     title:
       "Seminar Evolusi Pengelolaan Sampah Dari Ekonomi Linear ke Sirkular. Pelajaran dari Negara",
     description:
@@ -28,6 +32,7 @@ const articleData: ArticleType[] = [
     date: "31 September 2025",
   },
   {
+    id: 4,
     title:
       "Peluncuran Peraturan Bupati Banyuwangi No. 1 Tahun 2024 tentang Dokumen Rencana",
     description:
@@ -36,6 +41,7 @@ const articleData: ArticleType[] = [
     date: "31 Agu 2025",
   },
   {
+    id: 5,
     title:
       "Diskusi dan Peluncuran Buku Pengelolaan Sampah Kebersihan adalah Investasi, Sampahku Tanggung Jawabku",
     description:
@@ -44,6 +50,7 @@ const articleData: ArticleType[] = [
     date: "1 Juli 2025",
   },
   {
+    id: 6,
     title:
       "Seminar Evolusi Pengelolaan Sampah Dari Ekonomi Linear ke Sirkular. Pelajaran dari Negara",
     description:
@@ -89,28 +96,15 @@ export default function Content() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-10 gap-y-16 mb-16">
-          {articleData.map((article, index) => (
-            <div
-              className="md:min-w-0 md:flex-1 bg-white border-b-2 border-primary-light"
+          {newsData.map((news, index) => (
+            <NewsCard
               key={index}
-            >
-              <Image
-                src={`/assets/images/homepage/${article.images}`}
-                width={320}
-                height={200}
-                alt="Media"
-                className="w-full"
-              />
-              <div className="px-2 pt-3 pb-8">
-                <div className="text-disabled text-sm mb-3">{article.date}</div>
-                <div className="text-primary-light text-base md:text-xl font-medium mb-3 font-pathwa y-extreme">
-                  {article.title}
-                </div>
-                <div className="text-secondary-light text-sm ">
-                  {article.description}
-                </div>
-              </div>
-            </div>
+              id={news.id}
+              title={news.title}
+              description={news.description}
+              images={news.images}
+              date={news.date}
+            />
           ))}
         </div>
       </div>

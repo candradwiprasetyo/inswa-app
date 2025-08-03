@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -36,44 +37,70 @@ export default function Footer() {
                 <div className="font-extrabold mb-4">InSWA</div>
                 <div className="flex">
                   <div className="flex-1 space-y-3 text-sm">
-                    <div>About Us</div>
-                    <div>Our Work</div>
-                    <div>News and Report</div>
+                    <div>
+                      <Link href="/tentang-kami">Tentang Kami</Link>
+                    </div>
+                    <div>
+                      <Link href="/program">Program</Link>
+                    </div>
+                    <div>
+                      <Link href="/publikasi">Publikasi</Link>
+                    </div>
                   </div>
                   <div className="flex-1 space-y-3 text-sm">
-                    <div>News and Report</div>
-                    <div>Membership</div>
-                    <div>Media</div>
+                    <div>
+                      <Link href="/membership">Membership</Link>
+                    </div>
+                    <div>
+                      <Link href="/media">Media</Link>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="w-1/3 md:text-right">
                 <div className="font-extrabold mb-4">Social Media</div>
                 <div className="flex md:justify-end gap-2">
-                  <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center">
-                    <Image
-                      src="/assets/icons/footer-facebook.svg"
-                      alt="Footer Facebook"
-                      width={16}
-                      height={16}
-                    />
-                  </div>
-                  <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center">
-                    <Image
-                      src="/assets/icons/footer-youtube.svg"
-                      alt="Footer Youtube"
-                      width={16}
-                      height={16}
-                    />
-                  </div>
-                  <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center">
-                    <Image
-                      src="/assets/icons/footer-instagram.svg"
-                      alt="Footer Instagram"
-                      width={16}
-                      height={16}
-                    />
-                  </div>
+                  <Link
+                    href={
+                      "https://www.facebook.com/profile.php/?id=100068494286108"
+                    }
+                    target="_blank"
+                  >
+                    <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                      <Image
+                        src="/assets/icons/footer-facebook.svg"
+                        alt="Footer Facebook"
+                        width={16}
+                        height={16}
+                      />
+                    </div>
+                  </Link>
+                  <Link
+                    href={"https://www.youtube.com/@inswa.official"}
+                    target="_blank"
+                  >
+                    <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                      <Image
+                        src="/assets/icons/footer-youtube.svg"
+                        alt="Footer Youtube"
+                        width={16}
+                        height={16}
+                      />
+                    </div>
+                  </Link>
+                  <Link
+                    href={"https://www.instagram.com/inswa.official/"}
+                    target="_blank"
+                  >
+                    <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                      <Image
+                        src="/assets/icons/footer-instagram.svg"
+                        alt="Footer Instagram"
+                        width={16}
+                        height={16}
+                      />
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>

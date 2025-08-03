@@ -7,7 +7,12 @@ import "@/styles/embla.css";
 import { HistoryType } from "@/types/history";
 
 export default function History() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    skipSnaps: false,
+    dragFree: false,
+  });
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -36,6 +41,24 @@ export default function History() {
       description:
         "InSWA adalah organisasi profesi di bidang manajemen dan teknologi pengelolaan sampah, didirikan di Jakarta pada 28 Oktober 2003. Bersifat nirlaba, non-partisan, dan independen, InSWA mengusung paradigma baru: pengelolaan sampah dari sumber untuk menciptakan lingkungan yang bersih dan sehat, sekaligus memanfaatkan hasilnya sebagai energi, pupuk, atau bahan baku industri.",
     },
+    {
+      year: 2004,
+      title: "Awal Kolaborasi dan Workshop Pengelolaan Sampah",
+      description:
+        "Pada Tahun 2001, Unesco, Badan Pengkajian dan Pengembangan Teknologi (BPPT) serta beberapa Lembaga Swadaya Masyarakat mengadakan workshop di Jakarta tentang pengelolaan sampah di pemukiman sebagai usaha untuk mengurangi sampah yang di buang ke sungai dan laut. Salah satu hasil dari workshop adalah perlunya satu wadah komunikasi guna dapat memfasilitasi pihak-pihak yang peduli pada pengelolaan sampah. ",
+    },
+    {
+      year: 2005,
+      title: "Lahirnya IWF dan Pembentukan InSWA",
+      description:
+        "Pada tanggal 20 Februari 2002 lahirlah sebuah forum yang disebut Indonesia Waste Forum (IWF). Sebagai sarana meningkatkan kapasitas organisasi, maka dipandang perlu untuk membentuk organisasi baru yang kemudian di beri nama Indonesia Solid Waste Association (InSWA). Salah satu program InSWA adalah membantu pemerintah dalam mendorong terciptanya UU No. 18 tahun 2008, yaitu Undang-Undang tentang Pengelolaan Sampah.",
+    },
+    {
+      year: 2006,
+      title: "Organisasi Profesional Pengelolaan Sampah",
+      description:
+        "InSWA adalah organisasi profesi di bidang manajemen dan teknologi pengelolaan sampah, didirikan di Jakarta pada 28 Oktober 2003. Bersifat nirlaba, non-partisan, dan independen, InSWA mengusung paradigma baru: pengelolaan sampah dari sumber untuk menciptakan lingkungan yang bersih dan sehat, sekaligus memanfaatkan hasilnya sebagai energi, pupuk, atau bahan baku industri.",
+    },
   ];
 
   return (
@@ -47,7 +70,7 @@ export default function History() {
         <div className="gap-4 hidden md:flex">
           <button
             onClick={scrollPrev}
-            className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
+            className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
           >
             <Image
               src="/assets/icons/arrow-left-green.svg"
@@ -58,7 +81,7 @@ export default function History() {
           </button>
           <button
             onClick={scrollNext}
-            className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
+            className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
           >
             <Image
               src="/assets/icons/arrow-right-green.svg"
@@ -96,7 +119,7 @@ export default function History() {
       <div className="gap-4 flex md:hidden mt-2">
         <button
           onClick={scrollPrev}
-          className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
+          className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tr-[32px] rounded-bl-[32px] text-primary-light"
         >
           <Image
             src="/assets/icons/arrow-left-green.svg"
@@ -107,7 +130,7 @@ export default function History() {
         </button>
         <button
           onClick={scrollNext}
-          className="h-10 w-16 border border-secondary-light flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
+          className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light"
         >
           <Image
             src="/assets/icons/arrow-right-green.svg"
@@ -118,7 +141,7 @@ export default function History() {
         </button>
       </div>
 
-      <button className="mt-8 h-10 border border-secondary-light hidden md:flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
+      <button className="mt-8 h-10 border border-secondary-light hover:border-secondary-light-hover hidden md:flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] text-primary-light gap-2 px-6 md:hidden mx-auto">
         <div className="text-action-hover font-semibold">
           Lihat Lebih Banyak
         </div>
