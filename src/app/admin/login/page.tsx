@@ -34,15 +34,9 @@ export default function LoginPage() {
   return (
     <div>
       <div className="w-full h-screen md:flex text-title-primary">
-        <div
-          className="flex-1 bg-cover bg-center relative content-center flex items-center w-full min-h-[200px]"
-          style={{
-            backgroundImage:
-              'url("https://res.cloudinary.com/dl5renyaj/image/upload/v1746539008/pantai-karang-bolong-pacitan-profile1653616465_whhnuk.jpg")',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-center justify-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-600 to-transparent opacity-30"></div>
+        <div className="flex-1 bg-default bg-center relative content-center flex items-center w-full min-h-[200px]">
+          <div className="absolute inset-0 bg-black flex items-center justify-center opacity-70"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-green-600 to-transparent opacity-30"></div>
           <div className="absolute inset-0 flex justify-center items-center text-white">
             <div className="text-white text-[2vw] left-0 right-0 bottom-40 mx-auto text-center">
               <span className="text-[4vw] font-bold font-satisfy text-[#f0f08d]">
@@ -52,7 +46,7 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
-        <div className="flex-1 content-center flex items-center px-8 md:px-0 bg-white">
+        <div className="flex-1 content-center flex items-center px-8 md:px-0 bg-gray-50">
           <div className="w-full md:w-[400px] mx-auto font-medium py-8 md:py-0">
             <div className="hidden md:inline">
               <Image

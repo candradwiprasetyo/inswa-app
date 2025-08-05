@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export interface DecodedToken {
+  id?: number;
   name?: string;
   role?: string;
   exp?: number;

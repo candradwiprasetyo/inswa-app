@@ -48,17 +48,17 @@ export default function AdminHeader() {
   return (
     <div className="bg-white relative text-title-primary">
       <div className="border-b">
-        <div className="container mx-auto py-1 flex justify-between max-w-7xl px-6">
+        <div className="container mx-auto py-3 flex justify-between max-w-7xl px-6 ">
           <Link href={"/admin"}>
             <div className="flex-1 flex gap-4 items-center">
               <Image
-                src="/assets/images/wonderful-indonesia.png"
-                alt="Wonderful Indonesia"
+                src="/assets/images/header-logo-white.png"
+                alt="Inswa"
                 width={100}
                 height={30}
               />
               <div className="flex-none font-semibold text-xl text-gray-800">
-                East Java Tourism Admin System
+                InSWA Admin System
               </div>
             </div>
           </Link>
