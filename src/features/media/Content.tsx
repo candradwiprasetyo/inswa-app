@@ -1,66 +1,11 @@
 import Label from "@/components/Label/Label";
 import Image from "next/image";
-import { NewsType } from "@/types/news";
 import NewsCard from "@/components/NewsCard";
-
-const newsData: NewsType[] = [
-  {
-    id: 1,
-    title:
-      "Peluncuran Peraturan Bupati Banyuwangi No. 1 Tahun 2024 tentang Dokumen Rencana",
-    description:
-      "Program Clean Ocean through Clean Communities (CLOCC) dengan InSWA di Kabupaten Banyuwangi sudah dilaksanakan sejak tahun 2020 hingga 2024. Serangkaian aktivitas telah dilakukan seperti pelatihan pemangku kepentingan untuk pengelolaan sampah, penyusunan Dokumen Rencana Induk ",
-    images: "img-3.png",
-    date: "31 Agu 2025",
-  },
-  {
-    id: 2,
-    title:
-      "Diskusi dan Peluncuran Buku Pengelolaan Sampah Kebersihan adalah Investasi, Sampahku Tanggung Jawabku",
-    description:
-      "Jakarta, 3 Juli 2022. Masih dalam rangka peringatan Hari Lingkungan Hidup Sedunia, InSWA mengadakan diskusi dan peluncuran buku pengelolaan sampah dengan judul “Kebersihan adalah Investasi, Sampahku Tanggung Jawabku” di Jakarta Convention Center.",
-    images: "img-4.png",
-    date: "1 Juli 2025",
-  },
-  {
-    id: 3,
-    title:
-      "Seminar Evolusi Pengelolaan Sampah Dari Ekonomi Linear ke Sirkular. Pelajaran dari Negara",
-    description:
-      "Jakarta, 30 September 2022 - Sistem pengelolaan sampah merupakan sistem penyediaan layanan kebersihan yang berhak dinikmati oleh seluruh warga negara. Sistem ini membutuhkan sumber daya besar untuk menjalankannya",
-    images: "img-5.png",
-    date: "31 September 2025",
-  },
-  {
-    id: 4,
-    title:
-      "Peluncuran Peraturan Bupati Banyuwangi No. 1 Tahun 2024 tentang Dokumen Rencana",
-    description:
-      "Program Clean Ocean through Clean Communities (CLOCC) dengan InSWA di Kabupaten Banyuwangi sudah dilaksanakan sejak tahun 2020 hingga 2024. Serangkaian aktivitas telah dilakukan seperti pelatihan pemangku kepentingan untuk pengelolaan sampah, penyusunan Dokumen Rencana Induk ",
-    images: "img-3.png",
-    date: "31 Agu 2025",
-  },
-  {
-    id: 5,
-    title:
-      "Diskusi dan Peluncuran Buku Pengelolaan Sampah Kebersihan adalah Investasi, Sampahku Tanggung Jawabku",
-    description:
-      "Jakarta, 3 Juli 2022. Masih dalam rangka peringatan Hari Lingkungan Hidup Sedunia, InSWA mengadakan diskusi dan peluncuran buku pengelolaan sampah dengan judul “Kebersihan adalah Investasi, Sampahku Tanggung Jawabku” di Jakarta Convention Center.",
-    images: "img-4.png",
-    date: "1 Juli 2025",
-  },
-  {
-    id: 6,
-    title:
-      "Seminar Evolusi Pengelolaan Sampah Dari Ekonomi Linear ke Sirkular. Pelajaran dari Negara",
-    description:
-      "Jakarta, 30 September 2022 - Sistem pengelolaan sampah merupakan sistem penyediaan layanan kebersihan yang berhak dinikmati oleh seluruh warga negara. Sistem ini membutuhkan sumber daya besar untuk menjalankannya",
-    images: "img-5.png",
-    date: "31 September 2025",
-  },
-];
+import { usePublicArticles } from "@/hooks/usePublicArticles";
 
 export default function Content() {
+  const { articles, loading } = usePublicArticles(12);
+
   return (
     <div className="w-full relative">
       <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative h-64">
@@ -95,18 +40,25 @@ export default function Content() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-10 gap-y-16 mb-16">
-          {newsData.map((news, index) => (
-            <NewsCard
-              key={index}
-              id={news.id}
-              title={news.title}
-              description={news.description}
-              images={news.images}
-              date={news.date}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-10 gap-y-16 mb-16">
+            {articles.map((news, index) => (
+              <NewsCard
+                key={index}
+                title={news.title}
+                description={news.content}
+                images={news.images}
+                date={new Date(news.created_at!).toLocaleDateString("id-ID", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

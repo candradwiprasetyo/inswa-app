@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AboutUs() {
   return (
@@ -28,15 +29,17 @@ export default function AboutUs() {
             dan mendorong lahirnya UU No. 18 Tahun 2008 tentang Pengelolaan
             Sampah.
           </div>
-          <button className="h-10 px-8 text-base bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2">
-            Selengkapnya
-            <Image
-              src="/assets/icons/arrow-right.svg"
-              alt="Logo"
-              width={24}
-              height={24}
-            />
-          </button>
+          <Link href="/program">
+            <button className="h-10 px-8 text-base bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2">
+              Selengkapnya
+              <Image
+                src="/assets/icons/arrow-right.svg"
+                alt="Logo"
+                width={24}
+                height={24}
+              />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export default function NewsCard({
   return (
     <div className="group shrink-0 w-[65%] md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer">
       <Image
-        src={`/assets/images/media/${images}`}
+        src={`${images}`}
         width={320}
         height={200}
         alt={title}
