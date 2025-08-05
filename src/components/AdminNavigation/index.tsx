@@ -11,29 +11,35 @@ export default function AdminNavigation() {
           </Link>
         </div> */}
         <div className="flex-none">
-          <Link href={"/admin/city"} className="flex items-center gap-3">
-            <i className="material-icons text-blue-300">location_city</i>
-            City
+          <Link href={"/admin/program"} className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-blue-300">
+              energy_program_saving
+            </span>
+            Program
           </Link>
         </div>
         <div className="flex-none flex items-center gap-3">
-          <Link href={"/admin/tour"} className="flex items-center gap-3">
-            <i className="material-icons text-blue-300 w-6">travel_explore</i>
-            Tour
+          <Link href={"/admin/publikasi"} className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-blue-300">
+              docs
+            </span>
+            Publikasi
           </Link>
         </div>
         <div className="flex-none flex items-center gap-3">
-          <Link href={"/admin/event"} className="flex items-center gap-3">
-            <i className="material-icons text-blue-300">event</i>
-            Event
+          <Link href={"/admin/membership"} className="flex items-center gap-3">
+            <i className="material-icons text-blue-300">account_box</i>
+            Membership
           </Link>
         </div>
-        {/* <div className="flex-none flex items-center gap-3">
-          <Link href={"/admin/user"} className="flex items-center gap-3">
-            <i className="material-icons text-blue-300">admin_panel_settings</i>
-            User
+        <div className="flex-none flex items-center gap-3">
+          <Link href={"/admin/media"} className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-blue-300">
+              auto_stories
+            </span>
+            Media
           </Link>
-        </div> */}
+        </div>
       </div>
     </div>
   );

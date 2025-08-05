@@ -1,6 +1,10 @@
 export interface ArticleType {
+  id: number | null;
   title: string;
-  description: string;
+  slug: string;
+  content: string;
+  author_id?: number;
+  created_at?: string;
+  updated_at?: string;
   images: string;
-  date: string;
 }
