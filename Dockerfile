@@ -1,49 +1,21 @@
-# Stage 1: Build the application
+# Stage 1: Build
 FROM node:18-alpine AS builder
-
-# Set working directory
 WORKDIR /app
-
-# Enable Corepack for package manager version management
-RUN corepack enable
-
-# Copy package files first to leverage Docker cache
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-
-# Install dependencies using the package manager specified in package.json
-RUN npm install --force
-
-# Copy all files (excluding what's in .dockerignore)
+COPY package*.json ./
+RUN npm install --production=false
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Stage 2: Production image
+# Stage 2: Production
 FROM node:18-alpine AS runner
-
-# Set working directory
 WORKDIR /app
-
-# Install dependencies only needed for production
 ENV NODE_ENV=production
-
-# Enable Corepack
-RUN corepack enable
-
-# Copy package files
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-
-# Install production dependencies using the specified package manager
-RUN npm install --production --force
-
-# Copy built application from builder
+# Hanya copy dependencies yang dibutuhkan production
+COPY --from=builder /app/package*.json ./
+RUN npm install --production
+# Copy hasil build dan file penting
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-
-# Expose the port the app runs on
+COPY --from=builder /app/next.config.js ./next.config.js
 EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
