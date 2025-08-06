@@ -3,32 +3,35 @@
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
 import { usePublicArticles } from "@/hooks/usePublicArticles";
+import Link from "next/link";
 
 export default function Highlight() {
   const { articles, loading } = usePublicArticles(3);
 
   return (
-    <div className="container mx-auto px-4 md:px-44 py-10 md:py-20">
+    <div className="container mx-auto px-4 xl:px-36 2xl:px-44 py-10 md:py-20">
       <div className="flex justify-between">
         <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
           Highlight
         </div>
-        <button className="h-10 border border-secondary-light hover:border-secondary-light-hover font-semibold items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 hidden md:flex">
-          <div className="text-action-hover font-semibold">
-            Lihat Lebih Banyak
-          </div>
-          <Image
-            src="/assets/icons/arrow-right-green.svg"
-            alt="Arrow right"
-            width={24}
-            height={24}
-          />
-        </button>
+        <Link href="/media">
+          <button className="h-10 border border-secondary-light hover:border-secondary-light-hover font-semibold items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 hidden md:flex">
+            <div className="text-action-hover font-semibold">
+              Lihat Lebih Banyak
+            </div>
+            <Image
+              src="/assets/icons/arrow-right-green.svg"
+              alt="Arrow right"
+              width={24}
+              height={24}
+            />
+          </button>
+        </Link>
       </div>
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="flex gap-8 overflow-x-auto md:overflow-none md:flex-nowrap flex-nowrap md:mt-10 md:px-0 scrollbar-hide">
+        <div className="flex gap-8 overflow-x-auto md:overflow-none md:flex-nowrap flex-nowrap xl:mt-10 md:px-0 scrollbar-hide">
           {articles.map((news, index) => (
             <NewsCard
               key={index}
@@ -45,17 +48,19 @@ export default function Highlight() {
         </div>
       )}
 
-      <button className="mt-8 h-10 border border-secondary-light font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 md:hidden inline mx-auto">
-        <div className="text-action-hover font-semibold">
-          Lihat Lebih Banyak
-        </div>
-        <Image
-          src="/assets/icons/arrow-right-green.svg"
-          alt="Arrow right"
-          width={24}
-          height={24}
-        />
-      </button>
+      <Link href="/media">
+        <button className="mt-8 h-10 border border-secondary-light font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 md:hidden inline mx-auto">
+          <div className="text-action-hover font-semibold">
+            Lihat Lebih Banyak
+          </div>
+          <Image
+            src="/assets/icons/arrow-right-green.svg"
+            alt="Arrow right"
+            width={24}
+            height={24}
+          />
+        </button>
+      </Link>
     </div>
   );
 }

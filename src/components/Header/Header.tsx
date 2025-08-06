@@ -70,7 +70,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
         </div>
         <div
           className={clsx(
-            "flex-grow gap-8 font-medium hidden md:flex",
+            "flex-grow gap-8 font-medium hidden lg:flex",
             isScrolled || variant !== "default"
               ? "text-tertiary-light"
               : "text-white"
@@ -80,7 +80,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors hover:text-action-hover ${
+              className={`transition-colors hover:text-action-hover text-sm xl:text-base ${
                 pathname.startsWith(item.href) ? "text-green" : ""
               }`}
             >
@@ -90,7 +90,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
         </div>
       </div>
 
-      <div className="flex-none gap-2 hidden md:flex">
+      <div className="flex-none gap-2 hidden lg:flex">
         <Button
           title="Masuk"
           customClass={`h-8 text-sm border text-action-hover border-secondary-light`}
@@ -99,7 +99,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
         <Button title="Daftar" customClass="h-8 text-sm" />
       </div>
 
-      <div className="flex-none md:hidden inline">
+      <div className="flex-none lg:hidden inline">
         <button className="h-9 px-4 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr text-primary-light">
           <Image
             src="/assets/icons/mobile-menu.svg"

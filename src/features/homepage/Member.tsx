@@ -4,15 +4,16 @@ import Image from "next/image";
 
 export default function Member() {
   return (
-    <div className="bg-gradient-to-b from-white bg-surface-success pb-24 md:pb-32 relative">
+    <div className="bg-gradient-to-b from-white bg-surface-success pb-24 xl:pb-32 relative">
       <div className="bg-line absolute inset-0 bg-[500%] md:bg-contain"></div>
-      <div className="md:flex gap-10 container mx-auto px-4 md:px-44 pt-10 md:pt-16 pb-20 relative">
+      <div className="md:flex gap-10 container mx-auto px-4 xl:px-36 2xl:px-44 pt-10 md:pt-16 pb-20 relative">
         <div className="flex-none hidden md:inline">
           <Image
             src={"/assets/images/homepage/img-member.png"}
             width={400}
             height={331}
             alt="Member"
+            className="w-full"
           />
         </div>
         <div className="flex-grow">
@@ -32,10 +33,11 @@ export default function Member() {
               width={400}
               height={331}
               alt="Member"
+              className="w-full"
             />
           </div>
           <div className="font-extrabold mb-4">Mitra Kami</div>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-5">
+          <div className="grid grid-cols-4  lg:grid-cols-6 gap-3 xl:gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 className="aspect-square border bg-white border-primary-light rounded-lg flex items-center px-2"

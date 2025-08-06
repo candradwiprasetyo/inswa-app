@@ -19,7 +19,7 @@ export default function NewsCard({
       />
       <div className="px-2 pt-3 pb-8">
         <div className="text-disabled text-sm mb-3">{date}</div>
-        <div className="text-primary-light group-hover:text-action-hover text-base md:text-xl font-medium mb-3 font-pathway-extreme transition-colors duration-300 line-clamp-3">
+        <div className="text-primary-light group-hover:text-action-hover text-base md:text-lg xl:text-xl font-medium mb-3 font-pathway-extreme transition-colors duration-300 line-clamp-3">
           {title}
         </div>
         <div className="text-secondary-light text-sm line-clamp-3">
