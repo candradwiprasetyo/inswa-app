@@ -7,9 +7,11 @@ import AdminArticlePage from "@/features/admin/article";
 export default function AdminPage() {
   return (
     <>
-      <AdminHeader />
-      <AdminNavigation />
-      <AdminArticlePage />
+      <div className="bg-admin min-h-screen">
+        <AdminHeader />
+        <AdminNavigation />
+        <AdminArticlePage />
+      </div>
     </>
   );
 }

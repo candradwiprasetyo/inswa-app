@@ -64,6 +64,10 @@ body {
   min-height: 100vh;
 }
 
+.bg-admin {
+  background-color: #f2f5f7;
+}
+
 .bg-line {
   background: url("/assets/images/homepage/bg-line.png");
   background-position: bottom;

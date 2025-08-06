@@ -6,14 +6,14 @@ export default function StayUpdated() {
   return (
     <>
       <div className="bg-tertiary-light">
-        <div className="container px-4 md:px-16 mx-auto relative -mt-24 md:-mt-28">
-          <div className="md:flex justify-between items-center py-12 px-10 md:px-28 bg-stay-updated rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative overflow-hidden">
+        <div className="container px-4 xl:px-16 mx-auto relative -mt-24 md:-mt-28">
+          <div className="md:flex justify-between items-center py-12 px-10 md:px-12 2xl:px-28 bg-stay-updated rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative overflow-hidden">
             <div className="absolute bg-stay-updated-gradient inset-0"></div>
             <div className="flex-1 text-white relative">
-              <div className="font-pathway-extreme text-[32px] font-bold mb-4">
+              <div className="font-pathway-extreme text-2xl xl:text-[32px] font-bold mb-4">
                 Stay Updated
               </div>
-              <div className="text-base">
+              <div className="text-sm xl:text-base">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent purus nunc, ornare eget mi non, feugiat rutrum odio.
                 Mauris eros odio, aliquam ut nibh et, tempus dictum velit.

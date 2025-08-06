@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ArticleType } from "@/types/article";
 import Cookies from "js-cookie";
 import { decodeToken } from "@/lib/jwt";
@@ -8,13 +8,23 @@ export function useArticle() {
   const [loading, setLoading] = useState(true);
   const [authorId, setAuthorId] = useState<number | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchArticles = async () => {
-    const res = await fetch("/api/articles");
-    const data = await res.json();
-    setArticles(data);
-    setLoading(false);
-  };
+  const fetchArticles = useCallback(async (page = 1, limit = 10) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/articles?page=${page}&limit=${limit}`);
+      const json = await res.json();
+      setArticles(json.data);
+      setTotalPages(json.totalPages);
+      setCurrentPage(json.page);
+    } catch (error) {
+      console.error("Failed to fetch articles:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const createArticle = async (
     article: Omit<ArticleType, "id" | "created_at" | "updated_at" | "author_id">
@@ -67,5 +77,8 @@ export function useArticle() {
     createArticle,
     updateArticle,
     deleteArticle,
+    currentPage,
+    totalPages,
+    setCurrentPage,
   };
 }

@@ -11,7 +11,7 @@ export default function NewsCard({
   return (
     <div className="group shrink-0 w-[65%] md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer">
       <Image
-        src={`/assets/images/media/${images}`}
+        src={`${images}`}
         width={320}
         height={200}
         alt={title}
@@ -19,7 +19,7 @@ export default function NewsCard({
       />
       <div className="px-2 pt-3 pb-8">
         <div className="text-disabled text-sm mb-3">{date}</div>
-        <div className="text-primary-light group-hover:text-action-hover text-base md:text-xl font-medium mb-3 font-pathway-extreme transition-colors duration-300 line-clamp-3">
+        <div className="text-primary-light group-hover:text-action-hover text-base md:text-lg xl:text-xl font-medium mb-3 font-pathway-extreme transition-colors duration-300 line-clamp-3">
           {title}
         </div>
         <div className="text-secondary-light text-sm line-clamp-3">

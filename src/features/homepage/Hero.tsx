@@ -16,9 +16,9 @@ export default function Hero() {
     <>
       <div className="bg-default text-sm relative" id="hero">
         <div className="absolute w-full inset-0 bg-overlay"></div>
-        <div className="container mx-auto px-3 md:px-32 py-3 min-h-screen flex items-center pt-20">
-          <div className="text-white relative md:w-2/3 px-3 md:px-12">
-            <div className="text-2xl md:text-5xl mb-6 font-medium leading-9 md:leading-snug font-pathway-extreme w-3/4 md:w-2/3">
+        <div className="container mx-auto px-3 xl:px-10 2xl:px-32 py-3 min-h-screen flex items-center pt-20">
+          <div className="text-white relative md:w-2/3 px-3 2xl:px-12">
+            <div className="text-2xl lg:text-3xl xl:text-5xl mb-6 font-medium leading-snug xl:leading-snug 2xl:leading-snug font-pathway-extreme w-3/4 md:w-2/3">
               Kebersihan adalah Investasi. Sampahku Tanggung Jawabku
             </div>
             <div className="text-sm md:text-lg leading-7 md:leading-8">

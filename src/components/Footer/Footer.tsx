@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <>
       <div className="bg-tertiary-light">
-        <div className="container mx-auto px-4 md:px-44 pt-12 pb-5">
+        <div className="container mx-auto px-4 xl:px-36 2xl:px-44 pt-12 pb-5">
           <div className="md:flex justify-between items-start pb-5 mb-5 border-b border-tertiary-light items-center">
             <div className="flex-1 mb-6 md:mb-0">
               <Image
@@ -17,7 +17,7 @@ export default function Footer() {
                 height={120}
               />
             </div>
-            <div className="flex-1 text-[32px] md:text-5xl font-medium font-pathway-extreme md:text-right">
+            <div className="flex-1 text-[32px] md:text-4xl font-medium font-pathway-extreme md:text-right">
               sekretariat@inswa.or.id
             </div>
           </div>
