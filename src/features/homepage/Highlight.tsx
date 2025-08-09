@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
-import { usePublicArticles } from "@/hooks/usePublicArticles";
+import { usePublicArticles } from "@/hooks/usePublicArticle";
 import Link from "next/link";
 
 export default function Highlight() {
@@ -34,6 +34,7 @@ export default function Highlight() {
         <div className="flex gap-8 overflow-x-auto md:overflow-none md:flex-nowrap flex-nowrap xl:mt-10 md:px-0 scrollbar-hide">
           {articles.map((news, index) => (
             <NewsCard
+              slug={news.slug}
               key={index}
               title={news.title}
               description={news.content}

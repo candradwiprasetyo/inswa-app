@@ -83,6 +83,7 @@ export default function ArticleForm({
     if (imageFile) {
       const formData = new FormData();
       formData.append("file", imageFile);
+      formData.append("folder", "media");
       const uploadRes = await fetch("/api/upload", {
         method: "POST",
         body: formData,

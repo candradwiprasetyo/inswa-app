@@ -1,29 +1,10 @@
 import Image from "next/image";
-import { ProgramType } from "@/types/program";
 import Link from "next/link";
-
-const programData: ProgramType[] = [
-  {
-    title: "Clean Ocean through Clean Communities (CLOCC)",
-    description:
-      "Program CLOCC, kerja sama InSWA dan Sirk Norge dengan dukungan NORAD, bertujuan mencegah sampah plastik ke laut lewat perbaikan sistem sampah darat. Sejak 2020, program ini berjalan di Banyuwangi, Tabanan, dan Tegal dengan pendekatan ISWM yang partisipatif dan berkelanjutan.",
-    images: "program-1.png",
-  },
-  {
-    title: "Pelatihan Pengembangan Kapasitas dalam Pengelolaan Sampah",
-    description:
-      "Pelatihan ini membekali pemangku kepentingan dengan pemahaman dasar pengelolaan sampah berkelanjutan melalui lima aspek, serta studi banding ke negara seperti Singapura untuk memperoleh wawasan yang relevan dan aplikatif.",
-    images: "program-2.png",
-  },
-  {
-    title: "Advokasi Kebijakan Pengelolaan Sampah ",
-    description:
-      "InSWA mendorong kebijakan pengelolaan sampah berkelanjutan melalui advokasi, penyusunan regulasi, pendampingan teknis, dan dialog multipihak, dengan pendekatan berbasis data, partisipatif, dan kontekstual.",
-    images: "program-3.png",
-  },
-];
+import { usePublicPrograms } from "@/hooks/usePublicProgram";
 
 export default function Content() {
+  const { programs } = usePublicPrograms(3);
+
   return (
     <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 ">
       <div className="mb-8 md:mb-16">
@@ -38,18 +19,18 @@ export default function Content() {
         </strong>
       </div>
       <div className="space-y-6">
-        {programData.map((data, index) => (
+        {programs.map((data, index) => (
           <Link key={index} href="/program/detail" className="block relative">
             <div
               className="md:flex justify-between items-center py-10 px-10 md:px-10 rounded-tl-[64px] rounded-bl-lg rounded-br-[64px] rounded-tr-lg relative overflow-hidden bg-center bg-cover gap-10"
               style={{
-                backgroundImage: `url("/assets/images/program/${data.images}")`,
+                backgroundImage: `url("${data.image}")`,
               }}
             >
               <div className="absolute bg-black opacity-50 inset-0"></div>
               <div className="w-7/12 text-white relative py-6">
                 <div className="font-pathway-extreme text-[32px] font-light mb-8">
-                  {data.title}
+                  {data.name}
                 </div>
                 <button className="h-10 w-16 border border-secondary-light hover:border-secondary-light-hover font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light">
                   <Image

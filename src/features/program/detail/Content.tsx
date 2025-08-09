@@ -1,28 +1,9 @@
 import Image from "next/image";
-import { ProgramType } from "@/types/program";
-
-const programData: ProgramType[] = [
-  {
-    title: "Clean Ocean through Clean Communities (CLOCC)",
-    description:
-      "Program CLOCC, kerja sama InSWA dan Sirk Norge dengan dukungan NORAD, bertujuan mencegah sampah plastik ke laut lewat perbaikan sistem sampah darat. Sejak 2020, program ini berjalan di Banyuwangi, Tabanan, dan Tegal dengan pendekatan ISWM yang partisipatif dan berkelanjutan.",
-    images: "program-1.png",
-  },
-  {
-    title: "Pelatihan Pengembangan Kapasitas dalam Pengelolaan Sampah",
-    description:
-      "Pelatihan ini membekali pemangku kepentingan dengan pemahaman dasar pengelolaan sampah berkelanjutan melalui lima aspek, serta studi banding ke negara seperti Singapura untuk memperoleh wawasan yang relevan dan aplikatif.",
-    images: "program-2.png",
-  },
-  {
-    title: "Advokasi Kebijakan Pengelolaan Sampah ",
-    description:
-      "InSWA mendorong kebijakan pengelolaan sampah berkelanjutan melalui advokasi, penyusunan regulasi, pendampingan teknis, dan dialog multipihak, dengan pendekatan berbasis data, partisipatif, dan kontekstual.",
-    images: "program-3.png",
-  },
-];
+import { usePublicPrograms } from "@/hooks/usePublicProgram";
+import Link from "next/link";
 
 export default function Content() {
+  const { programs } = usePublicPrograms(3);
   return (
     <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 flex gap-10">
       <div className="w-2/3 text-secondary-light leading-7">
@@ -117,26 +98,28 @@ export default function Content() {
       <div className="w-1/3">
         <div className="text-2xl font-medium">Program Lainnya</div>
         <div className="mt-6">
-          {programData.map((data, index) => (
+          {programs.map((data, index) => (
             <div
               className="border-t-2 border-primary-light-border py-4"
               key={index}
             >
               <div className="text-tertiary-light text-sm mb-2">Program</div>
               <div className="text-secondary-light text-base font-semibold">
-                {data.title}
+                {data.name}
               </div>
             </div>
           ))}
-          <button className="h-7 border border-secondary-light hover:border-secondary-light-hover font-semibold items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 hidden md:flex text-xs mt-4 float-right">
-            <div className="text-action-hover font-semibold">Lihat Semua</div>
-            <Image
-              src="/assets/icons/arrow-right-green.svg"
-              alt="Arrow right"
-              width={20}
-              height={20}
-            />
-          </button>
+          <Link href="/program">
+            <button className="h-7 border border-secondary-light hover:border-secondary-light-hover font-semibold items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 hidden md:flex text-xs mt-4 float-right">
+              <div className="text-action-hover font-semibold">Lihat Semua</div>
+              <Image
+                src="/assets/icons/arrow-right-green.svg"
+                alt="Arrow right"
+                width={20}
+                height={20}
+              />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

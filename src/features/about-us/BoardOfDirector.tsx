@@ -5,7 +5,7 @@ import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
 import "@/styles/embla.css";
-import { BoardOfDirectorType } from "@/types/boardOfDirector";
+import usePublicProfile from "@/hooks/usePublicProfile";
 
 export default function BoardOfDirector() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -13,6 +13,8 @@ export default function BoardOfDirector() {
     loop: false,
     slidesToScroll: 1,
   });
+
+  const { profiles, loading } = usePublicProfile();
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -22,38 +24,13 @@ export default function BoardOfDirector() {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
-  const boardOfDirectorData: BoardOfDirectorType[] = [
-    {
-      id: 1,
-      name: "Ir. Sri Bebassari Msi",
-      position: "KETUA UMUM INSWA",
-      images: "1.png",
-    },
-    {
-      id: 2,
-      name: "Mohammad Helmy",
-      position: "KETUA DEWAN PEMBINA INSWA",
-      images: "2.png",
-    },
-    {
-      id: 3,
-      name: "Djoko Heru Martono",
-      position: "WAKIL KETUA UMUM INSWA",
-      images: "3.png",
-    },
-    {
-      id: 4,
-      name: "Nurina A. Herminindian",
-      position: "SEKJEN INSWA",
-      images: "4.png",
-    },
-    {
-      id: 5,
-      name: "Dini Trisyanti",
-      position: "DEPUTI BIDANG PENINGKATAN KAPASITAS DAN PEMBINAAN TEKNIS",
-      images: "5.png",
-    },
-  ];
+  if (loading) {
+    return (
+      <div className="bg-bod py-20 text-center">
+        <p>Memuat data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-bod">
@@ -88,17 +65,18 @@ export default function BoardOfDirector() {
           </div>
         </div>
 
+        {/* Desktop carousel */}
         <div className="embla md:mt-10 hidden md:block" ref={emblaRef}>
           <div className="embla__container flex gap-6">
-            {boardOfDirectorData.map((data, index) => (
+            {profiles.map((data) => (
               <div
                 className="embla__slide shrink-0 w-[240px] relative"
-                key={index}
+                key={data.id}
               >
                 <Link href={`/profile/${data.id}`}>
                   <Image
-                    src={`/assets/images/board-of-director/${data.images}`}
-                    alt="BOD 1"
+                    src={data.images}
+                    alt={data.name}
                     width={240}
                     height={320}
                     className="w-[240px] h-[320px] object-cover rounded-tl-[80px] rounded-tr-lg rounded-br-[80px] rounded-bl-lg mb-4 hover:border-action-hover hover:border-2 transition-all duration-100"
@@ -124,12 +102,13 @@ export default function BoardOfDirector() {
           </div>
         </div>
 
+        {/* Mobile grid */}
         <div className="grid grid-cols-2 gap-4 md:hidden">
-          {boardOfDirectorData.map((data, index) => (
-            <div key={index}>
+          {profiles.map((data) => (
+            <div key={data.id}>
               <Image
-                src={`/assets/images/board-of-director/${data.images}`}
-                alt="BOD"
+                src={data.images}
+                alt={data.name}
                 width={240}
                 height={320}
                 className="w-full h-[220px] object-cover rounded-tl-[40px] rounded-tr-md rounded-br-[40px] rounded-bl-md mb-2"
