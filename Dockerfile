@@ -1,75 +1,48 @@
-# Multi-stage Dockerfile for Next.js production build
-
-# Stage 1: Dependencies
-FROM node:18-alpine AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-# Install pnpm
-RUN npm install -g pnpm
-
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Stage 2: Builder
 FROM node:18-alpine AS builder
+
+# Set working directory
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+# Enable Corepack for package manager version management
+RUN corepack enable
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files first to leverage Docker cache
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
-# Copy source code and configuration files
+# Install dependencies using the package manager specified in package.json
+RUN npm install --force
+
+# Copy all files (excluding what's in .dockerignore)
 COPY . .
 
-# Set environment to production
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-
 # Build the application
-RUN pnpm build
+RUN npm run build
 
-# Stage 3: Runner (Production)
+# Stage 2: Production image
 FROM node:18-alpine AS runner
+
+# Set working directory
 WORKDIR /app
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
-
-# Create non-root user for security
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Set environment variables
+# Install dependencies only needed for production
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
 
-# Copy public assets
+# Enable Corepack
+RUN corepack enable
+
+# Copy package files
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+
+# Install production dependencies using the specified package manager
+RUN npm install --production --force
+
+# Copy built application from builder
+COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
 
-# Copy built application
-#COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-#COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Switch to non-root user
-USER nextjs
-
-# Expose port
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js || exit 1
-
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
-
 # Start the application
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
