@@ -11,8 +11,8 @@ export default function NewsCard({
   slug,
 }: NewsType) {
   return (
-    <Link href={`/media/${slug}`}>
-      <div className="group shrink-0 w-[65%] md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer">
+    <div className="group shrink-0 w-[65%] md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer">
+      <Link href={`/media/${slug}`}>
         <Image
           src={`${images}`}
           width={320}
@@ -29,7 +29,7 @@ export default function NewsCard({
             {description}
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
