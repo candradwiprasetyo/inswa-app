@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePublicPrograms } from "@/hooks/usePublicProgram";
+import { getFullImageUrl } from "@/lib/image";
 
 export default function Content() {
   const { programs } = usePublicPrograms(3);
@@ -20,11 +21,15 @@ export default function Content() {
       </div>
       <div className="space-y-6">
         {programs.map((data, index) => (
-          <Link key={index} href="/program/detail" className="block relative">
+          <Link
+            key={index}
+            href={`/program/${data.id}`}
+            className="block relative"
+          >
             <div
               className="md:flex justify-between items-center py-10 px-10 md:px-10 rounded-tl-[64px] rounded-bl-lg rounded-br-[64px] rounded-tr-lg relative overflow-hidden bg-center bg-cover gap-10"
               style={{
-                backgroundImage: `url("${data.image}")`,
+                backgroundImage: `url("${getFullImageUrl(data.image)}")`,
               }}
             >
               <div className="absolute bg-black opacity-50 inset-0"></div>

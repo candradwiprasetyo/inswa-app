@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
 import "@/styles/embla.css";
 import usePublicProfile from "@/hooks/usePublicProfile";
+import { getFullImageUrl } from "@/lib/image";
 
 export default function BoardOfDirector() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -75,7 +76,7 @@ export default function BoardOfDirector() {
               >
                 <Link href={`/profile/${data.id}`}>
                   <Image
-                    src={data.images}
+                    src={getFullImageUrl(data.images)}
                     alt={data.name}
                     width={240}
                     height={320}
@@ -107,7 +108,7 @@ export default function BoardOfDirector() {
           {profiles.map((data) => (
             <div key={data.id}>
               <Image
-                src={data.images}
+                src={getFullImageUrl(data.images)}
                 alt={data.name}
                 width={240}
                 height={320}

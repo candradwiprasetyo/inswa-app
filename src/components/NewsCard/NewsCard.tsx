@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { NewsType } from "@/types/news";
 import Link from "next/link";
+import { getFullImageUrl } from "@/lib/image";
 
 export default function NewsCard({
   title,
@@ -14,7 +15,7 @@ export default function NewsCard({
     <div className="group shrink-0 w-[65%] md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer">
       <Link href={`/media/${slug}`}>
         <Image
-          src={`${images}`}
+          src={`${getFullImageUrl(images)}`}
           width={320}
           height={200}
           alt={title}

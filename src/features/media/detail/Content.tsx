@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePublicArticle, usePublicArticles } from "@/hooks/usePublicArticle";
 import { useParams } from "next/navigation";
 import Loader from "./Loader";
+import { getFullImageUrl } from "@/lib/image";
 
 export default function Content() {
   const params = useParams();
@@ -45,7 +46,7 @@ export default function Content() {
           </div>
           <div className="mb-8">
             <Image
-              src={article.images}
+              src={getFullImageUrl(article.images)}
               alt={article.title}
               width={500}
               height={300}
@@ -64,7 +65,7 @@ export default function Content() {
                 <div className="border-t-2 border-primary-light-border py-4 flex gap-4">
                   <div className="flex-none">
                     <Image
-                      src={data.images}
+                      src={getFullImageUrl(data.images)}
                       alt="Media 1"
                       width={107}
                       height={80}

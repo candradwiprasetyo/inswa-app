@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     domains: [
       "static.promediateknologi.id",
       "spike-vue-horizontal.netlify.app",
+      "202.10.35.124",
     ],
   },
   experimental: {

@@ -1,5 +1,6 @@
 import { ProfileType } from "@/types/profile";
 import Image from "next/image";
+import { getFullImageUrl } from "@/lib/image";
 
 type ProfileListProps = {
   profiles: ProfileType[];
@@ -31,7 +32,7 @@ export default function ProfileList({
               <td className="border-t p-3">
                 {p.images && (
                   <Image
-                    src={p.images}
+                    src={getFullImageUrl(p.images)}
                     alt={p.name}
                     className="w-20 h-12 object-cover"
                     width={80}

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ProgramType } from "@/types/program";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { getFullImageUrl } from "@/lib/image";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -53,7 +54,7 @@ export default function ProgramForm({
       content: "",
       ...initialData,
     });
-    setImagePreview(initialData?.image || "");
+    setImagePreview(getFullImageUrl(initialData?.image || ""));
   }, [initialData, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,14 +81,18 @@ export default function ProgramForm({
       const formData = new FormData();
       formData.append("file", imageFile);
       formData.append("folder", "program");
-      const uploadRes = await fetch("/api/upload", {
+      const uploadRes = await fetch("/api/upload-minio", {
         method: "POST",
         body: formData,
       });
       const result = await uploadRes.json();
-      imagePath = result.filePath;
-    }
 
+      if (uploadRes.ok && result.url) {
+        imagePath = result.url;
+      } else {
+        return;
+      }
+    }
     await onSubmitData({
       ...data,
       slug: generateSlug(data.name),

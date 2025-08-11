@@ -1,6 +1,7 @@
 import { ProgramType } from "@/types/program";
 import Image from "next/image";
 import Link from "next/link";
+import { getFullImageUrl } from "@/lib/image";
 
 type ProgramListProps = {
   programs: ProgramType[];
@@ -32,7 +33,7 @@ export default function ProgramList({
               <td className="border-t p-3">
                 {p.image && (
                   <Image
-                    src={p.image}
+                    src={getFullImageUrl(p.image)}
                     alt={p.name}
                     className="w-20 h-12 object-cover"
                     width={80}

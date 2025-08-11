@@ -1,6 +1,38 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 
+function getIdFromRequest(req: Request) {
+  const url = new URL(req.url);
+  const parts = url.pathname.split("/").filter(Boolean);
+  return parts[parts.length - 1] ?? null;
+}
+
+export async function GET(req: Request) {
+  const id = getIdFromRequest(req);
+  if (!id) {
+    return NextResponse.json({ error: "Missing id" }, { status: 400 });
+  }
+
+  try {
+    const result = await pool.query(
+      "SELECT * FROM programs WHERE id = $1 LIMIT 1",
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: "Program not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching program:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PUT(req: Request) {
   const url = new URL(req.url);
   const id = url.pathname.split("/").pop();

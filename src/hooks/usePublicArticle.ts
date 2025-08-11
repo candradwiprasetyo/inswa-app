@@ -16,7 +16,7 @@ export function usePublicArticle(slug?: string) {
           setArticle(json.data || []);
         }
       } catch (error) {
-        console.error("Error fetching article:", error);
+        console.error("Error fetching detail article:", error);
       } finally {
         setLoading(false);
       }

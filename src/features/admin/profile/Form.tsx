@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ProfileType } from "@/types/profile";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { getFullImageUrl } from "@/lib/image";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -59,7 +60,7 @@ export default function ProfileForm({
       instagram: "",
       ...initialData,
     });
-    setImagePreview(initialData?.images || "");
+    setImagePreview(getFullImageUrl(initialData?.images || ""));
   }, [initialData, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,19 +82,25 @@ export default function ProfileForm({
     }
 
     try {
-      setIsSubmitting(true); // ✅ Mulai loading
+      setIsSubmitting(true);
 
       let imagePath = data.images || "";
       if (imageFile) {
         const formData = new FormData();
         formData.append("file", imageFile);
         formData.append("folder", "profiles");
-        const uploadRes = await fetch("/api/upload", {
+        const uploadRes = await fetch("/api/upload-minio", {
           method: "POST",
           body: formData,
         });
+
         const result = await uploadRes.json();
-        imagePath = result.filePath;
+
+        if (uploadRes.ok && result.url) {
+          imagePath = result.url;
+        } else {
+          return;
+        }
       }
 
       await onSubmitData({
@@ -107,7 +114,7 @@ export default function ProfileForm({
       setImageError("");
       onClose();
     } finally {
-      setIsSubmitting(false); // ✅ Stop loading
+      setIsSubmitting(false);
     }
   };
 
