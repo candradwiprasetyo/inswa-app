@@ -60,7 +60,7 @@ export function useArticle() {
 
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [fetchArticles]);
 
   useEffect(() => {
     const token = Cookies.get("token");

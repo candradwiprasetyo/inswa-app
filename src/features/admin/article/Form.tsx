@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ArticleType } from "@/types/article";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { getFullImageUrl } from "@/lib/image";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -52,7 +53,7 @@ export default function ArticleForm({
       images: "",
       ...initialData,
     });
-    setImagePreview(initialData?.images || "");
+    setImagePreview(getFullImageUrl(initialData?.images || ""));
   }, [initialData, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,15 +81,25 @@ export default function ArticleForm({
     }
 
     let imagePath = data.images || "";
+
     if (imageFile) {
       const formData = new FormData();
       formData.append("file", imageFile);
-      const uploadRes = await fetch("/api/upload", {
+      formData.append("folder", "media");
+
+      const uploadRes = await fetch("/api/upload-minio", {
         method: "POST",
         body: formData,
       });
+
       const result = await uploadRes.json();
-      imagePath = result.filePath;
+
+      if (uploadRes.ok && result.url) {
+        imagePath = result.url;
+      } else {
+        setImageError("Upload gambar gagal");
+        return;
+      }
     }
 
     await onSubmitData({

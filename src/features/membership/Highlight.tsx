@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
-import { usePublicArticles } from "@/hooks/usePublicArticles";
+import { usePublicArticles } from "@/hooks/usePublicArticle";
 
 export default function Highlight() {
   const { articles, loading } = usePublicArticles(3);
@@ -24,6 +24,7 @@ export default function Highlight() {
                 month: "short",
                 year: "numeric",
               })}
+              slug={news.slug}
             />
           ))}
         </div>

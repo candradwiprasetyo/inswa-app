@@ -1,7 +1,7 @@
 import Label from "@/components/Label/Label";
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
-import { usePublicArticles } from "@/hooks/usePublicArticles";
+import { usePublicArticles } from "@/hooks/usePublicArticle";
 
 export default function Content() {
   const { articles, loading } = usePublicArticles(12);
@@ -55,6 +55,7 @@ export default function Content() {
                   month: "short",
                   year: "numeric",
                 })}
+                slug={news.slug}
               />
             ))}
           </div>

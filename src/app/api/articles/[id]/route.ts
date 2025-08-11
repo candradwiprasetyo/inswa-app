@@ -3,7 +3,7 @@ import pool from "@/lib/db";
 
 export async function PUT(req: Request) {
   const url = new URL(req.url);
-  const id = url.pathname.split("/").pop(); // ambil 'id' dari URL
+  const id = url.pathname.split("/").pop();
 
   const body = await req.json();
   const { title, slug, content, author_id, images } = body;

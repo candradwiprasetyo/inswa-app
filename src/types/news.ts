@@ -4,4 +4,5 @@ export interface NewsType {
   description: string;
   date: string;
   images: string;
+  slug: string;
 }
