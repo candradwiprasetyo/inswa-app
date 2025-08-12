@@ -9,7 +9,7 @@ export default function Highlight() {
   const { articles, loading } = usePublicArticles(3);
 
   return (
-    <div className="container mx-auto px-4 xl:px-36 2xl:px-44 py-10 md:py-20">
+    <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-20">
       <div className="flex justify-between">
         <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
           Highlight

@@ -7,7 +7,7 @@ export default function Content() {
   const { programs } = usePublicPrograms(3);
 
   return (
-    <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 ">
+    <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 ">
       <div className="mb-8 md:mb-16">
         Sejak masa pendiriannya, InSWA telah melaksanakan serangkaian program
         dan kegiatan yang berkaitan dengan kebijakan, impementasi pengelolaan

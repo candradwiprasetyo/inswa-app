@@ -16,7 +16,7 @@ export default function OurProgram() {
 
   return (
     <div className="bg-gradient-to-b from-white bg-tertiary-light">
-      <div className="container mx-auto px-4 xl:px-36 2xl:px-44 pt-5 md:pt-16 pb-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 pt-5 md:pt-16 pb-20">
         <div className="md:flex gap-10 w-full">
           <div className="md:w-2/3">
             <div className="mb-6 font-pathway-extreme text-[32px] lg:text-[24px] xl:text-[40px]">

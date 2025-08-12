@@ -19,7 +19,7 @@ export default function Membership() {
       <JoinNow />
       <Highlight />
       <Contact />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

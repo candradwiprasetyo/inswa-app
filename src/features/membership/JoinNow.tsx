@@ -4,8 +4,8 @@ export default function JoinNow() {
   return (
     <div className="w-full relative bg-join-now">
       <div className="absolute inset-0 bg-overlay"></div>
-      <div className="container mx-auto px-4 md:px-44 py-10 md:py-20 relative flex gap-16 items-center">
-        <div className="w-2/3">
+      <div className="mx-auto max-w-6xl py-10 md:py-20 relative md:flex gap-16 items-center px-4 md:px-10">
+        <div className="flex-grow mb-8">
           <div className="text-[32px] md:text-[32px] font-medium font-pathway-extreme text-white mb-6 md:mb-6">
             Mengapa Bergabung dengan Kami?
           </div>
@@ -22,12 +22,12 @@ export default function JoinNow() {
             melakukan registrasi
           </div>
         </div>
-        <div className="w-1/3">
-          <div className="bg-join-now-form rounded-tl-[30px] rounded-tr-lg rounded-br-[30px] rounded-bl-lg py-6 md:py-10 px-4 md:px-8 space-y-4 text-white text-center">
+        <div className="flex-none">
+          <div className="bg-join-now-form rounded-tl-[30px] rounded-tr-lg rounded-br-[30px] rounded-bl-lg py-6 md:py-10 px-4 md:px-8 space-y-4 text-white text-center md:w-[320px]">
             <div className="text-2xl font-pathway-extreme font-medium">
               Gabung Sekarang
             </div>
-            <button className="h-10 px-14 text-base bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 mx-auto mb-10">
+            <button className="h-10 w-full text-base bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 mx-auto mb-10">
               Unduh Formulir
               <Image
                 src="/assets/icons/arrow-right.svg"

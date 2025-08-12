@@ -25,7 +25,7 @@ export default function Hero({
           <div className="bg-line-membership absolute inset-0 md:bg-cover md:bg-bottom"></div>
         )}
 
-        <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative h-80">
+        <div className="mx-auto px-10 max-w-6xl flex items-center pt-20 relative h-80">
           <div
             className={clsx(
               "absolute text-4xl font-medium font-pathway-extreme text-primary-dark bottom-10 leading-snug md:leading-normal",
