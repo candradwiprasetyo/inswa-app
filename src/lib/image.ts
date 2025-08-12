@@ -1,14 +1,8 @@
 export function getFullImageUrl(key: string) {
   if (!key) return "";
 
-  const endpoint = (process.env.NEXT_PUBLIC_MINIO_ENDPOINT || "").replace(
-    /\/+$/,
-    ""
-  );
-  const bucket = (process.env.NEXT_PUBLIC_MINIO_BUCKET || "").replace(
-    /^\/+|\/+$/g,
-    ""
-  );
+  const endpoint = "https://cdn.inswa.or.id";
+  const bucket = "inswa";
   const cleanedKey = key.replace(/^\/+/, "");
 
   if (!endpoint || !bucket) {

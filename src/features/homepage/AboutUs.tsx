@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AboutUs() {
   return (
-    <div className="container mx-auto px-4 xl:px-44 py-10 md:py-16">
+    <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-16">
       <div className="md:flex gap-10 items-center">
         <div className="flex-none">
           <Image

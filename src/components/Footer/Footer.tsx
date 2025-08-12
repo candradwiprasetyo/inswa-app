@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <>
       <div className="bg-tertiary-light">
-        <div className="container mx-auto px-4 xl:px-36 2xl:px-44 pt-12 pb-5">
+        <div className="mx-auto max-w-6xl px-4 md:px-10 pt-12 pb-5">
           <div className="md:flex justify-between items-start pb-5 mb-5 border-b border-tertiary-light items-center">
             <div className="flex-1 mb-6 md:mb-0">
               <Image

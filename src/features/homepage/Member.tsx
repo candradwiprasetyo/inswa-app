@@ -6,7 +6,7 @@ export default function Member() {
   return (
     <div className="bg-gradient-to-b from-white bg-surface-success pb-24 xl:pb-32 relative">
       <div className="bg-line absolute inset-0 bg-[500%] md:bg-contain"></div>
-      <div className="md:flex gap-10 container mx-auto px-4 xl:px-36 2xl:px-44 pt-10 md:pt-16 pb-20 relative">
+      <div className="md:flex gap-10 mx-auto max-w-6xl px-4 md:px-10 pt-10 md:pt-16 pb-20 relative">
         <div className="flex-none hidden md:inline">
           <Image
             src={"/assets/images/homepage/img-member.png"}
