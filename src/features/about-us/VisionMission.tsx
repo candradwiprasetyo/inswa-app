@@ -2,7 +2,7 @@ export default function VisionMission() {
   return (
     <div className="w-full relative bg-vision-mission">
       <div className="absolute inset-0 bg-overlay"></div>
-      <div className="container mx-auto px-4 md:px-44 py-10 md:py-16 relative">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-16 relative">
         <div className="text-[32px] md:text-[40px] font-medium font-pathway-extreme text-white mb-8 md:mb-10">
           Visi & Misi
         </div>

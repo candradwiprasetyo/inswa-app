@@ -9,7 +9,10 @@ export default function Content() {
   const params = useParams();
   const id = params.id as string;
 
-  const { profiles, profile, loading } = usePublicProfile(id);
+  const { profile, loading } = usePublicProfile(id);
+  const { profiles } = usePublicProfile();
+
+  console.log(profiles);
 
   if (loading) return <Loader />;
 
@@ -17,8 +20,8 @@ export default function Content() {
 
   return (
     <div className="w-full relative">
-      <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative">
-        <div className="md:flex justify-between items-center py-10 px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-32">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 flex items-center pt-20 relative">
+        <div className="md:flex justify-between items-center py-10 px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-24">
           <div className="flex-none w-60">
             <Image
               src={`${getFullImageUrl(profile.images)}`}
@@ -68,7 +71,7 @@ export default function Content() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 flex gap-10 mt-10">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 flex gap-10 mt-10">
         <div className="w-2/3 text-secondary-light leading-7">
           <div className="font-medium text-xl flex w-fit gap-3 items-center mb-6 border-b-2 border-action-hover pb-3">
             <Image

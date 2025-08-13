@@ -5,4 +5,5 @@ export interface NewsType {
   date: string;
   images: string;
   slug: string;
+  scrollabel?: boolean;
 }

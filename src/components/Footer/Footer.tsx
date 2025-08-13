@@ -17,7 +17,7 @@ export default function Footer() {
                 height={120}
               />
             </div>
-            <div className="flex-1 text-[32px] md:text-4xl font-medium font-pathway-extreme md:text-right">
+            <div className="flex-1 text-[24px] md:text-4xl font-medium font-pathway-extreme md:text-right">
               sekretariat@inswa.or.id
             </div>
           </div>

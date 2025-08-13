@@ -35,7 +35,7 @@ export default function BoardOfDirector() {
 
   return (
     <div className="bg-bod">
-      <div className="container mx-auto px-4 md:px-44 py-10 md:py-20 ">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-20 ">
         <div className="md:flex justify-between items-center">
           <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
             Dewan Pengurus dan Keahlian
@@ -111,8 +111,8 @@ export default function BoardOfDirector() {
                 src={getFullImageUrl(data.images)}
                 alt={data.name}
                 width={240}
-                height={320}
-                className="w-full h-[220px] object-cover rounded-tl-[40px] rounded-tr-md rounded-br-[40px] rounded-bl-md mb-2"
+                height={240}
+                className="object-cover rounded-tl-[40px] rounded-tr-lg rounded-br-[40px] rounded-bl-lg mb-4 hover:border-action-hover hover:border-2 transition-all duration-100 aspect-[3/4]"
               />
               <div className="text-base font-bold">{data.name}</div>
               <div className="text-sm text-action-hover">{data.position}</div>

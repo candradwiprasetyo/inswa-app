@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import clsx from "clsx";
 import { NewsType } from "@/types/news";
 import Link from "next/link";
 import { getFullImageUrl } from "@/lib/image";
@@ -10,16 +10,22 @@ export default function NewsCard({
   date,
   images,
   slug,
+  scrollabel = true,
 }: NewsType) {
   return (
-    <div className="group shrink-0 w-[65%] md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer">
+    <div
+      className={clsx(
+        "group shrink-0  md:min-w-0 md:w-full md:flex-1 bg-white border-b-2 border-primary-light hover:border-action-hover transition-all duration-300 cursor-pointer",
+        scrollabel ? "w-[65%]" : "w-full"
+      )}
+    >
       <Link href={`/media/${slug}`}>
         <Image
           src={`${getFullImageUrl(images)}`}
           width={320}
           height={200}
           alt={title}
-          className="w-full border-2 border-transparent group-hover:border-action-hover transition-all duration-300 rounded-md rounded-tl-[80px] rounded-br-[80px] rounded-tr-lg rounded-bl-lg"
+          className="w-full border-2 border-transparent group-hover:border-action-hover transition-all duration-300 rounded-md rounded-tl-[38px] md:rounded-tl-[80px] rounded-br-[38px] md:rounded-br-[80px] rounded-tr-lg rounded-bl-lg"
         />
         <div className="px-2 pt-3 pb-8">
           <div className="text-disabled text-sm mb-3">{date}</div>
