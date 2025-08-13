@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { ArticleType } from "@/types/article";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { getFullImageUrl } from "@/lib/image";
+import { cdnLoader } from "@/lib/cdnLoader";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -53,7 +53,7 @@ export default function ArticleForm({
       images: "",
       ...initialData,
     });
-    setImagePreview(getFullImageUrl(initialData?.images || ""));
+    setImagePreview(initialData?.images || "");
   }, [initialData, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,6 +148,7 @@ export default function ArticleForm({
         {imagePreview && (
           <Image
             src={imagePreview}
+            loader={cdnLoader}
             alt="Preview"
             className="object-cover mb-2 rounded border"
             width={200}

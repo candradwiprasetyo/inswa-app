@@ -2,7 +2,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { NewsType } from "@/types/news";
 import Link from "next/link";
-import { getFullImageUrl } from "@/lib/image";
+import { cdnLoader } from "@/lib/cdnLoader";
 
 export default function NewsCard({
   title,
@@ -21,7 +21,8 @@ export default function NewsCard({
     >
       <Link href={`/media/${slug}`}>
         <Image
-          src={`${getFullImageUrl(images)}`}
+          loader={cdnLoader}
+          src={images}
           width={320}
           height={200}
           alt={title}

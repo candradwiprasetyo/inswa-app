@@ -3,7 +3,7 @@ import Link from "next/link";
 import usePublicProfile from "@/hooks/usePublicProfile";
 import { useParams } from "next/navigation";
 import Loader from "./Loader";
-import { getFullImageUrl } from "@/lib/image";
+import { cdnLoader } from "@/lib/cdnLoader";
 
 export default function Content() {
   const params = useParams();
@@ -24,7 +24,8 @@ export default function Content() {
         <div className="md:flex justify-between items-center py-10 px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-24">
           <div className="flex-none w-60">
             <Image
-              src={`${getFullImageUrl(profile.images)}`}
+              loader={cdnLoader}
+              src={profile.images}
               alt={profile.name}
               width={240}
               height={320}
@@ -92,7 +93,8 @@ export default function Content() {
                 <div className="border-t-2 border-primary-light-border py-4 flex gap-4">
                   <div className="flex-none">
                     <Image
-                      src={`${getFullImageUrl(data.images)}`}
+                      loader={cdnLoader}
+                      src={data.images}
                       alt="BOD 1"
                       width={240}
                       height={320}

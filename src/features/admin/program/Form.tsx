@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { ProgramType } from "@/types/program";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { getFullImageUrl } from "@/lib/image";
+import { cdnLoader } from "@/lib/cdnLoader";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -54,7 +54,7 @@ export default function ProgramForm({
       content: "",
       ...initialData,
     });
-    setImagePreview(getFullImageUrl(initialData?.image || ""));
+    setImagePreview(initialData?.image || "");
   }, [initialData, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -153,6 +153,7 @@ export default function ProgramForm({
             className="object-cover mb-2 rounded border"
             width={200}
             height={160}
+            loader={cdnLoader}
           />
         )}
         <input
