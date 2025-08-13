@@ -1,6 +1,6 @@
 import { ArticleType } from "@/types/article";
 import Image from "next/image";
-import { getFullImageUrl } from "@/lib/image";
+import { cdnLoader } from "@/lib/cdnLoader";
 
 type ArticleListProps = {
   articles: ArticleType[];
@@ -31,7 +31,8 @@ export default function ArticleList({
               <td className="border-t p-3">
                 {a.images && (
                   <Image
-                    src={getFullImageUrl(a.images)}
+                    loader={cdnLoader}
+                    src={a.images}
                     alt={a.title}
                     className="w-20 h-12 object-cover"
                     width={80}

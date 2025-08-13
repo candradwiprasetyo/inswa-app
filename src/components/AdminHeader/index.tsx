@@ -72,7 +72,7 @@ export default function AdminHeader() {
             <div className="flex gap-3 cursor-default select-none">
               <div>
                 <Image
-                  src="https://spike-vue-horizontal.netlify.app/assets/user6-iQEKvgW-.jpg"
+                  src="/assets/images/user.jpg"
                   className="rounded-full w-10 h-10"
                   alt="User avatar"
                   width={40}

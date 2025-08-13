@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { ProfileType } from "@/types/profile";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { getFullImageUrl } from "@/lib/image";
+import { cdnLoader } from "@/lib/cdnLoader";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -60,7 +60,7 @@ export default function ProfileForm({
       instagram: "",
       ...initialData,
     });
-    setImagePreview(getFullImageUrl(initialData?.images || ""));
+    setImagePreview(initialData?.images || "");
   }, [initialData, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,6 +161,7 @@ export default function ProfileForm({
             className="object-cover mb-2 rounded border"
             width={200}
             height={160}
+            loader={cdnLoader}
           />
         )}
         <input
