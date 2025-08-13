@@ -3,7 +3,7 @@ import React from "react";
 export default function Loader() {
   return (
     <div className="w-full relative animate-pulse">
-      <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-32 flex gap-10 mt-10">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-32 flex gap-10 mt-10">
         <div className="w-2/3">
           <div className="h-10 bg-gray-300 rounded w-3/4 mb-5"></div>
           <div className="flex text-sm gap-3 mb-5">

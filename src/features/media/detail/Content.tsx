@@ -18,9 +18,9 @@ export default function Content() {
 
   return (
     <div className="w-full relative">
-      <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-32 flex gap-10 mt-10">
-        <div className="w-2/3 ">
-          <div className="text-[40px] font-medium font-pathway-extreme mb-5">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-32 md:flex gap-10 mt-10">
+        <div className="md:w-2/3 ">
+          <div className="text-[24px] md:text-[40px] font-medium font-pathway-extreme mb-4 md:mb-5">
             {article.title}
           </div>
           <div className="flex text-tertiary-light text-sm gap-3 mb-5">
@@ -58,7 +58,7 @@ export default function Content() {
             {article.content}
           </div>
         </div>
-        <div className="w-1/3">
+        <div className="md:w-1/3">
           <div className="text-2xl font-medium">Artikel Lainnya</div>
           <div className="mt-6">
             {articles.map((data, index) => (
