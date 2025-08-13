@@ -2,6 +2,14 @@ import { NextResponse } from "next/server";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "@/lib/minio";
 
+function sanitizeFileName(name: string) {
+  return name
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[()]/g, "")
+    .replace(/[^a-zA-Z0-9._-]/g, "");
+}
+
 export async function POST(req: Request) {
   const formData = await req.formData();
   const file = formData.get("file") as File;
@@ -13,7 +21,10 @@ export async function POST(req: Request) {
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
-  const fileName = `${Date.now()}-${file.name}`;
+
+  // Bersihkan nama file
+  const safeName = sanitizeFileName(file.name);
+  const fileName = `${Date.now()}-${safeName}`;
   const key = folder ? `${folder}/${fileName}` : fileName;
 
   try {

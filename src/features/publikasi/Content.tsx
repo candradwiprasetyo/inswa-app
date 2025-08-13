@@ -22,7 +22,7 @@ export default function Content() {
             </div>
           </div>
         </div>
-        <div className="flex gap-3 flex-nowrap md:hidden mt-10 overflow-x-auto whitespace-nowrap scroll-hide">
+        <div className="flex gap-3 flex-nowrap md:hidden mt-10 overflow-x-auto whitespace-nowrap scrollbar-hide">
           <Label title="Buku" active={true} />
           <Label title="Report" />
           <Label title="Publikasi Internasional" />

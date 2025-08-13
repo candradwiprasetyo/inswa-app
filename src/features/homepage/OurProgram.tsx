@@ -3,6 +3,8 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
+import { usePublicPrograms } from "@/hooks/usePublicProgram";
+import Link from "next/link";
 
 export default function OurProgram() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -13,6 +15,7 @@ export default function OurProgram() {
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const { programs } = usePublicPrograms(10);
 
   return (
     <div className="bg-gradient-to-b from-white bg-tertiary-light">
@@ -28,17 +31,22 @@ export default function OurProgram() {
             </div>
             <div className="overflow-hidden w-[100%]" ref={emblaRef}>
               <div className="flex">
-                {[1, 2, 3, 4].map((item, index) => (
-                  <div className="flex-[0_0_50%] pr-4" key={index}>
+                {programs.map((program, index) => (
+                  <div className="flex-[0_0_50%] pr-4">
                     <div className="py-4 border-t-[3px] border-action-hover group hover:border-secondary-light-hover transition-all duration-300">
                       <div className="text-tertiary-light">Program</div>
                       <div className="text-2xl md:text-lg xl:text-2xl font-pathway-extreme my-4 cursor-pointer">
-                        Pelatihan Pengembangan Kapasitas dalam Pengelolaan
-                        Sampah
+                        {program.name}
                       </div>
-                      <span className="font-pathway-extreme font-semibold text-sm text-action group-hover:text-action-hover cursor-pointer transition-all duration-300">
-                        Baca Selengkapnya
-                      </span>
+                      <Link
+                        key={index}
+                        href={`/program/${program.id}`}
+                        className="block relative"
+                      >
+                        <span className="font-pathway-extreme font-semibold text-sm text-action group-hover:text-action-hover cursor-pointer transition-all duration-300">
+                          Baca Selengkapnya
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 ))}

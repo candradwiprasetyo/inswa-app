@@ -62,7 +62,7 @@ export default function History() {
   ];
 
   return (
-    <div className="container mx-auto px-4 md:px-44 py-10 md:py-20">
+    <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-20">
       <div className="flex justify-between items-center">
         <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
           Sejarah InSWA
@@ -96,7 +96,7 @@ export default function History() {
         <div className="embla__container flex gap-8">
           {historyData.map((data, index) => (
             <div
-              className="embla__slide shrink-0 w-full md:w-[500px] bg-white"
+              className="embla__slide shrink-0 w-full md:w-[40%] bg-white"
               key={index}
             >
               <div className="pt-3 pb-8">

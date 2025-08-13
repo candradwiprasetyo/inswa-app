@@ -8,12 +8,12 @@ export default function Content() {
 
   return (
     <div className="w-full relative">
-      <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative h-64">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 flex items-center pt-20 relative h-64">
         <div className="absolute text-4xl md:text-[48px] font-medium font-pathway-extreme bottom-5 leading-snug md:leading-normal">
           Media
         </div>
       </div>
-      <div className="container mx-auto px-4 md:px-44 relative">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative">
         <div className="mb-5 w-full relative">
           <div className="absolute w-5 h-5 left-4 top-4">
             <Image
@@ -29,21 +29,25 @@ export default function Content() {
             className="border border-primary-light rounded-xl py-3 px-4 w-full pl-12"
           ></input>
         </div>
-        <div className="mb-5 w-full flex items-center">
-          <div className="flex-1 text-tertiary-light font-medium text-sm">
+        <div className="mb-5 w-full md:flex items-center">
+          <div className="flex-1 text-tertiary-light font-medium text-sm mb-4 md:mb-0">
             Showing 1 - 10 of 678 results
           </div>
-          <div className="flex-1 flex justify-end gap-3">
-            <Label title="All" active={true} />
-            <Label title="Article" />
-            <Label title="Video" />
+          <div className="flex-1 flex md:justify-end gap-3">
+            <Label
+              title="All"
+              active={true}
+              customClass="flex-1 md:flex-none"
+            />
+            <Label title="Article" customClass="flex-1 md:flex-none" />
+            <Label title="Video" customClass="flex-1 md:flex-none" />
           </div>
         </div>
 
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-10 gap-y-16 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-16 mb-16">
             {articles.map((news, index) => (
               <NewsCard
                 key={index}
@@ -56,6 +60,7 @@ export default function Content() {
                   year: "numeric",
                 })}
                 slug={news.slug}
+                scrollabel={false}
               />
             ))}
           </div>
