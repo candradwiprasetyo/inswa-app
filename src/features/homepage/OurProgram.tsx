@@ -32,7 +32,7 @@ export default function OurProgram() {
             <div className="overflow-hidden w-[100%]" ref={emblaRef}>
               <div className="flex">
                 {programs.map((program, index) => (
-                  <div className="flex-[0_0_50%] pr-4">
+                  <div className="flex-[0_0_50%] pr-4" key={index}>
                     <div className="py-4 border-t-[3px] border-action-hover group hover:border-secondary-light-hover transition-all duration-300">
                       <div className="text-tertiary-light">Program</div>
                       <div className="text-2xl md:text-lg xl:text-2xl font-pathway-extreme my-4 cursor-pointer">
