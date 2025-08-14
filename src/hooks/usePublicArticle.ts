@@ -28,7 +28,12 @@ export function usePublicArticle(slug?: string) {
   return { article, loading };
 }
 
-export function usePublicArticles(limit = 3, type?: string, search?: string) {
+export function usePublicArticles(
+  limit = 3,
+  type?: string,
+  search?: string,
+  excludeSlug?: string
+) {
   const [articles, setArticles] = useState<ArticleType[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -53,6 +58,7 @@ export function usePublicArticles(limit = 3, type?: string, search?: string) {
       });
       if (type && type !== "all") params.append("type", type);
       if (debouncedSearch) params.append("search", debouncedSearch);
+      if (excludeSlug) params.append("excludeSlug", excludeSlug);
 
       const res = await fetch(`/api/articles?${params.toString()}`);
       const json = await res.json();
@@ -63,7 +69,7 @@ export function usePublicArticles(limit = 3, type?: string, search?: string) {
     } finally {
       setLoading(false);
     }
-  }, [limit, type, currentPage, debouncedSearch]);
+  }, [limit, type, currentPage, debouncedSearch, excludeSlug]);
 
   useEffect(() => {
     fetchLatestArticles();

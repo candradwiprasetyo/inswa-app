@@ -9,4 +9,5 @@ export interface ArticleType {
   images: string;
   type: string;
   video_url?: string;
+  author_name?: string;
 }

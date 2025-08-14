@@ -6,13 +6,18 @@ export async function GET(req: Request) {
   const slug = searchParams.get("slug");
   const type = searchParams.get("type");
   const search = searchParams.get("search");
+  const excludeSlug = searchParams.get("excludeSlug");
   const page = parseInt(searchParams.get("page") || "1", 10);
   const limit = parseInt(searchParams.get("limit") || "10", 10);
   const offset = (page - 1) * limit;
 
   if (slug) {
     const result = await pool.query(
-      "SELECT * FROM articles WHERE slug = $1 LIMIT 1",
+      `SELECT a.*, u.name AS author_name
+       FROM articles a
+       LEFT JOIN users u ON a.author_id = u.id
+       WHERE a.slug = $1
+       LIMIT 1`,
       [slug]
     );
     if (result.rows.length === 0) {
@@ -29,25 +34,40 @@ export async function GET(req: Request) {
 
   if (type) {
     params.push(type);
-    conditions.push(`type = $${params.length}`);
+    conditions.push(`a.type = $${params.length}`);
   }
 
   if (search) {
     params.push(`%${search}%`);
     conditions.push(
-      `(title ILIKE $${params.length} OR content ILIKE $${params.length})`
+      `(a.title ILIKE $${params.length} OR a.content ILIKE $${params.length})`
     );
+  }
+
+  if (excludeSlug) {
+    params.push(excludeSlug);
+    conditions.push(`a.slug != $${params.length}`);
   }
 
   const whereClause =
     conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
   params.push(limit, offset);
-  const resultQuery = `SELECT * FROM articles ${whereClause} ORDER BY created_at DESC LIMIT $${
-    params.length - 1
-  } OFFSET $${params.length}`;
+  const resultQuery = `
+    SELECT a.*, u.name AS author_name
+    FROM articles a
+    LEFT JOIN users u ON a.author_id = u.id
+    ${whereClause}
+    ORDER BY a.created_at DESC
+    LIMIT $${params.length - 1} OFFSET $${params.length}
+  `;
 
-  const countQuery = `SELECT COUNT(*) FROM articles ${whereClause}`;
+  const countQuery = `
+    SELECT COUNT(*) 
+    FROM articles a
+    LEFT JOIN users u ON a.author_id = u.id
+    ${whereClause}
+  `;
 
   try {
     const result = await pool.query(resultQuery, params);
