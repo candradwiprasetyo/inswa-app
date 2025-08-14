@@ -21,6 +21,7 @@ export default function ArticleList({
             <th className="p-4 w-[50px]">No</th>
             <th className="p-4 w-[100px]">Image</th>
             <th className="p-4">Title</th>
+            <th className="p-4">Type</th>
             <th className="p-4 w-[200px]">Actions</th>
           </tr>
         </thead>
@@ -41,6 +42,7 @@ export default function ArticleList({
                 )}
               </td>
               <td className="border-t p-3">{a.title}</td>
+              <td className="border-t p-3 capitalize">{a.type}</td>
               <td className="border-t p-3 space-x-2 text-center">
                 <button onClick={() => onEdit(a)} className="text-blue-500">
                   <span className="material-symbols-outlined">edit</span>

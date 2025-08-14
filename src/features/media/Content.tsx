@@ -1,10 +1,20 @@
+import { useState } from "react";
 import Label from "@/components/Label/Label";
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
 import { usePublicArticles } from "@/hooks/usePublicArticle";
 
 export default function Content() {
-  const { articles, loading } = usePublicArticles(12);
+  const [typeFilter, setTypeFilter] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const { articles, loading, total, currentPage, limit } = usePublicArticles(
+    12,
+    typeFilter !== "all" ? typeFilter : undefined,
+    searchTerm
+  );
+
+  const start = (currentPage - 1) * limit + 1;
+  const end = Math.min(currentPage * limit, total);
 
   return (
     <div className="w-full relative">
@@ -13,6 +23,7 @@ export default function Content() {
           Media
         </div>
       </div>
+
       <div className="mx-auto max-w-6xl px-4 md:px-10 relative">
         <div className="mb-5 w-full relative">
           <div className="absolute w-5 h-5 left-4 top-4">
@@ -27,20 +38,36 @@ export default function Content() {
             type="text"
             placeholder="Search"
             className="border border-primary-light rounded-xl py-3 px-4 w-full pl-12"
-          ></input>
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
+
         <div className="mb-5 w-full md:flex items-center">
           <div className="flex-1 text-tertiary-light font-medium text-sm mb-4 md:mb-0">
-            Showing 1 - 10 of 678 results
+            {loading
+              ? "Loading..."
+              : `Showing ${start} - ${end} of ${total} results`}
           </div>
           <div className="flex-1 flex md:justify-end gap-3">
             <Label
               title="All"
-              active={true}
+              active={typeFilter === "all"}
               customClass="flex-1 md:flex-none"
+              onClick={() => setTypeFilter("all")}
             />
-            <Label title="Article" customClass="flex-1 md:flex-none" />
-            <Label title="Video" customClass="flex-1 md:flex-none" />
+            <Label
+              title="Article"
+              active={typeFilter === "article"}
+              customClass="flex-1 md:flex-none"
+              onClick={() => setTypeFilter("article")}
+            />
+            <Label
+              title="Video"
+              active={typeFilter === "video"}
+              customClass="flex-1 md:flex-none"
+              onClick={() => setTypeFilter("video")}
+            />
           </div>
         </div>
 

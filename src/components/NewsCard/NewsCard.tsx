@@ -20,14 +20,15 @@ export default function NewsCard({
       )}
     >
       <Link href={`/media/${slug}`}>
-        <Image
-          loader={cdnLoader}
-          src={images}
-          width={320}
-          height={200}
-          alt={title}
-          className="w-full border-2 border-transparent group-hover:border-action-hover transition-all duration-300 rounded-md rounded-tl-[38px] md:rounded-tl-[80px] rounded-br-[38px] md:rounded-br-[80px] rounded-tr-lg rounded-bl-lg"
-        />
+        <div className="w-full relative aspect-[4/3] overflow-hidden rounded-md rounded-tl-[38px] md:rounded-tl-[80px] rounded-br-[38px] md:rounded-br-[80px] rounded-tr-lg rounded-bl-lg border-2 border-transparent group-hover:border-action-hover transition-all duration-300">
+          <Image
+            loader={cdnLoader}
+            src={images}
+            alt={title}
+            fill
+            className="object-cover w-full h-full"
+          />
+        </div>
         <div className="px-2 pt-3 pb-8">
           <div className="text-disabled text-sm mb-3">{date}</div>
           <div className="text-primary-light group-hover:text-action-hover text-base md:text-lg xl:text-xl font-medium mb-3 font-pathway-extreme transition-colors duration-300 line-clamp-3">
