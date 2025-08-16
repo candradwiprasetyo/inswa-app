@@ -1,64 +1,58 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { BoardOfDirectorType } from "@/types/boardOfDirector";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import {
+  usePublicPublication,
+  usePublicPublications,
+} from "@/hooks/usePublicPublication";
+import { cdnLoader } from "@/lib/cdnLoader";
+import { getFullImageUrl } from "@/lib/image";
 
-const boardOfDirectorData: BoardOfDirectorType[] = [
-  {
-    id: 1,
-    name: "Ir. Sri Bebassari Msi",
-    position: "KETUA UMUM INSWA",
-    images: "1.png",
-  },
-  {
-    id: 2,
-    name: "Mohammad Helmy",
-    position: "KETUA DEWAN PEMBINA INSWA",
-    images: "2.png",
-  },
-  {
-    id: 3,
-    name: "Djoko Heru Martono",
-    position: "WAKIL KETUA UMUM INSWA",
-    images: "3.png",
-  },
-  {
-    id: 4,
-    name: "Nurina A. Herminindian",
-    position: "SEKJEN INSWA",
-    images: "4.png",
-  },
-  {
-    id: 5,
-    name: "Dini Trisyanti",
-    position: "DEPUTI BIDANG PENINGKATAN KAPASITAS DAN PEMBINAAN TEKNIS",
-    images: "5.png",
-  },
-];
-export default function Content() {
+export default function PublicationDetailPage() {
+  const { id } = useParams();
+  const { publication, loading } = usePublicPublication(id as string);
+  const { publications: otherPublications } = usePublicPublications(
+    5,
+    undefined,
+    undefined,
+    id as string
+  );
+
+  const [openPdf, setOpenPdf] = useState(false);
+
+  if (loading) {
+    return <div className="p-10 text-center">Loading...</div>;
+  }
+
+  if (!publication) {
+    return <div className="p-10 text-center">Publikasi tidak ditemukan</div>;
+  }
+
   return (
     <div className="w-full relative">
-      <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative">
-        <div className="md:flex justify-between items-center py-10 px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-32">
-          <div className="flex-none w-60">
-            <Image
-              src="/assets/images/publikasi/publikasi-1.png"
-              alt="Publikasi 1"
-              width={240}
-              height={320}
-              className="w-[240px] h-[320px] object-cover -mt-40 absolute border-2 border-tertiary-light"
-            />
+      <div className="mx-auto max-w-6xl px-4 md:px-10 flex items-center pt-20 relative">
+        <div className="md:flex justify-center md:justify-between items-center py-10 px-6 md:px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-20 md:mt-32">
+          <div className="flex-none md:w-60 ">
+            {publication.cover_url && (
+              <Image
+                loader={cdnLoader}
+                src={publication.cover_url}
+                alt={publication.title}
+                width={240}
+                height={320}
+                className="w-[180px] md:w-[240px] h-[260px] md:h-[320px] object-cover md:-mt-40 md:absolute border-2 border-tertiary-light mx-auto md:mx-none"
+              />
+            )}
           </div>
-          <div className="flex-grow">
-            <div className="text-[32px] font-medium font-pathway-extreme">
-              Kebersihan adalah Investasi. Sampahku Tanggung Jawabku
+          <div className="flex-grow text-center md:text-left mt-8 md:mt-0 ">
+            <div className="text-2xl md:text-[32px] font-light md:font-medium font-pathway-extreme md:leading-normal">
+              {publication.title}
             </div>
-            <div className="flex gap-2 mt-4">
-              <Link
-                href={
-                  "https://www.facebook.com/profile.php/?id=100068494286108"
-                }
-                target="_blank"
-              >
+            <div className="flex gap-2 mt-2">
+              <Link href={""} target="_blank">
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
                     src="/assets/icons/footer-facebook.svg"
@@ -68,10 +62,7 @@ export default function Content() {
                   />
                 </div>
               </Link>
-              <Link
-                href={"https://www.youtube.com/@inswa.official"}
-                target="_blank"
-              >
+              <Link href={""} target="_blank">
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
                     src="/assets/icons/footer-youtube.svg"
@@ -81,10 +72,7 @@ export default function Content() {
                   />
                 </div>
               </Link>
-              <Link
-                href={"https://www.instagram.com/inswa.official/"}
-                target="_blank"
-              >
+              <Link href={""} target="_blank">
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
                     src="/assets/icons/footer-instagram.svg"
@@ -95,12 +83,42 @@ export default function Content() {
                 </div>
               </Link>
             </div>
+            <div className="text-sm text-tertiary-light mt-2">
+              {publication.year}
+            </div>
+
+            {publication.file && (
+              <button
+                onClick={() => setOpenPdf(true)}
+                className="mt-4 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition"
+              >
+                Baca PDF
+              </button>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 flex gap-10 mt-10">
-        <div className="w-2/3 text-secondary-light leading-7">
+      {openPdf && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+          <div className="relative w-[90%] h-[90%] bg-white rounded-lg shadow-lg overflow-hidden">
+            <button
+              onClick={() => setOpenPdf(false)}
+              className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded"
+            >
+              ✕
+            </button>
+            <iframe
+              src={getFullImageUrl(publication.file)}
+              className="w-full h-full"
+              title="PDF Viewer"
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 md:flex gap-10 md:mt-10">
+        <div className="md:w-2/3 text-secondary-light leading-7">
           <div className="font-medium text-xl flex w-fit gap-3 items-center mb-6 border-b-2 border-action-hover pb-3">
             <Image
               src="/assets/icons/point-leaf.svg"
@@ -111,32 +129,12 @@ export default function Content() {
             Tentang
           </div>
           <div className="mb-8 md:mb-8 leading-7">
-            Kebersihan adalah Investasi. Sampahku Tanggung Jawabku merupakan
-            sebuah filosofi dan panduan pengelolaan sampah berlandaskan 5 aspek
-            pengelolaan sampah, untuk terciptanya kebersihan lingkungan dan
-            kesehatan masyarakat. <br></br>
-            <br></br>Namun filosofi tersebut kurang populer di Pemerintah bahkan
-            masyarakat. Penyediaan sistem pengelolaan sampah yang baik masih
-            belum menjadi prioritas Pemerintah Kabupaten / Kota. Selain itu,
-            masih banyak pihak yang belum menyadari bahwa pengelolaan sampah
-            membutuhkan biaya. Jika pengelolaan sampah dilaksanakan dengan baik
-            maka lingkungan menjadi bersih, kesehatan masyarakat meningkat serta
-            dapat meningkatkan pariwisata dan ekonomi masyarakat.<br></br>
-            <br></br> Berbicara tentang pengelolaan sampah, maka perlu
-            membahasnya dengan pendekatan 5 aspek pengelolaan sampah. Mulai dari
-            aspek peraturan, kelembagaan, pendanaan, sosial budaya dan
-            teknologi. Namun demikian, Lima Aspek Pengelolaan Sampah ini dapat
-            berjalan apabila ada political will dari Pemerintah Pusat dan
-            Daerah.<br></br>
-            <br></br>
-            Buku ini sangat tepat dijadikan sebagai panduan oleh berbagai pihak
-            terkait pengelolaan sampah karena didalamnya memuat 5 aspek
-            pengelolaan sampah. Dengan demikian, diharapkan berbagai macam
-            permasalahan persampahan di Indonesia dapat segera teratasi untuk
-            menciptakan Indonesia bersih dan sehat.
+            {publication.description}
           </div>
+
+          {/* Tabel detail */}
           <div className="mb-8 md:mb-12">
-            <div className="overflow-hidden rounded-lg border">
+            <div className="overflow-hidden rounded-lg border text-sm md:text-base">
               <table className="w-full">
                 <tbody>
                   <tr>
@@ -147,7 +145,7 @@ export default function Content() {
                       Penerbit
                     </td>
                     <td className="px-3 border-l text-tertiary-light">
-                      Indonesia Solid Waste Association
+                      {publication.publisher}
                     </td>
                   </tr>
                   <tr className="border-t">
@@ -155,18 +153,15 @@ export default function Content() {
                       Penulis
                     </td>
                     <td className="px-3 border-l text-tertiary-light">
-                      Sri Bebassari, Guntur Sitorus, Gifta Oktavia Fajriyanti
+                      {publication.author}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td
-                      className="font-semibold bg-table-program py-2 px-3"
-                      valign="top"
-                    >
+                    <td className="font-semibold bg-table-program py-2 px-3">
                       Sambutan
                     </td>
-                    <td className="px-3 border-l py-2 text-tertiary-light">
-                      Ir. Sarwono Kusumaatmadja
+                    <td className="px-3 border-l text-tertiary-light">
+                      {publication.foreword}
                     </td>
                   </tr>
                   <tr className="border-t">
@@ -174,42 +169,31 @@ export default function Content() {
                       Cetakan
                     </td>
                     <td className="px-3 border-l text-tertiary-light">
-                      Pertama, Juni 2022 Kedua, <br></br>September 2022 Ketiga,
-                      <br></br>
-                      Februari 2024
+                      {publication.edition}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td
-                      className="font-semibold bg-table-program py-2 px-3"
-                      valign="top"
-                    >
+                    <td className="font-semibold bg-table-program py-2 px-3">
                       ISBN
                     </td>
-                    <td className="px-3 border-l py-2 text-tertiary-light">
-                      978-623-09-3412-4
+                    <td className="px-3 border-l text-tertiary-light">
+                      {publication.isbn}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td
-                      className="font-semibold bg-table-program py-2 px-3"
-                      valign="top"
-                    >
+                    <td className="font-semibold bg-table-program py-2 px-3">
                       Halaman
                     </td>
-                    <td className="px-3 border-l py-2 text-tertiary-light">
-                      80
+                    <td className="px-3 border-l text-tertiary-light">
+                      {publication.pages}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td
-                      className="font-semibold bg-table-program py-2 px-3"
-                      valign="top"
-                    >
+                    <td className="font-semibold bg-table-program py-2 px-3">
                       Ukuran
                     </td>
-                    <td className="px-3 border-l py-2 text-tertiary-light">
-                      15,5 x 23 cm
+                    <td className="px-3 border-l text-tertiary-light">
+                      {publication.dimension}
                     </td>
                   </tr>
                 </tbody>
@@ -217,32 +201,40 @@ export default function Content() {
             </div>
           </div>
         </div>
-        <div className="w-1/3">
+
+        {/* Publikasi Lainnya */}
+        <div className="md:w-1/3">
           <div className="text-2xl font-medium">Publikasi Lainnya</div>
           <div className="mt-6">
-            {boardOfDirectorData.map((data, index) => (
-              <div
-                className="border-t-2 border-primary-light-border py-4 flex gap-4 items-center"
-                key={index}
+            {otherPublications.map((p) => (
+              <Link
+                href={`/publikasi/${p.id}`}
+                key={p.id}
+                className="block border-t-2 border-primary-light-border py-4"
               >
-                <div className="flex-none">
-                  <Image
-                    src="/assets/images/publikasi/publikasi-1.png"
-                    alt="Publikasi 1"
-                    width={107}
-                    height={80}
-                    className="w-20 h-28 object-cover border border-tertiary-light"
-                  />
-                </div>
-                <div className="flex-grow">
-                  <div className="text-xl font-light mb-2">
-                    3R Strategic Elements
+                <div className="flex gap-4 items-center">
+                  <div className="flex-none">
+                    {p.cover_url && (
+                      <Image
+                        loader={cdnLoader}
+                        src={p.cover_url}
+                        alt={p.title}
+                        width={107}
+                        height={80}
+                        className="w-20 h-28 object-cover border border-tertiary-light"
+                      />
+                    )}
                   </div>
-                  <div className="text-xs text-tertiary-light">
-                    PDF | 1,2MB | 2021
+                  <div className="flex-grow">
+                    <div className="text-lg md:text-xl font-light mb-2">
+                      {p.title}
+                    </div>
+                    <div className="text-xs text-tertiary-light">
+                      PDF | {p.size} | {p.year}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

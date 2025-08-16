@@ -31,6 +31,7 @@ export default function AdminArticlePage() {
     slug: "",
     content: "",
     images: "",
+    type: "",
   });
 
   const handleEdit = (article: ArticleType) => {
@@ -50,6 +51,7 @@ export default function AdminArticlePage() {
       slug: "",
       content: "",
       images: "",
+      type: "",
     });
     setShowModal(true);
   };

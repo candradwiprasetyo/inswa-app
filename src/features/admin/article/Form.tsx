@@ -32,7 +32,8 @@ export default function ArticleForm({
     setValue,
     reset,
     trigger,
-    formState: { errors },
+    watch,
+    formState: { errors, isSubmitting },
   } = useForm<ArticleType>({
     defaultValues: {
       id: null,
@@ -40,9 +41,19 @@ export default function ArticleForm({
       slug: "",
       content: "",
       images: "",
+      type: "",
+      video_url: "",
       ...initialData,
     },
   });
+
+  const selectedType = watch("type");
+
+  useEffect(() => {
+    if (selectedType !== "video") {
+      setValue("video_url", "");
+    }
+  }, [selectedType, setValue]);
 
   useEffect(() => {
     reset({
@@ -51,6 +62,8 @@ export default function ArticleForm({
       slug: "",
       content: "",
       images: "",
+      type: "",
+      video_url: "",
       ...initialData,
     });
     setImagePreview(initialData?.images || "");
@@ -102,11 +115,14 @@ export default function ArticleForm({
       }
     }
 
-    await onSubmitData({
+    const payload: ArticleType = {
       ...data,
       slug: generateSlug(data.title),
       images: imagePath,
-    });
+      ...(data.type !== "video" ? { video_url: "" } : {}),
+    };
+
+    await onSubmitData(payload);
 
     reset();
     setImageFile(null);
@@ -142,6 +158,41 @@ export default function ArticleForm({
         />
         {errors.title && (
           <p className="text-red-500 text-xs mb-2">{errors.title.message}</p>
+        )}
+
+        <label className="text-sm font-bold text-gray-400 mt-2">Type</label>
+        <select
+          {...register("type", { required: "Type wajib dipilih" })}
+          className="border p-2 mb-2 w-full"
+          defaultValue={initialData?.type || "article"}
+        >
+          <option value="article">Article</option>
+          <option value="video">Video</option>
+        </select>
+        {errors.type && (
+          <p className="text-red-500 text-xs mb-2">{errors.type.message}</p>
+        )}
+
+        {selectedType === "video" && (
+          <>
+            <label className="text-sm font-bold text-gray-400 mt-2">
+              Video URL
+            </label>
+            <input
+              {...register("video_url", {
+                required:
+                  selectedType === "video" ? "Video URL wajib diisi" : false,
+              })}
+              type="text"
+              placeholder="https://..."
+              className="border p-2 mb-2 w-full"
+            />
+            {errors.video_url && (
+              <p className="text-red-500 text-xs mb-2">
+                {errors.video_url.message}
+              </p>
+            )}
+          </>
         )}
 
         <label className="text-sm font-bold text-gray-400">Images</label>
@@ -196,9 +247,18 @@ export default function ArticleForm({
           </button>
           <button
             onClick={handleSubmit(onSubmit)}
-            className="bg-green-400 text-white px-4 py-2 rounded-full text-sm"
+            className={`bg-green-400 text-white px-4 py-2 rounded-full text-sm ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={isSubmitting}
           >
-            {initialData?.id ? "Update" : "Save"}
+            {isSubmitting
+              ? initialData?.id
+                ? "Updating..."
+                : "Saving..."
+              : initialData?.id
+              ? "Update"
+              : "Save"}
           </button>
         </div>
       </div>

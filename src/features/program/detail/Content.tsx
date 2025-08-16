@@ -70,15 +70,14 @@ export default function Content() {
         <div className="text-2xl font-medium">Program Lainnya</div>
         <div className="mt-6">
           {programs.map((data, index) => (
-            <div
-              className="border-t-2 border-primary-light-border py-4"
-              key={index}
-            >
-              <div className="text-tertiary-light text-sm mb-2">Program</div>
-              <div className="text-secondary-light text-base font-semibold">
-                {data.name}
+            <Link href={`/program/${data.id}`} key={index}>
+              <div className="border-t-2 border-primary-light-border py-4">
+                <div className="text-tertiary-light text-sm mb-2">Program</div>
+                <div className="text-secondary-light text-base font-semibold">
+                  {data.name}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
           <Link href="/program">
             <button className="h-7 border border-secondary-light hover:border-secondary-light-hover font-semibold items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 px-6 hidden md:flex text-xs mt-4 float-right">

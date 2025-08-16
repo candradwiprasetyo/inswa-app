@@ -9,7 +9,7 @@ export default function Content() {
   const params = useParams();
   const slug = params.slug as string;
 
-  const { articles } = usePublicArticles(12);
+  const { articles } = usePublicArticles(12, undefined, undefined, slug);
   const { article, loading } = usePublicArticle(slug);
 
   if (loading) return <Loader />;
@@ -18,9 +18,9 @@ export default function Content() {
 
   return (
     <div className="w-full relative">
-      <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-32 flex gap-10 mt-10">
-        <div className="w-2/3 ">
-          <div className="text-[40px] font-medium font-pathway-extreme mb-5">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-32 md:flex gap-10 mt-10">
+        <div className="md:w-2/3 ">
+          <div className="text-[24px] md:text-[40px] font-medium font-pathway-extreme mb-4 md:mb-5">
             {article.title}
           </div>
           <div className="flex text-tertiary-light text-sm gap-3 mb-5">
@@ -31,7 +31,11 @@ export default function Content() {
                 width={20}
                 height={20}
               />
-              31 Agustus 2022
+              {new Date(article.created_at!).toLocaleDateString("id-ID", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })}
             </div>
             |
             <div className="flex gap-2">
@@ -41,24 +45,37 @@ export default function Content() {
                 width={20}
                 height={20}
               />
-              Dini Trisyanti
+              {article.author_name}
             </div>
           </div>
           <div className="mb-8">
-            <Image
-              loader={cdnLoader}
-              src={article.images}
-              alt={article.title}
-              width={500}
-              height={300}
-              className="w-full rounded-lg"
-            />
+            {article.video_url ? (
+              <div className="w-full aspect-video rounded-lg overflow-hidden">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={article.video_url}
+                  title={article.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            ) : (
+              <Image
+                loader={cdnLoader}
+                src={article.images}
+                alt={article.title}
+                width={500}
+                height={300}
+                className="w-full rounded-lg"
+              />
+            )}
           </div>
           <div className="mb-8 md:mb-8 leading-7 text-secondary-light">
             {article.content}
           </div>
         </div>
-        <div className="w-1/3">
+        <div className="md:w-1/3">
           <div className="text-2xl font-medium">Artikel Lainnya</div>
           <div className="mt-6">
             {articles.map((data, index) => (

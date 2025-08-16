@@ -1,7 +1,7 @@
 export default function Loader() {
   return (
     <div className="w-full relative">
-      <div className="container mx-auto px-6 md:px-44 flex items-center pt-20 relative">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 flex items-center pt-20 relative">
         <div className="md:flex justify-between items-center py-10 px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-32 animate-pulse">
           {/* Gambar */}
           <div className="flex-none w-60">

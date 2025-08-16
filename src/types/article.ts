@@ -7,4 +7,7 @@ export interface ArticleType {
   created_at?: string;
   updated_at?: string;
   images: string;
+  type: string;
+  video_url?: string;
+  author_name?: string;
 }

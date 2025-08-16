@@ -25,7 +25,7 @@ export default function ProfileForm({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
   const [imageError, setImageError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // ✅ State untuk loading
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -210,7 +210,7 @@ export default function ProfileForm({
           <button
             onClick={onClose}
             className="px-4 py-2 border rounded-full text-sm"
-            disabled={isSubmitting} // ✅ Disable saat submit
+            disabled={isSubmitting}
           >
             Cancel
           </button>
@@ -221,7 +221,7 @@ export default function ProfileForm({
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-green-400 hover:bg-green-500"
             }`}
-            disabled={isSubmitting} // ✅ Disable saat submit
+            disabled={isSubmitting}
           >
             {isSubmitting
               ? "Menyimpan..."
