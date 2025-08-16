@@ -72,14 +72,15 @@ export default function Content() {
                 <div className="py-5 flex items-center border-b">
                   <div className="flex flex-grow items-center">
                     <div className="flex-none">
-                      <Image
-                        loader={cdnLoader}
-                        src={p.cover_url}
-                        alt={p.title}
-                        width={120}
-                        height={160}
-                        className="border-2 border-tertiary-light object-cover"
-                      />
+                      <div className="relative w-[120px] aspect-[3/4]">
+                        <Image
+                          loader={cdnLoader}
+                          src={p.cover_url}
+                          alt={p.title}
+                          fill
+                          className="border-2 border-tertiary-light object-cover rounded"
+                        />
+                      </div>
                     </div>
                     <div className="flex-grow px-6">
                       <div className="text-lg mb-2 line-clamp-2">{p.title}</div>
