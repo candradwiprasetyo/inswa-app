@@ -20,7 +20,7 @@ export default function Content() {
     <div className="w-full relative">
       <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-32 md:flex gap-10 mt-10">
         <div className="md:w-2/3 ">
-          <div className="text-[24px] md:text-[40px] font-medium font-pathway-extreme mb-4 md:mb-5">
+          <div className="text-[24px] md:text-[32px] font-medium font-pathway-extreme mb-4 md:mb-5 mb:leading-normal">
             {article.title}
           </div>
           <div className="flex text-tertiary-light text-sm gap-3 mb-5">
@@ -61,14 +61,15 @@ export default function Content() {
                 ></iframe>
               </div>
             ) : (
-              <Image
-                loader={cdnLoader}
-                src={article.images}
-                alt={article.title}
-                width={500}
-                height={300}
-                className="w-full rounded-lg"
-              />
+              <div className="relative w-full aspect-[5/3]">
+                <Image
+                  loader={cdnLoader}
+                  src={article.images}
+                  alt={article.title}
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
             )}
           </div>
           <div className="mb-8 md:mb-8 leading-7 text-secondary-light">
