@@ -27,8 +27,8 @@ export async function GET(req: Request) {
   const search = searchParams.get("search");
   const excludeId = searchParams.get("excludeId");
 
-  let whereClauses: string[] = [];
-  let values: any[] = [];
+  const whereClauses: string[] = [];
+  const values: string[] = [];
   let idx = 1;
 
   if (type) {

@@ -10,7 +10,6 @@ import { PublicationType } from "@/types/publication";
 export default function PublicationPage() {
   const {
     publications,
-    loading,
     fetchPublications,
     createPublication,
     updatePublication,
