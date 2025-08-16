@@ -3,7 +3,6 @@ import { PublicationType } from "@/types/publication";
 import dynamic from "next/dynamic";
 import { getFullImageUrl } from "@/lib/image";
 import Image from "next/image";
-import { cdnLoader } from "@/lib/cdnLoader";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
@@ -243,27 +242,18 @@ export default function PublicationForm({
 
           {(coverFile || form.cover_url) && (
             <div className="mt-2">
-              {/* <img
-                src={
-                  coverFile
-                    ? URL.createObjectURL(coverFile)
-                    : getFullImageUrl(form.cover_url)
-                }
-                alt="Cover Preview"
-                className="w-24 h-32 object-cover border rounded"
-              /> 
               <Image
                 src={
                   coverFile
                     ? URL.createObjectURL(coverFile)
                     : getFullImageUrl(form.cover_url)
                 }
-                alt="Preview"
-                className="object-cover mb-2 rounded border"
-                width={200}
-                height={160}
-                loader={cdnLoader}
-              />*/}
+                alt="Cover Preview"
+                width={96}
+                height={128}
+                className="w-24 h-32 object-cover border rounded"
+                unoptimized
+              />
             </div>
           )}
         </div>
