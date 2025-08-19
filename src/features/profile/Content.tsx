@@ -12,8 +12,6 @@ export default function Content() {
   const { profile, loading } = usePublicProfile(id);
   const { profiles } = usePublicProfile();
 
-  console.log(profiles);
-
   if (loading) return <Loader />;
 
   if (!profile) return <div>Profile tidak ditemukan</div>;

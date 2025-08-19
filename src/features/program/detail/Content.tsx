@@ -3,6 +3,7 @@ import { usePublicProgram, usePublicPrograms } from "@/hooks/usePublicProgram";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { usePublicActivities } from "@/hooks/usePublicActivity";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 export default function Content() {
   const params = useParams();
@@ -57,7 +58,9 @@ export default function Content() {
                       >
                         Pihak yang terlibat
                       </td>
-                      <td className="px-3 border-l py-2">{activity.pic}</td>
+                      <td className="px-3 border-l py-2">
+                        <MarkdownRenderer content={activity.pic ?? ""} />
+                      </td>
                     </tr>
                   </tbody>
                 </table>

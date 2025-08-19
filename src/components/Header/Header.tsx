@@ -91,11 +91,13 @@ export default function Header({ variant = "default" }: HeaderProps) {
       </div>
 
       <div className="flex-none gap-2 hidden lg:flex">
-        <Button
-          title="Masuk"
-          customClass={`h-8 text-sm border text-action-hover border-secondary-light`}
-          variant="transparent"
-        />
+        <Link href={"/login"}>
+          <Button
+            title="Masuk"
+            customClass={`h-8 text-sm border text-action-hover border-secondary-light`}
+            variant="transparent"
+          />
+        </Link>
         <Button title="Daftar" customClass="h-8 text-sm" />
       </div>
 
