@@ -91,25 +91,27 @@ export default function Header({ variant = "default" }: HeaderProps) {
       </div>
 
       <div className="flex-none gap-2 hidden lg:flex">
-        <Link href={"/login"}>
-          <Button
-            title="Masuk"
-            customClass={`h-8 text-sm border text-action-hover border-secondary-light`}
-            variant="transparent"
-          />
-        </Link>
-        <Button title="Daftar" customClass="h-8 text-sm" />
+        <Button
+          title="Masuk"
+          href="/login"
+          customClass="h-8 text-sm border border-secondary-light text-action-hover"
+          variant="transparent"
+        />
+
+        <Button title="Daftar" customClass="h-8 text-sm" href="/daftar" />
       </div>
 
       <div className="flex-none lg:hidden inline">
-        <button className="h-9 px-4 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr text-primary-light">
-          <Image
-            src="/assets/icons/mobile-menu.svg"
-            alt="Mobile Menu"
-            width={24}
-            height={24}
-          />
-        </button>
+        <Link href={"/daftar"}>
+          <button className="h-9 px-4 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[24px] rounded-br-[24px] rounded-bl rounded-tr text-primary-light">
+            <Image
+              src="/assets/icons/mobile-menu.svg"
+              alt="Mobile Menu"
+              width={24}
+              height={24}
+            />
+          </button>
+        </Link>
       </div>
     </div>
   );

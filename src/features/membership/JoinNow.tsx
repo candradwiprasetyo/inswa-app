@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function JoinNow() {
   return (
@@ -27,15 +28,17 @@ export default function JoinNow() {
             <div className="text-2xl font-pathway-extreme font-medium">
               Gabung Sekarang
             </div>
-            <button className="h-10 w-full text-base bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 mx-auto mb-10">
-              Unduh Formulir
-              <Image
-                src="/assets/icons/arrow-right.svg"
-                alt="Logo"
-                width={24}
-                height={24}
-              />
-            </button>
+            <Link href="/daftar">
+              <button className="h-10 w-full text-base bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light flex gap-2 mx-auto my-10">
+                Isi Formulir
+                <Image
+                  src="/assets/icons/arrow-right.svg"
+                  alt="Logo"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </Link>
             <div className="text-lg font-pathway-extreme font-medium mb-2">
               Punya Pertanyaan
             </div>

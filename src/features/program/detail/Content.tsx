@@ -14,8 +14,8 @@ export default function Content() {
   const { activities } = usePublicActivities(id);
 
   return (
-    <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 flex gap-10">
-      <div className="w-2/3 text-secondary-light leading-7">
+    <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 md:flex gap-10">
+      <div className="md:w-2/3 text-secondary-light leading-7">
         {program?.description && (
           <div className="mb-8 md:mb-12">{program?.description}</div>
         )}
@@ -69,7 +69,7 @@ export default function Content() {
           </>
         ))}
       </div>
-      <div className="w-1/3">
+      <div className="md:w-1/3">
         <div className="text-2xl font-medium">Program Lainnya</div>
         <div className="mt-6">
           {programs.map((data, index) => (

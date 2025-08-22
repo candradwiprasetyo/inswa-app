@@ -43,7 +43,7 @@ export default function PublicationDetailPage() {
                 alt={publication.title}
                 width={240}
                 height={320}
-                className="w-[180px] md:w-[240px] h-[260px] md:h-[320px] object-cover md:-mt-40 md:absolute border-2 border-tertiary-light mx-auto md:mx-none"
+                className="w-[180px] md:w-[240px] h-[260px] md:h-[320px] object-cover -mt-20 md:-mt-40 md:absolute border-2 border-tertiary-light mx-auto md:mx-none"
               />
             )}
           </div>
@@ -51,7 +51,7 @@ export default function PublicationDetailPage() {
             <div className="text-2xl md:text-[32px] font-light md:font-medium font-pathway-extreme md:leading-normal">
               {publication.title}
             </div>
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 mt-5 justify-center md:justify-start">
               <Link href={""} target="_blank">
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
@@ -83,14 +83,11 @@ export default function PublicationDetailPage() {
                 </div>
               </Link>
             </div>
-            <div className="text-sm text-tertiary-light mt-2">
-              {publication.year}
-            </div>
 
             {publication.file && (
               <button
                 onClick={() => setOpenPdf(true)}
-                className="mt-4 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition"
+                className="mt-8 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition"
               >
                 Baca PDF
               </button>

@@ -12,7 +12,11 @@ export default function Content() {
         <div className="md:w-2/3 leading-7 h-screen md:h-auto flex items-center">
           <div className="w-full">
             <div className="font-medium text-[32px] md:text-[48px] flex w-fit gap-3 items-center mb-6 pb-3 font-pathway-extreme text-primary-light">
-              Masuk Akun
+              Daftar Keanggotaan InSWA
+            </div>
+            <div className="mt-10 mb-4 text-tertiary-light">
+              Lengkapi data singkat di bawah ini untuk mengajukan pendaftaran
+              sebagai member:
             </div>
             <div className="space-y-4">
               <input
@@ -22,16 +26,22 @@ export default function Content() {
               ></input>
 
               <input
+                type="text"
+                className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                placeholder="Nomor Whatsapp "
+              ></input>
+
+              <input
                 type="password"
                 className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
                 placeholder="Password"
               ></input>
             </div>
-            <Button title="Masuk" customClass="mt-6" />
-            <div className="font-semibold text-action-hover mt-10 font-pathway-extreme">
-              Lupa Password{" "}
-              <span className="font-light text-gray-300 px-2">|</span>
-              <Link href="/daftar">Register Member</Link>
+            <Button title="Ajukan Pendaftaran" customClass="mt-6" />
+            <div className="mt-10 text-tertiary-light italic text-sm">
+              Tim InSWA akan melakukan proses validasi melalui WhatsApp untuk
+              memastikan data yang Anda kirimkan. Keanggotaan akan aktif setelah
+              melalui tahap verifikasi dari tim.
             </div>
           </div>
         </div>
