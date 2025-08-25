@@ -15,6 +15,14 @@ const navItems = [
   { label: "Media", href: "/media" },
 ];
 
+const subNavItems = [
+  { label: "Sejarah InSWA", href: "/tentang-kami" },
+  { label: "Visi & Misi", href: "/" },
+  { label: "Struktur Organisasi", href: "/" },
+  { label: "Dewan Pengurus", href: "/" },
+  { label: "Kontak", href: "/" },
+];
+
 export type HeaderProps = {
   variant?: "default" | "white";
 };
@@ -41,10 +49,12 @@ export default function Header({ variant = "default" }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  console.log(pathname.startsWith("/tentang-kami"));
+
   return (
     <div
       className={clsx(
-        `transition-colors duration-500 max-w-7xl md:mx-auto h-14 md:h-16 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex items-center fixed z-50 top-3`,
+        `transition-colors duration-500 min-h-[64px] max-w-7xl md:mx-auto pt-2 rounded-xl right-3 md:right-10 left-3 md:left-10 px-3 md:px-10 flex fixed z-50 top-3 items-start`,
         variant === "default"
           ? isScrolled
             ? "bg-header-secondary"
@@ -52,7 +62,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
           : "bg-header-white"
       )}
     >
-      <div className="flex-grow flex items-center gap-8">
+      <div className="flex-grow flex items-start gap-8">
         <div className="flex-none">
           <Link href="/">
             <Image
@@ -68,29 +78,54 @@ export default function Header({ variant = "default" }: HeaderProps) {
             />
           </Link>
         </div>
-        <div
-          className={clsx(
-            "flex-grow gap-8 font-medium hidden lg:flex",
-            isScrolled || variant !== "default"
-              ? "text-tertiary-light"
-              : "text-white"
-          )}
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`transition-colors hover:text-action-hover text-sm xl:text-base ${
-                pathname.startsWith(item.href) ? "text-green" : ""
-              }`}
+        <div className="flex-grow">
+          <div
+            className={clsx(
+              "gap-8 font-medium hidden lg:flex h-12 items-center",
+              isScrolled || variant !== "default"
+                ? "text-tertiary-light"
+                : "text-white"
+            )}
+          >
+            {navItems.map((item) => (
+              <Link
+                key={`item-${item.href}`}
+                href={item.href}
+                className={`transition-colors hover:text-action-hover text-sm ${
+                  pathname.startsWith(item.href) ? "text-green" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          {pathname.startsWith("/tentang-kami") && isScrolled && (
+            <div
+              className={clsx(
+                "flex gap-8 mt-4",
+                isScrolled || variant !== "default"
+                  ? "text-tertiary-light"
+                  : "text-white"
+              )}
             >
-              {item.label}
-            </Link>
-          ))}
+              {subNavItems.map((itemSub) => (
+                <a
+                  key={`sub-item-${itemSub.href}`}
+                  className={`transition-colors hover:text-action-hover text-xs pb-2 cursor-pointer ${
+                    !pathname.startsWith(itemSub.href)
+                      ? "text-green font-bold border-b-[3px] border-green"
+                      : ""
+                  }`}
+                >
+                  {itemSub.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="flex-none gap-2 hidden lg:flex">
+      <div className="flex-none gap-2 hidden lg:flex pt-2">
         <Button
           title="Masuk"
           href="/login"

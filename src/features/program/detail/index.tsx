@@ -9,11 +9,6 @@ export default function ProgramDetail() {
   return (
     <>
       <Header />
-      <Hero
-        title="Clean Ocean through Clean Communities (CLOCC)"
-        background="program/program-1.png"
-        detailPage
-      />
       <Content />
       <Footer />
     </>
