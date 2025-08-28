@@ -10,6 +10,7 @@ type ButtonProps = {
   href?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
 export default function Button({
@@ -20,10 +21,12 @@ export default function Button({
   href,
   onClick,
   type = "button",
+  disabled = false,
 }: ButtonProps) {
   const classes = clsx(
     "h-10 px-8 text-base font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2",
     variant === "default" && "bg-green-gradient",
+    disabled && "opacity-50 cursor-not-allowed",
     customClass
   );
 
@@ -50,7 +53,12 @@ export default function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={classes}
+      disabled={disabled}
+    >
       {content}
     </button>
   );

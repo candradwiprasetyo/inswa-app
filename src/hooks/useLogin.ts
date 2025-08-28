@@ -24,7 +24,11 @@ export function useLogin() {
       if (!res.ok) {
         setError(data.error || "Login failed");
       } else {
-        router.push("/admin");
+        if (data.user?.role === "admin") {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/dashboard");
+        }
       }
     } catch (err) {
       setError(`error ${err}`);

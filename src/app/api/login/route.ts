@@ -7,9 +7,10 @@ export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
 
   try {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
+    const result = await pool.query(
+      "SELECT * FROM users WHERE email = $1 and active_status = true",
+      [email]
+    );
     const user = result.rows[0];
 
     if (!user) {
@@ -38,7 +39,15 @@ export async function POST(req: NextRequest) {
       { expiresIn: "7d" }
     );
 
-    const response = NextResponse.json({ message: "Login successful" });
+    const response = NextResponse.json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
+    });
 
     response.cookies.set("token", token, {
       httpOnly: false,

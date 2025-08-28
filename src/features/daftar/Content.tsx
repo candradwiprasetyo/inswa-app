@@ -1,10 +1,40 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
 import { usePublicArticles } from "@/hooks/usePublicArticle";
 import Button from "@/components/Button";
 import NewsCard from "@/components/NewsCard";
+import { useRegister } from "@/hooks/useRegister";
+import { useForm } from "react-hook-form";
+
+type RegisterFormValues = {
+  name: string;
+  email: string;
+  whatsapp: string;
+  password: string;
+};
 
 export default function Content() {
   const { articles } = usePublicArticles(12, undefined, undefined);
+  const { register: registerUser, loading, error, success } = useRegister();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<RegisterFormValues>();
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    await registerUser(data);
+  };
+
+  useEffect(() => {
+    if (success) {
+      reset();
+    }
+  }, [success, reset]);
 
   return (
     <div className="w-full relative">
@@ -18,33 +48,93 @@ export default function Content() {
               Lengkapi data singkat di bawah ini untuk mengajukan pendaftaran
               sebagai member:
             </div>
-            <div className="space-y-4">
-              <input
-                type="text"
-                className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
-                placeholder="Email"
-              ></input>
 
-              <input
-                type="text"
-                className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
-                placeholder="Nomor Whatsapp "
-              ></input>
+            {/* Form */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                  placeholder="Nama"
+                  {...register("name", { required: "Nama wajib diisi" })}
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
 
-              <input
-                type="password"
-                className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
-                placeholder="Password"
-              ></input>
-            </div>
-            <Button title="Ajukan Pendaftaran" customClass="mt-6" />
-            <div className="mt-10 text-tertiary-light italic text-sm">
-              Tim InSWA akan melakukan proses validasi melalui WhatsApp untuk
-              memastikan data yang Anda kirimkan. Keanggotaan akan aktif setelah
-              melalui tahap verifikasi dari tim.
-            </div>
+              <div>
+                <input
+                  type="text"
+                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                  placeholder="Email"
+                  {...register("email", { required: "Email wajib diisi" })}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                  placeholder="Nomor Whatsapp"
+                  {...register("whatsapp", {
+                    required: "Nomor WhatsApp wajib diisi",
+                  })}
+                />
+                {errors.whatsapp && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.whatsapp.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <input
+                  type="password"
+                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                  placeholder="Password"
+                  {...register("password", {
+                    required: "Password wajib diisi",
+                    minLength: {
+                      value: 6,
+                      message: "Password minimal 6 karakter",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              <Button
+                title={loading ? "Mengirim..." : "Ajukan Pendaftaran"}
+                disabled={loading}
+                customClass="mt-6"
+                type="submit"
+              />
+
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+              {success && (
+                <p className="text-green-500 text-sm mt-2 italic">
+                  {success}. Tim InSWA akan melakukan proses validasi melalui
+                  WhatsApp untuk memastikan data yang Anda kirimkan. Keanggotaan
+                  akan aktif setelah melalui tahap verifikasi dari tim.
+                </p>
+              )}
+            </form>
           </div>
         </div>
+
+        {/* Postingan Terakhir */}
         <div className="md:w-1/3 md:border-l-2 border-l-none md:pl-6 pl-0">
           <div className="text-2xl font-medium">Postingan Terakhir</div>
           <div className="mt-6 hidden md:inline">

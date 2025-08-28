@@ -2,15 +2,15 @@
 
 import AdminHeader from "@/components/AdminHeader";
 import AdminNavigation from "@/components/AdminNavigation";
-import AdminProfilePage from "@/features/admin/profile";
+import AdminMemberPage from "@/features/admin/member";
 
-export default function AdminProfile() {
+export default function AdminMember() {
   return (
     <>
       <div className="bg-admin min-h-screen">
         <AdminHeader />
         <AdminNavigation />
-        <AdminProfilePage />
+        <AdminMemberPage />
       </div>
     </>
   );

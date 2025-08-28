@@ -2,15 +2,15 @@
 
 import AdminHeader from "@/components/AdminHeader";
 import AdminNavigation from "@/components/AdminNavigation";
-import AdminProfilePage from "@/features/admin/profile";
+import AdminArticlePage from "@/features/admin/article";
 
-export default function AdminProfile() {
+export default function MediaProgram() {
   return (
     <>
       <div className="bg-admin min-h-screen">
         <AdminHeader />
         <AdminNavigation />
-        <AdminProfilePage />
+        <AdminArticlePage />
       </div>
     </>
   );

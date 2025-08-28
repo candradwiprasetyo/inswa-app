@@ -1,10 +1,30 @@
+"use client";
+
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { usePublicArticles } from "@/hooks/usePublicArticle";
 import Button from "@/components/Button";
 import NewsCard from "@/components/NewsCard";
+import { useLogin } from "@/hooks/useLogin";
+
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
 
 export default function Content() {
   const { articles } = usePublicArticles(12, undefined, undefined);
+  const { login, loading, error } = useLogin();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>();
+
+  const onSubmit = (data: LoginFormValues) => {
+    login(data.email, data.password);
+  };
 
   return (
     <div className="w-full relative">
@@ -14,20 +34,46 @@ export default function Content() {
             <div className="font-medium text-[32px] md:text-[48px] flex w-fit gap-3 items-center mb-6 pb-3 font-pathway-extreme text-primary-light">
               Masuk Akun
             </div>
-            <div className="space-y-4">
-              <input
-                type="text"
-                className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
-                placeholder="Email"
-              ></input>
 
-              <input
-                type="password"
-                className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
-                placeholder="Password"
-              ></input>
-            </div>
-            <Button title="Masuk" customClass="mt-6" />
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  {...register("email", { required: "Email wajib diisi" })}
+                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                  placeholder="Email"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email.message}</p>
+                )}
+              </div>
+
+              <div>
+                <input
+                  type="password"
+                  {...register("password", {
+                    required: "Password wajib diisi",
+                  })}
+                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
+                  placeholder="Password"
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+
+              <Button
+                title={loading ? "Loading..." : "Masuk"}
+                customClass="mt-6"
+                disabled={loading}
+                type="submit"
+              />
+            </form>
+
             <div className="font-semibold text-action-hover mt-10 font-pathway-extreme">
               Lupa Password{" "}
               <span className="font-light text-gray-300 px-2">|</span>
@@ -35,6 +81,8 @@ export default function Content() {
             </div>
           </div>
         </div>
+
+        {/* Sidebar Artikel */}
         <div className="md:w-1/3 md:border-l-2 border-l-none md:pl-6 pl-0">
           <div className="text-2xl font-medium">Postingan Terakhir</div>
           <div className="mt-6 hidden md:inline">
