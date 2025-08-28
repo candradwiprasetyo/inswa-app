@@ -23,10 +23,16 @@ Kami akan menghubungi Anda lebih lanjut.`,
     });
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Email sending failed:", error);
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { success: false, error: error.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: "An unknown error occurred" },
       { status: 500 }
     );
   }

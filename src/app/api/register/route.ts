@@ -38,8 +38,14 @@ export async function POST(req: Request) {
     await sendRegistrationEmail(email, name);
 
     return NextResponse.json(result.rows[0], { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Register error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { error: "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }

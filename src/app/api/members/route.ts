@@ -57,8 +57,14 @@ export async function POST(req: Request) {
     );
 
     return NextResponse.json(result.rows[0], { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating member:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { error: "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }

@@ -34,7 +34,11 @@ export function useRegister() {
       setSuccess(data.message || "Pendaftaran berhasil");
       return data.user;
     } catch (err) {
-      setError("Terjadi kesalahan jaringan");
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Terjadi kesalahan jaringan");
+      }
       return null;
     } finally {
       setLoading(false);

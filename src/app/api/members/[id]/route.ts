@@ -61,7 +61,7 @@ export async function PATCH(req: Request) {
   const { name, email, whatsapp, active_status, role, password } = body;
 
   let query = `UPDATE users SET name = $1, email = $2, whatsapp = $3, active_status = $4, role = $5, updated_at = NOW()`;
-  let params = [name, email, whatsapp, active_status, role || "member", id];
+  const params = [name, email, whatsapp, active_status, role || "member", id];
 
   if (password) {
     const hashedPassword = await hashPassword(password);
