@@ -6,6 +6,7 @@ import { usePublicActivities } from "@/hooks/usePublicActivity";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import Hero from "@/components/Hero";
 import { getFullImageUrl } from "@/lib/image";
+import ReactMarkdown from "react-markdown";
 
 export default function Content() {
   const params = useParams();
@@ -25,7 +26,9 @@ export default function Content() {
       <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 md:flex gap-10">
         <div className="md:w-2/3 text-secondary-light leading-7">
           {program?.description && (
-            <div className="mb-8 md:mb-12">{program?.description}</div>
+            <div className="mb-8 md:mb-12">
+              <ReactMarkdown>{program?.content}</ReactMarkdown>
+            </div>
           )}
           {activities.map((activity, index) => (
             <>
@@ -38,7 +41,7 @@ export default function Content() {
                 </div>
               </div>
               <div className="mb-8 md:mb-12">
-                <p>{activity.content}</p>
+                <ReactMarkdown>{activity?.content}</ReactMarkdown>
               </div>
               <div className="mb-8 md:mb-12">
                 <div className="overflow-hidden rounded-lg border">
