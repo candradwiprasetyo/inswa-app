@@ -95,10 +95,10 @@ export async function POST(req: Request) {
 
   const result = await pool.query(
     `INSERT INTO publications (
-      publication_type_id, title, description, file, size, year,
-      publisher, author, foreword, edition, isbn, pages, dimension, created_at, updated_at
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,NOW(),NOW())
-    RETURNING *`,
+    publication_type_id, title, description, file, size, year,
+    publisher, author, foreword, edition, isbn, pages, dimension, cover_url, created_at, updated_at
+  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,NOW(),NOW())
+  RETURNING *`,
     [
       publication_type_id,
       title,
