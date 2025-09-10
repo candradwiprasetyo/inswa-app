@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import Button from "../Button";
+import { tabData } from "@/data/tab";
+import { Link as LinkScroll } from "react-scroll";
 
 const navItems = [
   { label: "Tentang Kami", href: "/tentang-kami" },
@@ -13,14 +15,6 @@ const navItems = [
   { label: "Publikasi", href: "/publikasi" },
   { label: "Membership", href: "/membership" },
   { label: "Media", href: "/media" },
-];
-
-const subNavItems = [
-  { label: "Sejarah InSWA", href: "/tentang-kami" },
-  { label: "Visi & Misi", href: "/" },
-  { label: "Struktur Organisasi", href: "/" },
-  { label: "Dewan Pengurus", href: "/" },
-  { label: "Kontak", href: "/" },
 ];
 
 export type HeaderProps = {
@@ -108,17 +102,19 @@ export default function Header({ variant = "default" }: HeaderProps) {
                   : "text-white"
               )}
             >
-              {subNavItems.map((itemSub) => (
-                <a
-                  key={`sub-item-${itemSub.href}`}
-                  className={`transition-colors hover:text-action-hover text-xs pb-2 cursor-pointer ${
-                    !pathname.startsWith(itemSub.href)
-                      ? "text-green font-bold border-b-[3px] border-green"
-                      : ""
-                  }`}
+              {tabData.map((tab, index) => (
+                <LinkScroll
+                  key={tab.id}
+                  to={tab.id}
+                  smooth={true}
+                  duration={500}
+                  offset={index === 0 ? -120 : -100}
+                  spy={true}
+                  className={`transition-colors hover:text-action-hover text-xs pb-2 cursor-pointer`}
+                  activeClass="text-green font-bold border-b-[3px] border-green"
                 >
-                  {itemSub.label}
-                </a>
+                  {tab.label}
+                </LinkScroll>
               ))}
             </div>
           )}

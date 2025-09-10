@@ -34,7 +34,7 @@ export default function BoardOfDirector() {
   }
 
   return (
-    <div className="bg-bod">
+    <div className="bg-bod" id="board-of-director-section">
       <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-20 ">
         <div className="md:flex justify-between items-center">
           <div className="mb-6 font-pathway-extreme text-[32px] md:text-[40px]">
