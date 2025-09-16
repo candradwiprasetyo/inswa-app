@@ -10,6 +10,7 @@ import {
 } from "@/hooks/usePublicPublication";
 import { cdnLoader } from "@/lib/cdnLoader";
 import { getFullImageUrl } from "@/lib/image";
+import ReactMarkdown from "react-markdown";
 
 export default function PublicationDetailPage() {
   const { id } = useParams();
@@ -84,13 +85,27 @@ export default function PublicationDetailPage() {
               </Link>
             </div>
 
-            {publication.file && (
-              <button
-                onClick={() => setOpenPdf(true)}
-                className="mt-8 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition"
+            {publication.file && publication.publication_type_id !== 4 && (
+              <a
+                href={getFullImageUrl(publication.file)}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Baca PDF
-              </button>
+                <div className="mt-5 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition inline-block">
+                  Open PDF
+                </div>
+              </a>
+            )}
+            {publication.file && publication.publication_type_id === 4 && (
+              <a
+                href={publication.file}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="mt-5 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition inline-block">
+                  Lihat Peraturan
+                </div>
+              </a>
             )}
           </div>
         </div>
@@ -116,87 +131,91 @@ export default function PublicationDetailPage() {
 
       <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 md:flex gap-10 md:mt-10">
         <div className="md:w-2/3 text-secondary-light leading-7">
-          <div className="font-medium text-xl flex w-fit gap-3 items-center mb-6 border-b-2 border-action-hover pb-3">
-            <Image
-              src="/assets/icons/point-leaf.svg"
-              alt="Point Leaf"
-              width={22}
-              height={22}
-            />
-            Tentang
-          </div>
-          <div className="mb-8 md:mb-8 leading-7">
-            {publication.description}
-          </div>
+          {publication.publication_type_id === 1 && (
+            <>
+              <div className="font-medium text-xl flex w-fit gap-3 items-center mb-6 border-b-2 border-action-hover pb-3">
+                <Image
+                  src="/assets/icons/point-leaf.svg"
+                  alt="Point Leaf"
+                  width={22}
+                  height={22}
+                />
+                Sinopsis
+              </div>
+              <div className="mb-8 md:mb-8 leading-7">
+                <ReactMarkdown>{publication.description}</ReactMarkdown>
+              </div>
 
-          {/* Tabel detail */}
-          <div className="mb-8 md:mb-12">
-            <div className="overflow-hidden rounded-lg border text-sm md:text-base">
-              <table className="w-full">
-                <tbody>
-                  <tr>
-                    <td
-                      className="font-semibold bg-table-program py-2 px-3"
-                      width="30%"
-                    >
-                      Penerbit
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.publisher}
-                    </td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="font-semibold bg-table-program py-2 px-3">
-                      Penulis
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.author}
-                    </td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="font-semibold bg-table-program py-2 px-3">
-                      Sambutan
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.foreword}
-                    </td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="font-semibold bg-table-program py-2 px-3">
-                      Cetakan
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.edition}
-                    </td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="font-semibold bg-table-program py-2 px-3">
-                      ISBN
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.isbn}
-                    </td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="font-semibold bg-table-program py-2 px-3">
-                      Halaman
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.pages}
-                    </td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="font-semibold bg-table-program py-2 px-3">
-                      Ukuran
-                    </td>
-                    <td className="px-3 border-l text-tertiary-light">
-                      {publication.dimension}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+              {/* Tabel detail */}
+              <div className="mb-8 md:mb-12">
+                <div className="overflow-hidden rounded-lg border text-sm md:text-base">
+                  <table className="w-full">
+                    <tbody>
+                      <tr>
+                        <td
+                          className="font-semibold bg-table-program py-2 px-3"
+                          width="30%"
+                        >
+                          Penerbit
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.publisher}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="font-semibold bg-table-program py-2 px-3">
+                          Penulis
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.author}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="font-semibold bg-table-program py-2 px-3">
+                          Sambutan
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.foreword}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="font-semibold bg-table-program py-2 px-3">
+                          Cetakan
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.edition}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="font-semibold bg-table-program py-2 px-3">
+                          ISBN
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.isbn}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="font-semibold bg-table-program py-2 px-3">
+                          Halaman
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.pages}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="font-semibold bg-table-program py-2 px-3">
+                          Ukuran
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {publication.dimension}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Publikasi Lainnya */}

@@ -85,7 +85,9 @@ export default function Content() {
                     <div className="flex-grow px-6">
                       <div className="text-lg mb-2 line-clamp-2">{p.title}</div>
                       <div className="text-xs text-tertiary-light">
-                        PDF | {p.size} | {p.year}
+                        {p.publication_type_id !== 4 && "PDF"}
+                        {p.size && <> | {p.size} </>}
+                        {p.year && <> | {p.year} </>}
                       </div>
                     </div>
                   </div>
