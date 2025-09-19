@@ -14,6 +14,7 @@ import ReactMarkdown from "react-markdown";
 import { formatPublicationDate } from "@/lib/dateUtils";
 import { useAuth } from "@/hooks/useAuth";
 import Button from "@/components/Button";
+import { usePathname } from "next/navigation";
 
 export default function PublicationDetailPage() {
   const { id } = useParams();
@@ -27,6 +28,10 @@ export default function PublicationDetailPage() {
 
   const [openPdf, setOpenPdf] = useState(false);
   const { user } = useAuth();
+
+  const pathname = usePathname();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const currentUrl = `${baseUrl}${pathname}`;
 
   if (loading) {
     return <div className="p-10 text-center">Loading...</div>;
@@ -57,7 +62,12 @@ export default function PublicationDetailPage() {
               {publication.title}
             </div>
             <div className="flex gap-2 mt-5 justify-center md:justify-start">
-              <Link href={""} target="_blank">
+              <Link
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  currentUrl
+                )}`}
+                target="_blank"
+              >
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
                     src="/assets/icons/footer-facebook.svg"
