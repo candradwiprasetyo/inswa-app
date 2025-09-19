@@ -10,14 +10,8 @@ import { cdnLoader } from "@/lib/cdnLoader";
 
 export default function Content() {
   const [activeType, setActiveType] = useState<string>("all");
-  const {
-    publications,
-    loading,
-    fetchedOnce,
-    currentPage,
-    setCurrentPage,
-    hasMore,
-  } = usePublicPublications(6, activeType);
+  const { publications, loading, fetchedOnce, setCurrentPage, hasMore } =
+    usePublicPublications(6, activeType);
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
