@@ -8,6 +8,7 @@ import clsx from "clsx";
 import Button from "../Button";
 import { tabData } from "@/data/tab";
 import { Link as LinkScroll } from "react-scroll";
+import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { label: "Tentang Kami", href: "/tentang-kami" },
@@ -24,6 +25,7 @@ export type HeaderProps = {
 export default function Header({ variant = "default" }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,14 +124,30 @@ export default function Header({ variant = "default" }: HeaderProps) {
       </div>
 
       <div className="flex-none gap-2 hidden lg:flex pt-2">
-        <Button
-          title="Masuk"
-          href="/login"
-          customClass="h-8 text-sm border border-secondary-light text-action-hover"
-          variant="transparent"
-        />
-
-        <Button title="Daftar" customClass="h-8 text-sm" href="/daftar" />
+        {!user ? (
+          <div className="flex-none gap-2 hidden lg:flex">
+            <Button
+              title="Masuk"
+              href="/login"
+              customClass="h-8 text-sm border border-secondary-light text-action-hover"
+              variant="transparent"
+            />
+            <Button title="Daftar" customClass="h-8 text-sm" href="/daftar" />
+          </div>
+        ) : (
+          <div className="flex-none gap-4 hidden lg:flex items-center text-sm">
+            <span
+              className={
+                isScrolled || variant !== "default"
+                  ? "text-tertiary-light"
+                  : "text-white"
+              }
+            >
+              Hi, {user.name}
+            </span>
+            <Button title="Logout" customClass="h-8 text-sm" onClick={logout} />
+          </div>
+        )}
       </div>
 
       <div className="flex-none lg:hidden inline">

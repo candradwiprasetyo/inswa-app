@@ -16,7 +16,7 @@ type RegisterFormValues = {
 };
 
 export default function Content() {
-  const { articles } = usePublicArticles(12, undefined, undefined);
+  const { articles } = usePublicArticles(5, undefined, undefined);
   const { register: registerUser, loading, error, success } = useRegister();
 
   const {

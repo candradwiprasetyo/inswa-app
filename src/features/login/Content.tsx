@@ -13,7 +13,7 @@ type LoginFormValues = {
 };
 
 export default function Content() {
-  const { articles } = usePublicArticles(12, undefined, undefined);
+  const { articles } = usePublicArticles(5, undefined, undefined);
   const { login, loading, error } = useLogin();
 
   const {

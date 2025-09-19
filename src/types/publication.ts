@@ -14,4 +14,5 @@ export type PublicationType = {
   pages: string;
   dimension: string;
   cover_url: string;
+  publication_date: string;
 };

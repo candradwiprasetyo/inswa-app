@@ -62,7 +62,10 @@ export function usePublicArticles(
 
       const res = await fetch(`/api/articles?${params.toString()}`);
       const json = await res.json();
-      setArticles(json.data || []);
+
+      setArticles((prev) =>
+        currentPage === 1 ? json.data || [] : [...prev, ...(json.data || [])]
+      );
       setTotal(json.total || 0);
     } catch (error) {
       console.error("Failed to fetch articles:", error);

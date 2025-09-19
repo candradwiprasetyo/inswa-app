@@ -32,8 +32,10 @@ export default function PublicationForm({
     pages: "",
     dimension: "",
     cover_url: "",
+    publication_date: "",
   });
-
+  const [publicationMonth, setPublicationMonth] = useState("");
+  const [publicationYear, setPublicationYear] = useState("");
   const [fileObj, setFileObj] = useState<File | null>(null);
   const [fileError, setFileError] = useState("");
   const [isUploading, setIsUploading] = useState(false);
@@ -57,7 +59,14 @@ export default function PublicationForm({
         pages: initialData.pages,
         dimension: initialData.dimension,
         cover_url: initialData.cover_url,
+        publication_date: initialData.publication_date || "",
       });
+
+      if (initialData.publication_date) {
+        const [year, month] = initialData.publication_date.split("-");
+        setPublicationYear(year);
+        setPublicationMonth(month);
+      }
     }
   }, [initialData]);
 
@@ -175,6 +184,10 @@ export default function PublicationForm({
         ...form,
         file: fileUrl,
         cover_url: coverUrl,
+        publication_date:
+          publicationYear && publicationMonth
+            ? `${publicationYear}-${publicationMonth}`
+            : "",
       });
     } finally {
       setIsUploading(false);
@@ -407,6 +420,39 @@ export default function PublicationForm({
                 onChange={handleChange}
                 className="border p-2 rounded w-full"
               />
+            </div>
+
+            <div>
+              <label className="block mb-1 text-sm">Tanggal Publikasi</label>
+              <div className="flex">
+                <select
+                  value={publicationMonth}
+                  onChange={(e) => setPublicationMonth(e.target.value)}
+                  className="border p-2 rounded w-full"
+                  required
+                >
+                  <option value="01">Januari</option>
+                  <option value="02">Februari</option>
+                  <option value="03">Maret</option>
+                  <option value="04">April</option>
+                  <option value="05">Mei</option>
+                  <option value="06">Juni</option>
+                  <option value="07">Juli</option>
+                  <option value="08">Agustus</option>
+                  <option value="09">September</option>
+                  <option value="10">Oktober</option>
+                  <option value="11">November</option>
+                  <option value="12">Desember</option>
+                </select>
+                <input
+                  type="number"
+                  value={publicationYear}
+                  onChange={(e) => setPublicationYear(e.target.value)}
+                  className="border p-2 rounded w-full"
+                  placeholder="2025"
+                  required
+                />
+              </div>
             </div>
           </>
         )}

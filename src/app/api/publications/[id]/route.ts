@@ -43,14 +43,15 @@ export async function PUT(req: Request) {
     pages,
     dimension,
     cover_url,
+    publication_date,
   } = body;
 
   const result = await pool.query(
     `UPDATE publications SET
-    publication_type_id=$1, title=$2, description=$3, file=$4, size=$5, year=$6,
-    publisher=$7, author=$8, foreword=$9, edition=$10, isbn=$11, pages=$12, dimension=$13, cover_url=$14,
-    updated_at=NOW()
-    WHERE id=$15 RETURNING *`,
+      publication_type_id=$1, title=$2, description=$3, file=$4, size=$5, year=$6,
+      publisher=$7, author=$8, foreword=$9, edition=$10, isbn=$11, pages=$12, dimension=$13, cover_url=$14,
+      publication_date=$15, updated_at=NOW()
+    WHERE id=$16 RETURNING *`,
     [
       publication_type_id,
       title,
@@ -66,6 +67,7 @@ export async function PUT(req: Request) {
       pages,
       dimension,
       cover_url,
+      publication_date,
       id,
     ]
   );

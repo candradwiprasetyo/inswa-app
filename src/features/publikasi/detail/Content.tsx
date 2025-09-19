@@ -11,6 +11,9 @@ import {
 import { cdnLoader } from "@/lib/cdnLoader";
 import { getFullImageUrl } from "@/lib/image";
 import ReactMarkdown from "react-markdown";
+import { formatPublicationDate } from "@/lib/dateUtils";
+import { useAuth } from "@/hooks/useAuth";
+import Button from "@/components/Button";
 
 export default function PublicationDetailPage() {
   const { id } = useParams();
@@ -23,6 +26,7 @@ export default function PublicationDetailPage() {
   );
 
   const [openPdf, setOpenPdf] = useState(false);
+  const { user } = useAuth();
 
   if (loading) {
     return <div className="p-10 text-center">Loading...</div>;
@@ -66,16 +70,6 @@ export default function PublicationDetailPage() {
               <Link href={""} target="_blank">
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
-                    src="/assets/icons/footer-youtube.svg"
-                    alt="Footer Youtube"
-                    width={16}
-                    height={16}
-                  />
-                </div>
-              </Link>
-              <Link href={""} target="_blank">
-                <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
-                  <Image
                     src="/assets/icons/footer-instagram.svg"
                     alt="Footer Instagram"
                     width={16}
@@ -85,24 +79,34 @@ export default function PublicationDetailPage() {
               </Link>
             </div>
 
-            {publication.file && publication.publication_type_id !== 4 && (
-              <a
-                href={getFullImageUrl(publication.file)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="mt-5 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition inline-block">
-                  Open PDF
+            {publication.file &&
+              publication.publication_type_id !== 4 &&
+              (!user ? (
+                <div>
+                  <Button
+                    title="Daftar Member"
+                    customClass="h-8 text-sm w-48 mt-5"
+                    href="/daftar"
+                  />
                 </div>
-              </a>
-            )}
+              ) : (
+                <a
+                  href={getFullImageUrl(publication.file)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="mt-5 h-8 px-8 text-base font-semibold flex w-40 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient">
+                    Open PDF
+                  </div>
+                </a>
+              ))}
             {publication.file && publication.publication_type_id === 4 && (
               <a
                 href={publication.file}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="mt-5 bg-action px-4 py-2 text-white rounded-lg shadow hover:bg-action-hover transition inline-block">
+                <div className="mt-5 h-8 px-8 text-base font-semibold flex w-52 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient">
                   Lihat Peraturan
                 </div>
               </a>
@@ -130,8 +134,8 @@ export default function PublicationDetailPage() {
       )}
 
       <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 md:flex gap-10 md:mt-10">
-        <div className="md:w-2/3 text-secondary-light leading-7">
-          {publication.publication_type_id === 1 && (
+        {publication.publication_type_id === 1 && (
+          <div className="md:w-2/3 text-secondary-light leading-7">
             <>
               <div className="font-medium text-xl flex w-fit gap-3 items-center mb-6 border-b-2 border-action-hover pb-3">
                 <Image
@@ -152,6 +156,17 @@ export default function PublicationDetailPage() {
                   <table className="w-full">
                     <tbody>
                       <tr>
+                        <td
+                          className="font-semibold bg-table-program py-2 px-3"
+                          width="30%"
+                        >
+                          Tanggal Penerbitan
+                        </td>
+                        <td className="px-3 border-l text-tertiary-light">
+                          {formatPublicationDate(publication.publication_date)}
+                        </td>
+                      </tr>
+                      <tr className="border-t">
                         <td
                           className="font-semibold bg-table-program py-2 px-3"
                           width="30%"
@@ -215,20 +230,28 @@ export default function PublicationDetailPage() {
                 </div>
               </div>
             </>
-          )}
-        </div>
-
+          </div>
+        )}
         {/* Publikasi Lainnya */}
-        <div className="md:w-1/3">
+        <div
+          className={publication.publication_type_id === 1 ? "md:w-1/3" : ""}
+        >
           <div className="text-2xl font-medium">Publikasi Lainnya</div>
-          <div className="mt-6">
+          <div
+            className={`mt-6 border-t-2 border-primary-light-border py-4 gap-x-10
+                  ${
+                    publication.publication_type_id === 1
+                      ? "grid grid-cols-1"
+                      : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                  }`}
+          >
             {otherPublications.map((p) => (
               <Link
-                href={`/publikasi/${p.id}`}
                 key={p.id}
-                className="block border-t-2 border-primary-light-border py-4"
+                href={`/publikasi/${p.id}`}
+                className="block border-primary-light-border py-4 border-b"
               >
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-4 items-start">
                   <div className="flex-none">
                     {p.cover_url && (
                       <Image
@@ -237,16 +260,18 @@ export default function PublicationDetailPage() {
                         alt={p.title}
                         width={107}
                         height={80}
-                        className="w-20 h-28 object-cover border border-tertiary-light"
+                        className="w-20 h-28 object-cover border border-tertiary-light mt-2"
                       />
                     )}
                   </div>
                   <div className="flex-grow">
-                    <div className="text-lg md:text-xl font-light mb-2">
+                    <div className="text-lg md:text-xl font-light mb-2 line-clamp-5">
                       {p.title}
                     </div>
                     <div className="text-xs text-tertiary-light">
-                      PDF | {p.size} | {p.year}
+                      {p.publication_type_id !== 4 && "PDF"}
+                      {p.size && <> | {p.size} </>}
+                      {p.year && <> | {p.year} </>}
                     </div>
                   </div>
                 </div>
