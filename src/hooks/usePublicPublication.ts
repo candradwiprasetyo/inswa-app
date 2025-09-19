@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { PublicationType } from "@/types/publication";
 
 export function usePublicPublication(id?: string) {
@@ -35,41 +35,91 @@ export function usePublicPublications(
   excludeId?: string
 ) {
   const [publications, setPublications] = useState<PublicationType[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [debouncedSearch, setDebouncedSearch] = useState<string | undefined>(
+    search
+  );
+  const [hasMore, setHasMore] = useState(true);
+  const [fetchedOnce, setFetchedOnce] = useState(false);
+  const requestRef = useRef(0);
 
   useEffect(() => {
+    if (typeof search === "undefined") {
+      return;
+    }
+
     const handler = setTimeout(() => {
-      setDebouncedSearch(search);
-      setCurrentPage(1);
+      if (search !== debouncedSearch) {
+        setDebouncedSearch(search || "");
+        setCurrentPage(1);
+        setPublications([]);
+        setHasMore(true);
+        setFetchedOnce(false);
+      }
     }, 500);
 
     return () => clearTimeout(handler);
-  }, [search]);
+  }, [search, debouncedSearch]);
+
+  // reset kalau type/excludeId berubah
+  useEffect(() => {
+    setCurrentPage(1);
+    setPublications([]);
+    setHasMore(true);
+    setFetchedOnce(false);
+  }, [type, excludeId]);
 
   const fetchPublications = useCallback(async () => {
     setLoading(true);
+    const thisRequestId = ++requestRef.current;
+
     try {
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: limit.toString(),
       });
-      if (type && type !== "all") params.append("type", type);
-      if (debouncedSearch) params.append("search", debouncedSearch);
-      if (excludeId) params.append("excludeId", excludeId);
+
+      // hanya kirim type kalau bukan "all"
+      if (type && type !== "all") {
+        params.append("type", type);
+      }
+
+      if (debouncedSearch && debouncedSearch.length > 0) {
+        params.append("search", debouncedSearch);
+      }
+
+      if (excludeId) {
+        params.append("excludeId", excludeId);
+      }
 
       const res = await fetch(`/api/publications?${params.toString()}`);
       if (!res.ok) throw new Error("Gagal mengambil daftar publikasi");
-
       const json = await res.json();
-      setPublications(json.data || []);
+
+      if (requestRef.current !== thisRequestId) return;
+
+      const newData: PublicationType[] = json.data || [];
+
+      setPublications((prev) => {
+        if (currentPage === 1) {
+          return newData;
+        }
+        const existingIds = new Set(prev.map((p) => p.id));
+        const filtered = newData.filter((p) => !existingIds.has(p.id));
+        return [...prev, ...filtered];
+      });
+
       setTotal(json.total || 0);
+      setHasMore(currentPage < (json.totalPages || 0));
+      setFetchedOnce(true);
     } catch (error) {
       console.error("Failed to fetch publications:", error);
     } finally {
-      setLoading(false);
+      if (requestRef.current === thisRequestId) {
+        setLoading(false);
+      }
     }
   }, [limit, type, currentPage, debouncedSearch, excludeId]);
 
@@ -77,5 +127,13 @@ export function usePublicPublications(
     fetchPublications();
   }, [fetchPublications]);
 
-  return { publications, loading, total, currentPage, limit, setCurrentPage };
+  return {
+    publications,
+    loading,
+    fetchedOnce,
+    total,
+    currentPage,
+    setCurrentPage,
+    hasMore,
+  };
 }

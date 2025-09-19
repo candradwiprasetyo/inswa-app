@@ -1,16 +1,52 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Label from "@/components/Label";
 import { usePublicPublications } from "@/hooks/usePublicPublication";
-import { useState } from "react";
 import { publicationTypeMap } from "@/lib/publicationTypeMap";
 import { cdnLoader } from "@/lib/cdnLoader";
 
 export default function Content() {
   const [activeType, setActiveType] = useState<string>("all");
-  const { publications, loading } = usePublicPublications(6, activeType);
+  const {
+    publications,
+    loading,
+    fetchedOnce,
+    currentPage,
+    setCurrentPage,
+    hasMore,
+  } = usePublicPublications(6, activeType);
+
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (!loaderRef.current) return;
+
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !loading) {
+          setCurrentPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(loaderRef.current);
+    observerRef.current = observer;
+
+    return () => {
+      observer.disconnect();
+      observerRef.current = null;
+    };
+  }, [hasMore, loading, setCurrentPage]);
 
   return (
     <div className="w-full relative">
@@ -46,7 +82,6 @@ export default function Content() {
           </div>
         </div>
 
-        {/* Filter mobile */}
         <div className="flex gap-3 flex-nowrap md:hidden mt-10 overflow-x-auto whitespace-nowrap scrollbar-hide">
           {Object.entries(publicationTypeMap).map(([id, name]) => (
             <Label
@@ -58,11 +93,10 @@ export default function Content() {
           ))}
         </div>
 
-        {/* List publikasi */}
         <div className="md:w-2/3 md:border-l md:pl-5">
-          {loading ? (
+          {!fetchedOnce && loading ? (
             <div className="p-5 text-center text-gray-500">Loading...</div>
-          ) : publications.length === 0 ? (
+          ) : fetchedOnce && publications.length === 0 ? (
             <div className="p-5 text-center text-gray-500">
               Tidak ada publikasi
             </div>
@@ -105,6 +139,15 @@ export default function Content() {
               </Link>
             ))
           )}
+
+          <div
+            ref={loaderRef}
+            className="h-10 flex items-center justify-center"
+          >
+            {loading && publications.length > 0 && (
+              <span className="text-gray-500">Loading...</span>
+            )}
+          </div>
         </div>
       </div>
     </div>
