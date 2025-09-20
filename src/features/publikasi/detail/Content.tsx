@@ -30,7 +30,7 @@ export default function PublicationDetailPage() {
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
   const pathname = usePathname();
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.BASE_URL;
   const currentUrl = `${baseUrl}${pathname}`;
 
   const handleInstagramShare = () => {
