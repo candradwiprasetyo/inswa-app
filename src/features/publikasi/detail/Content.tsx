@@ -28,10 +28,79 @@ export default function PublicationDetailPage() {
 
   const [openPdf, setOpenPdf] = useState(false);
   const { user } = useAuth();
-
+  const [copied, setCopied] = useState(false);
   const pathname = usePathname();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const currentUrl = `${baseUrl}${pathname}`;
+
+  const handleInstagramShare = () => {
+    if (!publication) return;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: publication.title,
+          text: publication.title,
+          url: currentUrl,
+        })
+        .catch((err) => console.log("Error sharing:", err));
+    } else {
+      alert("Fitur share tidak didukung di browser ini.");
+    }
+  };
+
+  const copyUrl = async () => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(currentUrl);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = currentUrl;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch (err) {
+      console.error("Gagal menyalin:", err);
+      alert("Gagal menyalin link, silakan coba manual.");
+    }
+  };
+
+  const handleWhatsappShare = () => {
+    if (!publication) return;
+
+    const text = `${publication.title} - ${currentUrl}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+
+    window.open(whatsappUrl, "_blank");
+  };
+
+  const handleXShare = () => {
+    if (!publication) return;
+
+    const text = publication.title;
+    const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      text
+    )}&url=${encodeURIComponent(currentUrl)}`;
+
+    window.open(xUrl, "_blank");
+  };
+
+  const handleLinkedinShare = () => {
+    if (!publication) return;
+
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+      currentUrl
+    )}`;
+
+    window.open(linkedInUrl, "_blank", "noopener,noreferrer");
+  };
 
   if (loading) {
     return <div className="p-10 text-center">Loading...</div>;
@@ -62,6 +131,22 @@ export default function PublicationDetailPage() {
               {publication.title}
             </div>
             <div className="flex gap-2 mt-5 justify-center md:justify-start">
+              <button onClick={copyUrl}>
+                {copied ? (
+                  <div className="h-8 rounded-full bg-blue-300 flex items-center justify-center cursor-pointer text-white text-xs px-3">
+                    Copied!
+                  </div>
+                ) : (
+                  <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                    <Image
+                      src="/assets/icons/copy.png"
+                      alt="Copy"
+                      width={16}
+                      height={16}
+                    />
+                  </div>
+                )}
+              </button>
               <Link
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
                   currentUrl
@@ -77,7 +162,7 @@ export default function PublicationDetailPage() {
                   />
                 </div>
               </Link>
-              <Link href={""} target="_blank">
+              <button onClick={handleInstagramShare}>
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
                     src="/assets/icons/footer-instagram.svg"
@@ -86,7 +171,37 @@ export default function PublicationDetailPage() {
                     height={16}
                   />
                 </div>
-              </Link>
+              </button>
+              <button onClick={handleWhatsappShare}>
+                <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                  <Image
+                    src="/assets/icons/whatsapp.png"
+                    alt="Whatsapp"
+                    width={16}
+                    height={16}
+                  />
+                </div>
+              </button>
+              <button onClick={handleXShare}>
+                <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                  <Image
+                    src="/assets/icons/x.png"
+                    alt="Whatsapp"
+                    width={16}
+                    height={16}
+                  />
+                </div>
+              </button>
+              <button onClick={handleLinkedinShare}>
+                <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
+                  <Image
+                    src="/assets/icons/linkedin.webp"
+                    alt="Linkedin"
+                    width={16}
+                    height={16}
+                  />
+                </div>
+              </button>
             </div>
 
             {publication.file &&
@@ -95,7 +210,7 @@ export default function PublicationDetailPage() {
                 <div>
                   <Button
                     title="Daftar Member"
-                    customClass="h-8 text-sm w-48 mt-5"
+                    customClass="h-8 text-sm w-48 mt-5 mx-auto md:mx-0"
                     href="/daftar"
                   />
                 </div>
@@ -105,7 +220,7 @@ export default function PublicationDetailPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="mt-5 h-8 px-8 text-base font-semibold flex w-40 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient">
+                  <div className="mt-5 h-8 px-8 text-base font-semibold flex w-40 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient mx-auto md:mx-0">
                     Open PDF
                   </div>
                 </a>
@@ -116,7 +231,7 @@ export default function PublicationDetailPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="mt-5 h-8 px-8 text-base font-semibold flex w-52 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient">
+                <div className="mt-5 h-8 px-8 text-base font-semibold flex w-52 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient mx-auto md:mx-0">
                   Lihat Peraturan
                 </div>
               </a>
