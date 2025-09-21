@@ -421,41 +421,42 @@ export default function PublicationForm({
                 className="border p-2 rounded w-full"
               />
             </div>
-
-            <div>
-              <label className="block mb-1 text-sm">Tanggal Publikasi</label>
-              <div className="flex">
-                <select
-                  value={publicationMonth}
-                  onChange={(e) => setPublicationMonth(e.target.value)}
-                  className="border p-2 rounded w-full"
-                  required
-                >
-                  <option value="01">Januari</option>
-                  <option value="02">Februari</option>
-                  <option value="03">Maret</option>
-                  <option value="04">April</option>
-                  <option value="05">Mei</option>
-                  <option value="06">Juni</option>
-                  <option value="07">Juli</option>
-                  <option value="08">Agustus</option>
-                  <option value="09">September</option>
-                  <option value="10">Oktober</option>
-                  <option value="11">November</option>
-                  <option value="12">Desember</option>
-                </select>
-                <input
-                  type="number"
-                  value={publicationYear}
-                  onChange={(e) => setPublicationYear(e.target.value)}
-                  className="border p-2 rounded w-full"
-                  placeholder="2025"
-                  required
-                />
-              </div>
-            </div>
           </>
         )}
+
+        <div>
+          <label className="block mb-1 text-sm">Tanggal Publikasi</label>
+          <div className="flex">
+            <select
+              value={publicationMonth}
+              onChange={(e) => setPublicationMonth(e.target.value)}
+              className="border p-2 rounded w-full"
+              required
+            >
+              <option value="">Pilih Bulan</option>
+              <option value="01">Januari</option>
+              <option value="02">Februari</option>
+              <option value="03">Maret</option>
+              <option value="04">April</option>
+              <option value="05">Mei</option>
+              <option value="06">Juni</option>
+              <option value="07">Juli</option>
+              <option value="08">Agustus</option>
+              <option value="09">September</option>
+              <option value="10">Oktober</option>
+              <option value="11">November</option>
+              <option value="12">Desember</option>
+            </select>
+            <input
+              type="number"
+              value={publicationYear}
+              onChange={(e) => setPublicationYear(e.target.value)}
+              className="border p-2 rounded w-full"
+              placeholder="2025"
+              required
+            />
+          </div>
+        </div>
 
         {/* Actions */}
         <div className="col-span-2 flex gap-3 mt-4">

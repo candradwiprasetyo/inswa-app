@@ -33,22 +33,6 @@ export default function PublicationDetailPage() {
   const baseUrl = process.env.BASE_URL;
   const currentUrl = `${baseUrl}${pathname}`;
 
-  const handleInstagramShare = () => {
-    if (!publication) return;
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: publication.title,
-          text: publication.title,
-          url: currentUrl,
-        })
-        .catch((err) => console.log("Error sharing:", err));
-    } else {
-      alert("Fitur share tidak didukung di browser ini.");
-    }
-  };
-
   const copyUrl = async () => {
     try {
       if (navigator.clipboard && window.isSecureContext) {
@@ -113,24 +97,25 @@ export default function PublicationDetailPage() {
   return (
     <div className="w-full relative">
       <div className="mx-auto max-w-6xl px-4 md:px-10 flex items-center pt-20 relative">
-        <div className="md:flex justify-center md:justify-between items-center py-10 px-6 md:px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-20 md:mt-32">
-          <div className="flex-none md:w-60 ">
+        <div className="md:flex justify-center md:justify-between items-center py-8 px-6 md:px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-8 md:mt-8">
+          <div className="flex-none md:w-60">
             {publication.cover_url && (
               <Image
                 loader={cdnLoader}
                 src={publication.cover_url}
                 alt={publication.title}
-                width={240}
-                height={320}
-                className="w-[180px] md:w-[240px] h-[260px] md:h-[320px] object-cover -mt-20 md:-mt-40 md:absolute border-2 border-tertiary-light mx-auto md:mx-none"
+                width={200}
+                height={260}
+                className="w-[180px] md:w-[200px] h-[200px] md:h-[280px] object-cover border-2 border-tertiary-light mx-auto md:mx-none"
               />
             )}
           </div>
           <div className="flex-grow text-center md:text-left mt-8 md:mt-0 ">
-            <div className="text-2xl md:text-[32px] font-light md:font-medium font-pathway-extreme md:leading-normal">
+            <div className="text-2xl md:text-[32px] font-light md:font-medium font-pathway-extreme md:leading-10">
               {publication.title}
             </div>
-            <div className="flex gap-2 mt-5 justify-center md:justify-start">
+            <div className="font-bold mt-6">Bagikan:</div>
+            <div className="flex gap-2 mt-2 justify-center md:justify-start">
               <button onClick={copyUrl}>
                 {copied ? (
                   <div className="h-8 rounded-full bg-blue-300 flex items-center justify-center cursor-pointer text-white text-xs px-3">
@@ -162,16 +147,6 @@ export default function PublicationDetailPage() {
                   />
                 </div>
               </Link>
-              <button onClick={handleInstagramShare}>
-                <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
-                  <Image
-                    src="/assets/icons/footer-instagram.svg"
-                    alt="Footer Instagram"
-                    width={16}
-                    height={16}
-                  />
-                </div>
-              </button>
               <button onClick={handleWhatsappShare}>
                 <div className="h-8 w-8 rounded-full bg-surface-green flex items-center justify-center cursor-pointer">
                   <Image
@@ -361,7 +336,7 @@ export default function PublicationDetailPage() {
         <div
           className={publication.publication_type_id === 1 ? "md:w-1/3" : ""}
         >
-          <div className="text-2xl font-medium">Publikasi Lainnya</div>
+          <div className="text-xl font-medium">Publikasi Lainnya</div>
           <div
             className={`mt-6 border-t-2 border-primary-light-border py-4 gap-x-10
                   ${
@@ -390,7 +365,7 @@ export default function PublicationDetailPage() {
                     )}
                   </div>
                   <div className="flex-grow">
-                    <div className="text-lg md:text-xl font-light mb-2 line-clamp-5">
+                    <div className="font-semibold text-base font mb-2 line-clamp-5">
                       {p.title}
                     </div>
                     <div className="text-xs text-tertiary-light">
