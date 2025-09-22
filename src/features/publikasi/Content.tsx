@@ -44,10 +44,13 @@ export default function Content() {
 
   return (
     <div className="w-full relative">
-      <div className="mx-auto max-w-6xl px-4 md:px-10 relative md:flex gap-5 items-start">
+      <div className="mx-auto max-w-6xl px-4 md:px-10 relative md:flex gap-5 items-strech">
         {/* Sidebar filter desktop */}
-        <div className="md:w-1/3 py-8 hidden md:inline">
-          <div className="border rounded-lg w-full">
+        <div className="md:w-1/3 py-5 hidden md:block">
+          <div
+            className="border rounded-lg w-full sticky top-24"
+            id="tab-sticky"
+          >
             <div
               onClick={() => setActiveType("all")}
               className={`w-full p-3 font-semibold border-b cursor-pointer ${
