@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { PublicationType } from "@/types/publication";
 
-export function usePublicPublication(id?: string) {
+export function usePublicPublication(slug?: string) {
   const [publication, setPublication] = useState<PublicationType | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -9,8 +9,8 @@ export function usePublicPublication(id?: string) {
     const fetchPublication = async () => {
       try {
         setLoading(true);
-        if (id) {
-          const res = await fetch(`/api/publications?id=${id}`);
+        if (slug) {
+          const res = await fetch(`/api/publications?slug=${slug}`);
           if (!res.ok) throw new Error("Gagal mengambil detail publikasi");
           const json = await res.json();
           setPublication(json.data || null);
@@ -22,8 +22,8 @@ export function usePublicPublication(id?: string) {
       }
     };
 
-    if (id) fetchPublication();
-  }, [id]);
+    if (slug) fetchPublication();
+  }, [slug]);
 
   return { publication, loading };
 }
@@ -94,7 +94,9 @@ export function usePublicPublications(
         params.append("excludeId", excludeId);
       }
 
-      const res = await fetch(`/api/publications?${params.toString()}`);
+      const res = await fetch(
+        `/api/publications?${params.toString()}&context=public`
+      );
       if (!res.ok) throw new Error("Gagal mengambil daftar publikasi");
       const json = await res.json();
 

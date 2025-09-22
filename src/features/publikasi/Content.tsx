@@ -96,7 +96,7 @@ export default function Content() {
             </div>
           ) : (
             publications.map((p) => (
-              <Link href={`/publikasi/${p.id}`} key={p.id}>
+              <Link href={`/publikasi/${p.slug}`} key={p.id}>
                 <div className="py-5 flex items-center border-b">
                   <div className="flex flex-grow items-center">
                     <div className="flex-none">
@@ -113,9 +113,17 @@ export default function Content() {
                     <div className="flex-grow px-6">
                       <div className="text-lg mb-2 line-clamp-2">{p.title}</div>
                       <div className="text-xs text-tertiary-light">
-                        {p.publication_type_id !== 4 && "PDF"}
+                        {p.publication_type_id !== 4 ? "PDF" : "WEB"}
                         {p.size && <> | {p.size} </>}
-                        {p.year && <> | {p.year} </>}
+                        {p.publication_date && (
+                          <>
+                            {" "}
+                            |{" "}
+                            {p.publication_date
+                              ? p.publication_date.split("-")[0]
+                              : "-"}{" "}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

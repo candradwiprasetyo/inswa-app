@@ -33,6 +33,7 @@ export default function PublicationForm({
     dimension: "",
     cover_url: "",
     publication_date: "",
+    slug: "",
   });
   const [publicationMonth, setPublicationMonth] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
@@ -60,10 +61,16 @@ export default function PublicationForm({
         dimension: initialData.dimension,
         cover_url: initialData.cover_url,
         publication_date: initialData.publication_date || "",
+        slug: initialData.slug,
       });
 
       if (initialData.publication_date) {
+        console.log(
+          typeof initialData.publication_date,
+          initialData.publication_date
+        );
         const [year, month] = initialData.publication_date.split("-");
+        console.log(month);
         setPublicationYear(year);
         setPublicationMonth(month);
       }
@@ -83,6 +90,12 @@ export default function PublicationForm({
     if (name === "file") setFileError("");
     if (name === "cover_url") setCoverError("");
   };
+
+  const generateSlug = (title: string) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -186,8 +199,9 @@ export default function PublicationForm({
         cover_url: coverUrl,
         publication_date:
           publicationYear && publicationMonth
-            ? `${publicationYear}-${publicationMonth}`
+            ? `${publicationYear}-${publicationMonth}-01`
             : "",
+        slug: generateSlug(form.title),
       });
     } finally {
       setIsUploading(false);

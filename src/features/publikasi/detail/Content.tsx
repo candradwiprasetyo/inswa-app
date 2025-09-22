@@ -17,13 +17,13 @@ import Button from "@/components/Button";
 import { usePathname } from "next/navigation";
 
 export default function PublicationDetailPage() {
-  const { id } = useParams();
-  const { publication, loading } = usePublicPublication(id as string);
+  const { slug } = useParams();
+  const { publication, loading } = usePublicPublication(slug as string);
   const { publications: otherPublications } = usePublicPublications(
     5,
     undefined,
     undefined,
-    id as string
+    slug as string
   );
 
   const [openPdf, setOpenPdf] = useState(false);
@@ -97,8 +97,8 @@ export default function PublicationDetailPage() {
   return (
     <div className="w-full relative">
       <div className="mx-auto max-w-6xl px-4 md:px-10 flex items-center pt-20 relative">
-        <div className="md:flex justify-center md:justify-between items-center py-8 px-6 md:px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-8 mt-8 md:mt-8">
-          <div className="flex-none md:w-60">
+        <div className="md:flex justify-center md:justify-between items-center py-8 px-6 md:px-16 md:px-28 bg-profile rounded-tl-[96px] rounded-bl-lg rounded-br-[96px] rounded-tr-lg relative w-full gap-3 mt-8 md:mt-8 items-stretch">
+          <div className="flex-none md:w-60 relative min-h-[280px]">
             {publication.cover_url && (
               <Image
                 loader={cdnLoader}
@@ -106,7 +106,7 @@ export default function PublicationDetailPage() {
                 alt={publication.title}
                 width={200}
                 height={260}
-                className="w-[180px] md:w-[200px] h-[200px] md:h-[280px] object-cover border-2 border-tertiary-light mx-auto md:mx-none"
+                className="w-[180px] md:w-[200px] h-[200px] md:h-[280px] object-cover border-2 border-tertiary-light mx-auto md:mx-none absolute top-0"
               />
             )}
           </div>
@@ -348,7 +348,7 @@ export default function PublicationDetailPage() {
             {otherPublications.map((p) => (
               <Link
                 key={p.id}
-                href={`/publikasi/${p.id}`}
+                href={`/publikasi/${p.slug}`}
                 className="block border-primary-light-border py-4 border-b"
               >
                 <div className="flex gap-4 items-start">
