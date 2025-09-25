@@ -45,14 +45,15 @@ export async function PUT(req: Request) {
     cover_url,
     publication_date,
     slug,
+    rule_type,
   } = body;
 
   const result = await pool.query(
     `UPDATE publications SET
       publication_type_id=$1, title=$2, description=$3, file=$4, size=$5, year=$6,
       publisher=$7, author=$8, foreword=$9, edition=$10, isbn=$11, pages=$12, dimension=$13, cover_url=$14,
-      publication_date=$15, slug=$16, updated_at=NOW()
-    WHERE id=$17 RETURNING *`,
+      publication_date=$15, slug=$16, rule_type=$17, updated_at=NOW()
+    WHERE id=$18 RETURNING *`,
     [
       publication_type_id,
       title,
@@ -70,6 +71,7 @@ export async function PUT(req: Request) {
       cover_url,
       publication_date,
       slug,
+      rule_type,
       id,
     ]
   );

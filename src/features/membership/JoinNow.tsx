@@ -42,11 +42,7 @@ export default function JoinNow() {
             <div className="text-lg font-pathway-extreme font-medium mb-2">
               Punya Pertanyaan
             </div>
-            <div className="text-base">
-              Call : +31 (0) 10 8083995
-              <br />
-              Email : members@iswa.org
-            </div>
+            <div className="text-base">Email: inswa.sekretariat@gmail.com</div>
           </div>
         </div>
       </div>

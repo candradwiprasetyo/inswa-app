@@ -28,6 +28,7 @@ export default function PublicationPage() {
   };
 
   const handleEdit = (p: PublicationType) => {
+    console.log(p);
     setEditData(p);
     setShowForm(true);
   };

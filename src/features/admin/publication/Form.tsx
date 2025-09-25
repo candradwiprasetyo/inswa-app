@@ -34,6 +34,7 @@ export default function PublicationForm({
     cover_url: "",
     publication_date: "",
     slug: "",
+    rule_type: "",
   });
   const [publicationMonth, setPublicationMonth] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
@@ -62,15 +63,13 @@ export default function PublicationForm({
         cover_url: initialData.cover_url,
         publication_date: initialData.publication_date || "",
         slug: initialData.slug,
+        rule_type: initialData.rule_type,
       });
 
+      console.log(initialData.rule_type);
+
       if (initialData.publication_date) {
-        console.log(
-          typeof initialData.publication_date,
-          initialData.publication_date
-        );
         const [year, month] = initialData.publication_date.split("-");
-        console.log(month);
         setPublicationYear(year);
         setPublicationMonth(month);
       }
@@ -471,6 +470,25 @@ export default function PublicationForm({
             />
           </div>
         </div>
+
+        {isRegulation && (
+          <div className="col-span-2">
+            <label className="block mb-1 text-sm">Jenis Peraturan</label>
+            <select
+              name="rule_type"
+              value={form.rule_type}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            >
+              <option value="">Pilih Jenis Peraturan</option>
+              <option value="1">Undang-Undang</option>
+              <option value="2">Peraturan Pemerintah</option>
+              <option value="3">Peraturan Presiden</option>
+              <option value="4">Peraturan Menteri</option>
+            </select>
+          </div>
+        )}
 
         {/* Actions */}
         <div className="col-span-2 flex gap-3 mt-4">

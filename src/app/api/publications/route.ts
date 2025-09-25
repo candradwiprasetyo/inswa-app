@@ -18,7 +18,7 @@ export async function GET(req: Request) {
       `SELECT id, publication_type_id, title, description, file, size, year,
           publisher, author, foreword, edition, isbn, pages, dimension,
           cover_url,
-          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
           created_at, updated_at
       FROM publications
       WHERE id = $1
@@ -34,10 +34,10 @@ export async function GET(req: Request) {
     return NextResponse.json({ data: result.rows[0] });
   } else if (slug) {
     const result = await pool.query(
-      `SELECT id, publication_type_id, title, description, file, size, year,
+      `SELECT slug, publication_type_id, title, description, file, size, year,
         publisher, author, foreword, edition, isbn, pages, dimension,
         cover_url,
-        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug,
+        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
         created_at, updated_at
      FROM publications
      WHERE slug = $1
@@ -81,6 +81,11 @@ export async function GET(req: Request) {
     values.push(excludeId);
   }
 
+  if (context === "public") {
+    whereClauses.push(`publication_type_id != $${idx++}`);
+    values.push("4");
+  }
+
   const whereSQL =
     whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
 
@@ -88,7 +93,7 @@ export async function GET(req: Request) {
     `SELECT id, publication_type_id, title, description, file, size, year,
           publisher, author, foreword, edition, isbn, pages, dimension,
           cover_url,
-          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
           created_at, updated_at
    FROM publications
    ${whereSQL}
@@ -132,14 +137,15 @@ export async function POST(req: Request) {
     cover_url,
     publication_date,
     slug,
+    rule_type,
   } = body;
 
   const result = await pool.query(
     `INSERT INTO publications (
       publication_type_id, title, description, file, size, year,
-      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug,
+      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug, rule_type,
       created_at, updated_at
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,NOW(),NOW())
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NOW(),NOW())
     RETURNING *`,
     [
       publication_type_id,
@@ -158,6 +164,7 @@ export async function POST(req: Request) {
       cover_url,
       publication_date,
       slug,
+      rule_type,
     ]
   );
 

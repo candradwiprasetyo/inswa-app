@@ -9,11 +9,12 @@ function getIdFromRequest(req: Request) {
   return parts[parts.length - 1] ?? null;
 }
 
-export async function PATCH(req: Request) {
+export async function PUT(req: Request) {
   const id = getIdFromRequest(req);
   if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
 
-  const { type } = await req.json();
+  const body = await req.json();
+  const { type, name, email, whatsapp, active_status, role, password } = body;
 
   if (type === "activate") {
     try {
@@ -56,9 +57,6 @@ export async function PATCH(req: Request) {
       );
     }
   }
-
-  const body = await req.json();
-  const { name, email, whatsapp, active_status, role, password } = body;
 
   let query = `UPDATE users SET name = $1, email = $2, whatsapp = $3, active_status = $4, role = $5, updated_at = NOW()`;
   const params = [name, email, whatsapp, active_status, role || "member", id];

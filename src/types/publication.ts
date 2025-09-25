@@ -16,4 +16,5 @@ export type PublicationType = {
   cover_url: string;
   publication_date: string;
   slug: string;
+  rule_type: string;
 };

@@ -139,3 +139,27 @@ export function usePublicPublications(
     hasMore,
   };
 }
+
+export function usePublicPublicationRules(rule_type: string) {
+  const [publications, setPublications] = useState<PublicationType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPublicationRules = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/publication-rules?rule_type=${rule_type}`);
+      const json = await res.json();
+      setPublications(json.data || []);
+    } catch (error) {
+      console.error("Failed to fetch publication rules:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [rule_type]);
+
+  useEffect(() => {
+    fetchPublicationRules();
+  }, [fetchPublicationRules]);
+
+  return { publications, loading };
+}
