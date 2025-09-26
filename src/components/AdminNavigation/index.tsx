@@ -44,6 +44,14 @@ export default function AdminNavigation() {
             Membership
           </Link>
         </div>
+        <div className="flex-none flex items-center gap-3">
+          <Link href={"/admin/partner"} className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-blue-300">
+              groups
+            </span>
+            Mitra & Setifikat
+          </Link>
+        </div>
       </div>
     </div>
   );
