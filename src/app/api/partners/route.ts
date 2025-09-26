@@ -21,13 +21,14 @@ export async function GET(req: Request) {
       countParams.push(type);
     }
 
-    query += " ORDER BY created_at DESC LIMIT $2 OFFSET $3";
+    params.push(limit, offset);
+    query += ` ORDER BY created_at DESC LIMIT $${params.length - 1} OFFSET $${
+      params.length
+    }`;
 
-    const result = await pool.query(
-      query,
-      type ? [type, limit, offset] : [limit, offset]
-    );
+    const result = await pool.query(query, params);
     const countRes = await pool.query(countQuery, countParams);
+
     const total = parseInt(countRes.rows[0].count, 10);
 
     return NextResponse.json({
