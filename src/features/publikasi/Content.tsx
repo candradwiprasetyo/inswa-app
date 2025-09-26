@@ -123,6 +123,9 @@ export default function Content() {
                           </div>
                         </div>
                         <div className="flex-grow px-6">
+                          <div className="text-action-hover mb-1">
+                            {publicationTypeMap[p.publication_type_id] ?? ""}
+                          </div>
                           <div className="text-lg mb-2 line-clamp-2">
                             {p.title}
                           </div>
@@ -131,11 +134,10 @@ export default function Content() {
                             {p.size && <> | {p.size} </>}
                             {p.publication_date && (
                               <>
-                                {" "}
-                                |{" "}
+                                |
                                 {p.publication_date
                                   ? p.publication_date.split("-")[0]
-                                  : "-"}{" "}
+                                  : "-"}
                               </>
                             )}
                           </div>

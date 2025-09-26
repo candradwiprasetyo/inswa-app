@@ -15,6 +15,7 @@ import { formatPublicationDate } from "@/lib/dateUtils";
 import { useAuth } from "@/hooks/useAuth";
 import Button from "@/components/Button";
 import { usePathname } from "next/navigation";
+import { publicationTypeMap } from "@/lib/publicationTypeMap";
 
 export default function PublicationDetailPage() {
   const { slug } = useParams();
@@ -365,6 +366,9 @@ export default function PublicationDetailPage() {
                     )}
                   </div>
                   <div className="flex-grow">
+                    <div className="text-action-hover mb-1">
+                      {publicationTypeMap[p.publication_type_id] ?? ""}
+                    </div>
                     <div className="font-semibold text-base font mb-2 line-clamp-5">
                       {p.title}
                     </div>

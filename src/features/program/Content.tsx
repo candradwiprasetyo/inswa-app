@@ -10,14 +10,9 @@ export default function Content() {
     <div className="mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 ">
       <div className="mb-8 md:mb-16">
         Sejak masa pendiriannya, InSWA telah melaksanakan serangkaian program
-        dan kegiatan yang berkaitan dengan kebijakan, impementasi pengelolaan
-        sampah kota, dan peningkatan kapasitas seperti:{" "}
-        <strong>
-          Green Label Indonesia, Pengembangan Jaringan dan Partisipasi
-          Masyarakat, Pengembangan Kapasitas Teknis dan Kelembagaan, Penyusunan
-          Regulasi, Riset Aplikasi tentang Pengelolaan Sampah, & Studi
-          Karakteristik dan Manajemen Persampahan.
-        </strong>
+        dan kegiatan yang berkaitan dengan peningkatan kapasitas, studi
+        pengelolaan sampah, penyusunan dan advokasi kebijakan pengelolaan
+        sampah.
       </div>
       <div className="space-y-6">
         {programs.map((data, index) => (
