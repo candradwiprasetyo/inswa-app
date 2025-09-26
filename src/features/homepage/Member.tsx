@@ -12,7 +12,7 @@ export default function Member() {
     <div className="bg-gradient-to-b from-white bg-surface-success pb-24 xl:pb-32 relative">
       <div className="bg-line absolute inset-0 bg-[500%] md:bg-contain"></div>
       <div className="md:flex gap-10 mx-auto max-w-6xl px-4 md:px-10 pt-10 md:pt-16 pb-20 relative">
-        <div className="flex-none hidden md:inline">
+        <div className="flex-none hidden md:inline md:w-1/3 min-w-[300px]">
           {sertifikat?.map((sertifikat) => (
             <Image
               key={sertifikat.id}
@@ -37,13 +37,17 @@ export default function Member() {
             global.
           </div>
           <div className="md:hidden block mb-6">
-            <Image
-              src={"/assets/images/homepage/img-member.png"}
-              width={400}
-              height={331}
-              alt="Member"
-              className="w-full"
-            />
+            {sertifikat?.map((sertifikat) => (
+              <Image
+                key={sertifikat.id}
+                loader={cdnLoader}
+                src={sertifikat.image}
+                alt={sertifikat.name}
+                width={400}
+                height={331}
+                className="w-full"
+              />
+            ))}
           </div>
           <div className="font-extrabold mb-4">Mitra Kami</div>
 
