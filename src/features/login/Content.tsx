@@ -75,8 +75,8 @@ export default function Content() {
             </form>
 
             <div className="font-semibold text-action-hover mt-10 font-pathway-extreme">
-              Lupa Password{" "}
-              <span className="font-light text-gray-300 px-2">|</span>
+              {/* Lupa Password{" "}
+              <span className="font-light text-gray-300 px-2">|</span> */}
               <Link href="/daftar">Register Member</Link>
             </div>
           </div>
