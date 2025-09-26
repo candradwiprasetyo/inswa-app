@@ -56,7 +56,7 @@ export default function Member() {
           <div className="grid grid-cols-4 lg:grid-cols-6 gap-3 xl:gap-5">
             {partners?.map((partner) => (
               <div
-                className="aspect-square border bg-white border-primary-light rounded-lg flex items-center px-2"
+                className="aspect-[3/2] border bg-white border-primary-light rounded-lg flex items-center px-2"
                 key={partner.id}
               >
                 <Image
