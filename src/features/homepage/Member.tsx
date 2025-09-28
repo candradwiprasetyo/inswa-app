@@ -3,10 +3,17 @@
 import Image from "next/image";
 import usePublicPartner from "@/hooks/usePublicPartner";
 import { cdnLoader } from "@/lib/cdnLoader";
+import useEmblaCarousel from "embla-carousel-react";
 
 export default function Member() {
   const { partners, loading } = usePublicPartner("1");
   const { partners: sertifikat } = usePublicPartner("2");
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: false,
+    slidesToScroll: 1,
+  });
 
   return (
     <div className="bg-gradient-to-b from-white bg-surface-success pb-24 xl:pb-32 relative">
@@ -53,22 +60,29 @@ export default function Member() {
 
           {loading && <div>Loading...</div>}
 
-          <div className="grid grid-cols-4 lg:grid-cols-6 gap-3 xl:gap-5">
-            {partners?.map((partner) => (
-              <div
-                className="aspect-[3/2] border bg-white border-primary-light rounded-lg flex items-center px-2"
-                key={partner.id}
-              >
-                <Image
-                  loader={cdnLoader}
-                  src={partner.image}
-                  alt={partner.name}
-                  width={100}
-                  height={100}
-                  className="w-full object-contain"
-                />
-              </div>
-            ))}
+          <div
+            className="embla md:mt-10 hidden md:block overflow-hidden"
+            ref={emblaRef}
+          >
+            <div className="embla__container flex">
+              {partners?.map((partner) => (
+                <div
+                  className="embla__slide shrink-0 w-1/6 px-2"
+                  key={partner.id}
+                >
+                  <div className="aspect-[3/2] border bg-white border-primary-light rounded-lg flex items-center px-2">
+                    <Image
+                      loader={cdnLoader}
+                      src={partner.image}
+                      alt={partner.name}
+                      width={100}
+                      height={100}
+                      className="w-full object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
