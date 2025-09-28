@@ -9,7 +9,7 @@ export default function Member() {
   const { partners, loading } = usePublicPartner("1");
   const { partners: sertifikat } = usePublicPartner("2");
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
+  const [emblaRef] = useEmblaCarousel({
     align: "start",
     loop: false,
     slidesToScroll: 1,
