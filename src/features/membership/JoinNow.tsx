@@ -42,7 +42,7 @@ export default function JoinNow() {
             <div className="text-lg font-pathway-extreme font-medium mb-2">
               Punya Pertanyaan
             </div>
-            <div className="text-base">Email: inswa.sekretariat@gmail.com</div>
+            <div className="text-base">Email: sekretariat@inswa.or.id</div>
           </div>
         </div>
       </div>
