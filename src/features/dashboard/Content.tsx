@@ -6,7 +6,6 @@ import Contact from "../membership/Contact";
 import { useRouter } from "next/navigation";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
-import { usePublicPrograms } from "@/hooks/usePublicProgram";
 import Link from "next/link";
 import Image from "next/image";
 import { usePublicPublications } from "@/hooks/usePublicPublication";
@@ -32,8 +31,7 @@ export default function Content() {
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-  const { programs } = usePublicPrograms(10);
-  const { publications, loading } = usePublicPublications(8, 2);
+  const { publications, loading } = usePublicPublications(8, "2");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -53,15 +51,6 @@ export default function Content() {
     };
     fetchUser();
   }, [router]);
-
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/logout", { method: "POST" });
-      router.push("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
 
   function formatYear(dateString?: string) {
     if (dateString) {

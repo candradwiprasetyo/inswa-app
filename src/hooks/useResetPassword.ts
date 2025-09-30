@@ -32,7 +32,7 @@ export function useResetPassword() {
       setSuccess(result.message || "Password berhasil diubah");
       return true;
     } catch (err) {
-      setError("Gagal menghubungi server");
+      setError(`Error: ${err}`);
       return false;
     } finally {
       setLoading(false);

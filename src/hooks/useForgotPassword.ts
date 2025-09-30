@@ -29,7 +29,7 @@ export function useForgotPassword() {
         return true;
       }
     } catch (err) {
-      setError("Gagal menghubungi server");
+      setError(`Error: ${err}`);
       return false;
     } finally {
       setLoading(false);

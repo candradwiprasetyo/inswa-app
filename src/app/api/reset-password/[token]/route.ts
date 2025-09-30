@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 
-export async function GET(
-  req: Request,
-  { params }: { params: { token: string } }
-) {
+function getTokenFromRequest(req: Request) {
+  const url = new URL(req.url);
+  const parts = url.pathname.split("/").filter(Boolean);
+  return parts[parts.length - 1] ?? null;
+}
+
+export async function GET(req: Request) {
   try {
-    const { token } = params;
+    const token = getTokenFromRequest(req);
 
     if (!token) {
       return NextResponse.json({ error: "Token wajib diisi" }, { status: 400 });

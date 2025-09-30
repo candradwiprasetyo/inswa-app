@@ -16,8 +16,7 @@ type ResetPasswordFormValues = {
 
 export default function Content() {
   const { articles } = usePublicArticles(5, undefined, undefined);
-  const { resetPassword, verifyToken, loading, error, success } =
-    useResetPassword();
+  const { resetPassword, verifyToken, loading, error } = useResetPassword();
   const [checking, setChecking] = useState(true);
   const [invalidToken, setInvalidToken] = useState(false);
   const searchParams = useSearchParams();
