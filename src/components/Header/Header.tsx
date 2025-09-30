@@ -45,8 +45,6 @@ export default function Header({ variant = "default" }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  console.log(pathname.startsWith("/tentang-kami"));
-
   return (
     <div
       className={clsx(
@@ -136,15 +134,17 @@ export default function Header({ variant = "default" }: HeaderProps) {
           </div>
         ) : (
           <div className="flex-none gap-4 hidden lg:flex items-center text-sm">
-            <span
-              className={
-                isScrolled || variant !== "default"
-                  ? "text-tertiary-light"
-                  : "text-white"
-              }
-            >
-              Hi, {user.name}
-            </span>
+            <Link href={"/dashboard"}>
+              <span
+                className={
+                  isScrolled || variant !== "default"
+                    ? "text-tertiary-light"
+                    : "text-white"
+                }
+              >
+                Hi, {user.name}
+              </span>
+            </Link>
             <Button title="Logout" customClass="h-8 text-sm" onClick={logout} />
           </div>
         )}

@@ -1,6 +1,8 @@
 export type HeroProps = {
   variant?: "default" | "green";
-  title: string;
+  title?: string;
+  name?: string;
+  subtitle?: string;
   background?: string;
   detailPage?: boolean;
 };

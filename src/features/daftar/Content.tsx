@@ -125,9 +125,9 @@ export default function Content() {
               {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
               {success && (
                 <p className="text-green-500 text-sm mt-2 italic">
-                  {success}. Tim InSWA akan melakukan proses validasi melalui
-                  WhatsApp untuk memastikan data yang Anda kirimkan. Keanggotaan
-                  akan aktif setelah melalui tahap verifikasi dari tim.
+                  Tim InSWA akan melakukan proses validasi melalui WhatsApp
+                  untuk memastikan data yang Anda kirimkan. Keanggotaan akan
+                  aktif setelah melalui tahap verifikasi dari tim.
                 </p>
               )}
             </form>

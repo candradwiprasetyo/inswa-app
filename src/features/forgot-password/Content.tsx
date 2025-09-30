@@ -5,30 +5,29 @@ import { useForm } from "react-hook-form";
 import { usePublicArticles } from "@/hooks/usePublicArticle";
 import Button from "@/components/Button";
 import NewsCard from "@/components/NewsCard";
-import { useLogin } from "@/hooks/useLogin";
-import { useSearchParams } from "next/navigation";
+import { useForgotPassword } from "@/hooks/useForgotPassword";
 
-type LoginFormValues = {
+type ForgotPasswordFormValues = {
   email: string;
-  password: string;
 };
 
 export default function Content() {
   const { articles } = usePublicArticles(5, undefined, undefined);
-  const { login, loading, error } = useLogin();
-  const searchParams = useSearchParams();
+  const { forgotPassword, loading, error, success } = useForgotPassword();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<LoginFormValues>();
+  } = useForm<ForgotPasswordFormValues>();
 
-  const onSubmit = (data: LoginFormValues) => {
-    login(data.email, data.password);
+  const onSubmit = async (data: ForgotPasswordFormValues) => {
+    const success = await forgotPassword(data.email);
+    if (success) {
+      reset();
+    }
   };
-
-  const resetSuccess = searchParams.get("reset-password") === "success";
 
   return (
     <div className="w-full relative">
@@ -36,19 +35,13 @@ export default function Content() {
         <div className="md:w-2/3 leading-7 h-screen md:h-auto flex items-center">
           <div className="w-full">
             <div className="font-medium text-[32px] md:text-[48px] flex w-fit gap-3 items-center mb-6 pb-3 font-pathway-extreme text-primary-light">
-              Masuk Akun
+              Lupa Password
             </div>
-
-            {resetSuccess && (
-              <p className="text-green-500 text-sm mb-4 italic">
-                Ubah Password berhasil, silakan login ulang.
-              </p>
-            )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <input
-                  type="text"
+                  type="email"
                   {...register("email", { required: "Email wajib diisi" })}
                   className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
                   placeholder="Email"
@@ -58,26 +51,17 @@ export default function Content() {
                 )}
               </div>
 
-              <div>
-                <input
-                  type="password"
-                  {...register("password", {
-                    required: "Password wajib diisi",
-                  })}
-                  className="w-full bg-surface-secondary-light px-4 py-3 rounded-lg"
-                  placeholder="Password"
-                />
-                {errors.password && (
-                  <p className="text-red-500 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
-
               {error && <p className="text-red-500 text-sm">{error}</p>}
 
+              {success && (
+                <p className="text-green-500 text-sm mt-2 italic">
+                  Silakan lakukan pengecekan pada email Anda untuk melakukan
+                  pergantian password
+                </p>
+              )}
+
               <Button
-                title={loading ? "Loading..." : "Masuk"}
+                title={loading ? "Loading..." : "Kirim"}
                 customClass="mt-6"
                 disabled={loading}
                 type="submit"
@@ -85,7 +69,7 @@ export default function Content() {
             </form>
 
             <div className="font-semibold text-action-hover mt-10 font-pathway-extreme">
-              <Link href="/lupa-password">Lupa Password</Link>
+              <Link href="/login">Login</Link>
               <span className="font-light text-gray-300 px-2">|</span>
               <Link href="/daftar">Register Member</Link>
             </div>
