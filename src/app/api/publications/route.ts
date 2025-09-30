@@ -4,11 +4,45 @@ import pool from "@/lib/db";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
+  const slug = searchParams.get("slug");
+
+  const context = searchParams.get("context");
+
+  let orderBy = "created_at DESC";
+  if (context === "public") {
+    orderBy = "publication_date DESC";
+  }
 
   if (id) {
     const result = await pool.query(
-      `SELECT * FROM publications WHERE id = $1 LIMIT 1`,
+      `SELECT id, publication_type_id, title, description, file, size, year,
+          publisher, author, foreword, edition, isbn, pages, dimension,
+          cover_url,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
+          created_at, updated_at
+      FROM publications
+      WHERE id = $1
+      LIMIT 1`,
       [id]
+    );
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { message: "Publikasi tidak ditemukan" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ data: result.rows[0] });
+  } else if (slug) {
+    const result = await pool.query(
+      `SELECT slug, publication_type_id, title, description, file, size, year,
+        publisher, author, foreword, edition, isbn, pages, dimension,
+        cover_url,
+        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
+        created_at, updated_at
+     FROM publications
+     WHERE slug = $1
+     LIMIT 1`,
+      [slug]
     );
     if (result.rows.length === 0) {
       return NextResponse.json(
@@ -43,18 +77,28 @@ export async function GET(req: Request) {
   }
 
   if (excludeId) {
-    whereClauses.push(`id != $${idx++}`);
+    whereClauses.push(`slug != $${idx++}`);
     values.push(excludeId);
+  }
+
+  if (context === "public") {
+    whereClauses.push(`publication_type_id != $${idx++}`);
+    values.push("4");
   }
 
   const whereSQL =
     whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
 
   const result = await pool.query(
-    `SELECT * FROM publications
-     ${whereSQL}
-     ORDER BY created_at DESC
-     LIMIT $${idx} OFFSET $${idx + 1}`,
+    `SELECT id, publication_type_id, title, description, file, size, year,
+          publisher, author, foreword, edition, isbn, pages, dimension,
+          cover_url,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
+          created_at, updated_at
+   FROM publications
+   ${whereSQL}
+   ORDER BY ${orderBy}
+   LIMIT $${idx} OFFSET $${idx + 1}`,
     [...values, limit, offset]
   );
 
@@ -91,13 +135,17 @@ export async function POST(req: Request) {
     pages,
     dimension,
     cover_url,
+    publication_date,
+    slug,
+    rule_type,
   } = body;
 
   const result = await pool.query(
     `INSERT INTO publications (
       publication_type_id, title, description, file, size, year,
-      publisher, author, foreword, edition, isbn, pages, dimension, created_at, updated_at
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,NOW(),NOW())
+      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug, rule_type,
+      created_at, updated_at
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NOW(),NOW())
     RETURNING *`,
     [
       publication_type_id,
@@ -114,6 +162,9 @@ export async function POST(req: Request) {
       pages,
       dimension,
       cover_url,
+      publication_date,
+      slug,
+      rule_type,
     ]
   );
 

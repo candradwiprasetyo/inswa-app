@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function OrganizationStructure() {
   return (
-    <div className="w-full relative">
+    <div className="w-full relative" id="organization-structure-section">
       <div className="mx-auto max-w-6xl px-4 md:px-10 py-10 md:py-16 relative md:flex justify-between">
         <div className="text-[32px] md:text-[40px] font-medium font-pathway-extreme mb-10">
           Struktur Organisasi

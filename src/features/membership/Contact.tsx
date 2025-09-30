@@ -21,7 +21,7 @@ export default function Contact() {
             </div>
             <div className="rounded-lg overflow-hidden w-full md:w-[350px] mb-10 md:mb-0">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.593226740475!2d106.87123597453065!3d-6.185156660601135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4f081aa2f13%3A0xfb28f8aebf988ac5!2sTPS%203R%20Rawasari!5e0!3m2!1sen!2sid!4v1753196806207!5m2!1sen!2sid"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.271402172616!2d106.82741929999999!3d-6.2279043000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f38a2e59d9a9%3A0x34bee885f539a6cc!2sPlaza%20Mutiara!5e0!3m2!1sid!2sid!4v1759129660465!5m2!1sid!2sid"
                 width="100%"
                 height="250"
                 style={{ border: 0, borderRadius: "8px" }}

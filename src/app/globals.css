@@ -24,6 +24,12 @@ body {
   font-family: var(--font-plus-jakarta-sans), sans-serif;
 }
 
+p,
+ul,
+ol {
+  margin-bottom: 20px;
+}
+
 .text-green {
   color: #6abd45;
 }

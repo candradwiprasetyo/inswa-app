@@ -2,6 +2,7 @@ import { PublicationType } from "@/types/publication";
 
 type PublicationListProps = {
   publications: PublicationType[];
+  currentPage: number;
   onEdit: (p: PublicationType) => void;
   onDelete: (id: number) => void;
 };
@@ -15,6 +16,7 @@ const publicationTypeMap: Record<number, string> = {
 
 export default function PublicationList({
   publications,
+  currentPage,
   onEdit,
   onDelete,
 }: PublicationListProps) {
@@ -33,12 +35,16 @@ export default function PublicationList({
         <tbody>
           {publications.map((p, index) => (
             <tr key={p.id}>
-              <td className="border-t p-3">{index + 1}</td>
+              <td className="border-t p-3">
+                {(currentPage - 1) * 10 + (index + 1)}
+              </td>
               <td className="border-t p-3">{p.title}</td>
               <td className="border-t p-3">
                 {publicationTypeMap[p.publication_type_id] || "-"}
               </td>
-              <td className="border-t p-3">{p.year}</td>
+              <td className="border-t p-3">
+                {p.publication_date ? p.publication_date.split("-")[0] : "-"}
+              </td>
               <td className="border-t p-3 space-x-2 text-center">
                 <button onClick={() => onEdit(p)} className="text-blue-500">
                   <span className="material-symbols-outlined">edit</span>

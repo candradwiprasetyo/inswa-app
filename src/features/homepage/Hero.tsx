@@ -1,17 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { Link } from "react-scroll";
 
 export default function Hero() {
-  const scrollTargetRef = useRef<HTMLDivElement | null>(null);
-
-  const handleScroll = () => {
-    scrollTargetRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
   return (
     <>
       <div className="bg-default text-sm relative" id="hero">
@@ -28,21 +20,26 @@ export default function Hero() {
               sosial budaya. Melalui pendekatan ini, tujuan utama pengelolaan
               sampah yaitu lingkungan bersih dan masyarakat sehat dapat terwujud
             </div>
-            <button
-              onClick={handleScroll}
-              className="h-10 w-16 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light mt-10"
+            <Link
+              key={"scroll-down"}
+              to={"about-us-section"}
+              smooth={true}
+              duration={500}
+              offset={-76}
+              spy={true}
             >
-              <Image
-                src="/assets/icons/arrow-down.svg"
-                alt="Logo"
-                width={24}
-                height={24}
-              />
-            </button>
+              <div className="cursor-pointer h-10 w-16 bg-green-gradient font-semibold flex items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr text-primary-light mt-10">
+                <Image
+                  src="/assets/icons/arrow-down.svg"
+                  alt="Logo"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </div>
-      <div ref={scrollTargetRef}></div>
     </>
   );
 }

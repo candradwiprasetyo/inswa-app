@@ -20,7 +20,7 @@ export default function Loader() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-44 relative py-10 md:py-16 flex gap-10 mt-10 animate-pulse">
+      <div className="container mx-auto max-w-6xl px-4 md:px-10 relative py-10 md:py-16 flex gap-10 mt-10 animate-pulse">
         {/* Konten deskripsi */}
         <div className="w-2/3 space-y-4">
           <div className="h-8 bg-gray-300 rounded w-1/2"></div>

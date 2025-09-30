@@ -4,7 +4,7 @@ import AdminHeader from "@/components/AdminHeader";
 import AdminNavigation from "@/components/AdminNavigation";
 import AdminProfilePage from "@/features/admin/profile";
 
-export default function MediaProgram() {
+export default function AdminProfile() {
   return (
     <>
       <div className="bg-admin min-h-screen">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Label from "@/components/Label/Label";
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
@@ -7,14 +7,39 @@ import { usePublicArticles } from "@/hooks/usePublicArticle";
 export default function Content() {
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const { articles, loading, total, currentPage, limit } = usePublicArticles(
-    12,
-    typeFilter !== "all" ? typeFilter : undefined,
-    searchTerm
-  );
+  const { articles, loading, total, currentPage, limit, setCurrentPage } =
+    usePublicArticles(
+      6,
+      typeFilter !== "all" ? typeFilter : undefined,
+      searchTerm
+    );
 
-  const start = (currentPage - 1) * limit + 1;
+  const start = 1;
   const end = Math.min(currentPage * limit, total);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (loading) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && articles.length < total) {
+          setCurrentPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (loaderRef.current) observer.observe(loaderRef.current);
+
+    return () => {
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
+    };
+  }, [articles, total, loading, setCurrentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [typeFilter, searchTerm, setCurrentPage]);
 
   return (
     <div className="w-full relative">
@@ -71,10 +96,10 @@ export default function Content() {
           </div>
         </div>
 
-        {loading ? (
+        {loading && currentPage === 1 ? (
           <div>Loading...</div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 md:mt-10 md:px-0 scrollbar-hide gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-16 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10 mb-16">
             {articles.map((news, index) => (
               <NewsCard
                 key={index}
@@ -92,6 +117,9 @@ export default function Content() {
             ))}
           </div>
         )}
+        <div ref={loaderRef} className="h-10 flex justify-center items-center">
+          {loading && currentPage > 1 && <span>Loading more...</span>}
+        </div>
       </div>
     </div>
   );

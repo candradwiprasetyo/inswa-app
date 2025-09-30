@@ -9,7 +9,7 @@ export default function Publikasi() {
   return (
     <>
       <Header />
-      <Hero title="Publikasi" background="publikasi/hero.png" />
+      <Hero title="Publikasi" background="assets/images/publikasi/hero.png" />
       <Content />
       <Footer />
     </>

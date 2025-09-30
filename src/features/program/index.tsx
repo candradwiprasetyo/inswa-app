@@ -9,7 +9,10 @@ export default function Program() {
   return (
     <>
       <Header />
-      <Hero title="Program & Kegiatan" background="program/hero.png" />
+      <Hero
+        title="Program & Kegiatan"
+        background="assets/images/program/hero.png"
+      />
       <Content />
       <Footer />
     </>

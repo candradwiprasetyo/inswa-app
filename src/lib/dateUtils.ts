@@ -22,3 +22,28 @@ export function calculateDayDifference(
     return `${diffDays === 0 ? 1 : diffDays} day${diffDays === 1 ? "" : "s"}`;
   }
 }
+
+export function formatPublicationDate(value: string): string {
+  if (!value) return "-";
+
+  const [year, month] = value.split("-");
+  const monthNames = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+
+  const monthIndex = parseInt(month, 10) - 1;
+  if (monthIndex < 0 || monthIndex > 11) return value;
+
+  return `${monthNames[monthIndex]} ${year}`;
+}

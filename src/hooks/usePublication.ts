@@ -10,7 +10,9 @@ export function usePublication() {
   const fetchPublications = useCallback(async (page = 1, limit = 10) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/publications?page=${page}&limit=${limit}`);
+      const res = await fetch(
+        `/api/publications?page=${page}&limit=${limit}&context=admin`
+      );
       const json = await res.json();
       setPublications(json.data);
       setTotalPages(json.totalPages);

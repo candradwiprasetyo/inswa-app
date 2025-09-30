@@ -6,6 +6,7 @@ import PublicationHeader from "./Header";
 import PublicationList from "./List";
 import PublicationForm from "./Form";
 import { PublicationType } from "@/types/publication";
+import Pagination from "@/components/Pagination";
 
 export default function PublicationPage() {
   const {
@@ -14,6 +15,8 @@ export default function PublicationPage() {
     createPublication,
     updatePublication,
     deletePublication,
+    currentPage,
+    totalPages,
   } = usePublication();
 
   const [showForm, setShowForm] = useState(false);
@@ -25,6 +28,7 @@ export default function PublicationPage() {
   };
 
   const handleEdit = (p: PublicationType) => {
+    console.log(p);
     setEditData(p);
     setShowForm(true);
   };
@@ -33,6 +37,12 @@ export default function PublicationPage() {
     if (confirm("Yakin ingin menghapus data ini?")) {
       await deletePublication(id);
       fetchPublications();
+    }
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      fetchPublications(page);
     }
   };
 
@@ -51,11 +61,19 @@ export default function PublicationPage() {
       <PublicationHeader onAdd={handleAdd} />
 
       {!showForm && (
-        <PublicationList
-          publications={publications}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+        <>
+          <PublicationList
+            publications={publications}
+            currentPage={currentPage}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
       )}
 
       {showForm && (

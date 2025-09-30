@@ -12,8 +12,7 @@ export default function Hero({
       <div
         className={clsx(`w-full relative bg-cover bg-center bg-hero-green`)}
         style={{
-          backgroundImage:
-            variant === "default" ? `url(/assets/images/${background})` : "",
+          backgroundImage: variant === "default" ? `url(${background})` : "",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

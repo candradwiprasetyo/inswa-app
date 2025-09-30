@@ -4,6 +4,7 @@ import { usePublicArticle, usePublicArticles } from "@/hooks/usePublicArticle";
 import { useParams } from "next/navigation";
 import Loader from "./Loader";
 import { cdnLoader } from "@/lib/cdnLoader";
+import ReactMarkdown from "react-markdown";
 
 export default function Content() {
   const params = useParams();
@@ -73,7 +74,7 @@ export default function Content() {
             )}
           </div>
           <div className="mb-8 md:mb-8 leading-7 text-secondary-light">
-            {article.content}
+            <ReactMarkdown>{article.content}</ReactMarkdown>
           </div>
         </div>
         <div className="md:w-1/3">

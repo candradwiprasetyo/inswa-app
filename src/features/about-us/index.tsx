@@ -14,7 +14,7 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <Hero title="About Us" background="about-us/hero.png" />
+      <Hero title="About Us" background="assets/images/about-us/hero.png" />
       <Tab />
       <History />
       <VisionMission />
