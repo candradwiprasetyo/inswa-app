@@ -4,6 +4,8 @@ import clsx from "clsx";
 export default function Hero({
   variant = "default",
   title,
+  name,
+  subtitle,
   background,
   detailPage = false,
 }: HeroProps) {
@@ -32,6 +34,22 @@ export default function Hero({
             )}
           >
             {title}
+          </div>
+          <div className="bottom-10 absolute">
+            <div
+              className={clsx(
+                "text-[48px] font-medium font-pathway-extreme text-primary-dark leading-snug md:leading-normal text-lg"
+              )}
+            >
+              {name}
+            </div>
+            <div
+              className={clsx(
+                "font-medium font-pathway-extreme text-primary-dark leading-snug md:leading-normal text-xl"
+              )}
+            >
+              {subtitle}
+            </div>
           </div>
         </div>
       </div>

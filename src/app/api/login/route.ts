@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
         email: user.email,
         name: user.name,
         role: user.role,
+        created_at: user.created_at,
       },
       process.env.JWT_SECRET as string,
       { expiresIn: "7d" }
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
         email: user.email,
         name: user.name,
         role: user.role,
+        created_at: user.created_at,
       },
     });
 

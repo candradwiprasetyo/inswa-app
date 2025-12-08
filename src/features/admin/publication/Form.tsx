@@ -35,6 +35,7 @@ export default function PublicationForm({
     publication_date: "",
     slug: "",
     rule_type: "",
+    links: [] as string[],
   });
   const [publicationMonth, setPublicationMonth] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
@@ -64,9 +65,10 @@ export default function PublicationForm({
         publication_date: initialData.publication_date || "",
         slug: initialData.slug,
         rule_type: initialData.rule_type,
+        links: Array.isArray(initialData.links)
+          ? initialData.links
+          : JSON.parse(initialData.links || "[]"),
       });
-
-      console.log(initialData.rule_type);
 
       if (initialData.publication_date) {
         const [year, month] = initialData.publication_date.split("-");
@@ -201,6 +203,7 @@ export default function PublicationForm({
             ? `${publicationYear}-${publicationMonth}-01`
             : "",
         slug: generateSlug(form.title),
+        links: form.links,
       });
     } finally {
       setIsUploading(false);
@@ -489,6 +492,46 @@ export default function PublicationForm({
             </select>
           </div>
         )}
+
+        <div className="col-span-2">
+          <label className="block mb-1 text-sm font-medium">Links</label>
+
+          {form.links.map((link, index) => (
+            <div key={index} className="flex items-center gap-2 mb-2">
+              <input
+                type="url"
+                value={link}
+                onChange={(e) => {
+                  const updated = [...form.links];
+                  updated[index] = e.target.value;
+                  setForm((prev) => ({ ...prev, links: updated }));
+                }}
+                className="border p-2 rounded w-full"
+                placeholder={`Link ${index + 1}`}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const updated = form.links.filter((_, i) => i !== index);
+                  setForm((prev) => ({ ...prev, links: updated }));
+                }}
+                className="text-red-500 px-3 py-2 rounded-full"
+              >
+                <span className="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() =>
+              setForm((prev) => ({ ...prev, links: [...prev.links, ""] }))
+            }
+            className="bg-green-500 text-white px-3 py-2 rounded-full mt-2"
+          >
+            + Tambah Link
+          </button>
+        </div>
 
         {/* Actions */}
         <div className="col-span-2 flex gap-3 mt-4">

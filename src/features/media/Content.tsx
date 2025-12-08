@@ -20,6 +20,7 @@ export default function Content() {
 
   useEffect(() => {
     if (loading) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
@@ -30,10 +31,11 @@ export default function Content() {
       { threshold: 1 }
     );
 
-    if (loaderRef.current) observer.observe(loaderRef.current);
+    const currentLoader = loaderRef.current;
+    if (currentLoader) observer.observe(currentLoader);
 
     return () => {
-      if (loaderRef.current) observer.unobserve(loaderRef.current);
+      if (currentLoader) observer.unobserve(currentLoader);
     };
   }, [articles, total, loading, setCurrentPage]);
 
