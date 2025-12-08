@@ -18,7 +18,7 @@ export async function GET(req: Request) {
       `SELECT id, publication_type_id, title, description, file, size, year,
           publisher, author, foreword, edition, isbn, pages, dimension,
           cover_url,
-          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links,
           created_at, updated_at
       FROM publications
       WHERE id = $1
@@ -37,7 +37,7 @@ export async function GET(req: Request) {
       `SELECT slug, publication_type_id, title, description, file, size, year,
         publisher, author, foreword, edition, isbn, pages, dimension,
         cover_url,
-        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
+        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links,
         created_at, updated_at
      FROM publications
      WHERE slug = $1
@@ -93,7 +93,7 @@ export async function GET(req: Request) {
     `SELECT id, publication_type_id, title, description, file, size, year,
           publisher, author, foreword, edition, isbn, pages, dimension,
           cover_url,
-          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links,
           created_at, updated_at
    FROM publications
    ${whereSQL}
@@ -138,14 +138,15 @@ export async function POST(req: Request) {
     publication_date,
     slug,
     rule_type,
+    links,
   } = body;
 
   const result = await pool.query(
     `INSERT INTO publications (
       publication_type_id, title, description, file, size, year,
-      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug, rule_type,
+      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug, rule_type, links,
       created_at, updated_at
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NOW(),NOW())
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,NOW(),NOW())
     RETURNING *`,
     [
       publication_type_id,
@@ -165,6 +166,7 @@ export async function POST(req: Request) {
       publication_date,
       slug,
       rule_type,
+      links,
     ]
   );
 

@@ -180,27 +180,46 @@ export default function PublicationDetailPage() {
               </button>
             </div>
 
-            {publication.file &&
-              publication.publication_type_id !== 4 &&
-              (!user ? (
-                <div>
-                  <Button
-                    title="Daftar Member"
-                    customClass="h-8 text-sm w-48 mt-5 mx-auto md:mx-0"
-                    href="/daftar"
-                  />
-                </div>
-              ) : (
-                <a
-                  href={getFullImageUrl(publication.file)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="mt-5 h-8 px-8 text-base font-semibold flex w-40 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient mx-auto md:mx-0">
-                    Open PDF
+            <div className="flex gap-3 mt-5 flex-wrap justify-center md:justify-start">
+              {publication.file &&
+                publication.publication_type_id !== 4 &&
+                (!user ? (
+                  <div>
+                    <Button
+                      title="Daftar Member"
+                      customClass="h-8 text-sm w-48 mx-auto md:mx-0"
+                      href="/daftar"
+                    />
                   </div>
-                </a>
-              ))}
+                ) : (
+                  <a
+                    href={getFullImageUrl(publication.file)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="h-8 px-8 text-base font-semibold flex w-40 items-center justify-center rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr gap-2 bg-green-gradient mx-auto md:mx-0">
+                      Open PDF
+                    </div>
+                  </a>
+                ))}
+
+              {Array.isArray(publication.links) &&
+                publication.links.length > 0 &&
+                publication.links.map((link: string, index: number) => (
+                  <a
+                    key={index}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-8 px-6 text-sm font-semibold flex w-fit items-center justify-center 
+                    rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr 
+                    gap-2 bg-green-gradient"
+                  >
+                    Download {index + 1}
+                  </a>
+                ))}
+            </div>
+
             {publication.file && publication.publication_type_id === 4 && (
               <a
                 href={publication.file}

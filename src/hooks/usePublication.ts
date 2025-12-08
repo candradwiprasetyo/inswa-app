@@ -27,10 +27,15 @@ export function usePublication() {
   const createPublication = async (
     publication: Omit<PublicationType, "id" | "created_at" | "updated_at">
   ) => {
+    const payload = {
+      ...publication,
+      links: JSON.stringify(publication.links ?? []),
+    };
+
     const res = await fetch("/api/publications", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(publication),
+      body: JSON.stringify(payload),
     });
     return res.json();
   };
@@ -39,10 +44,17 @@ export function usePublication() {
     id: number,
     publication: Partial<PublicationType>
   ) => {
+    const payload = {
+      ...publication,
+      ...(publication.links !== undefined && {
+        links: JSON.stringify(publication.links),
+      }),
+    };
+
     const res = await fetch(`/api/publications/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(publication),
+      body: JSON.stringify(payload),
     });
     return res.json();
   };

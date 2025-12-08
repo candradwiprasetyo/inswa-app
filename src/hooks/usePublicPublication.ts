@@ -13,7 +13,20 @@ export function usePublicPublication(slug?: string) {
           const res = await fetch(`/api/publications?slug=${slug}`);
           if (!res.ok) throw new Error("Gagal mengambil detail publikasi");
           const json = await res.json();
-          setPublication(json.data || null);
+
+          const data = json.data;
+
+          if (data) {
+            try {
+              if (typeof data.links === "string") {
+                data.links = JSON.parse(data.links || "[]");
+              }
+            } catch (e) {
+              console.error("Failed to parse links:", e);
+              data.links = [];
+            }
+          }
+          setPublication(data || null);
         }
       } catch (error) {
         console.error("Error fetching detail publication:", error);
