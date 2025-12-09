@@ -1,14 +1,14 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 
 export default function MotionLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <AnimatePresence mode="wait">
