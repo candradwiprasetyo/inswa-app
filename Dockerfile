@@ -1,31 +1,11 @@
 FROM node:18-alpine AS builder
 
-# Set working directory
+# Tambah user non-root
+RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
+
+# Set working directory dan ubah owner-nya
 WORKDIR /app
-
-# Enable Corepack for package manager version management
-RUN corepack enable
-
-# Copy package files first to leverage Docker cache
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-
-# Install dependencies using the package manager specified in package.json
-RUN npm install --force
-
-# Copy all files (excluding what's in .dockerignore)
-COPY . .
-
-# Build the application
-RUN npm run build
-
-# Stage 2: Production image
-FROM node:18-alpine AS runner
-
-# Set working directory
-WORKDIR /app
-
-# Install dependencies only needed for production
-ENV NODE_ENV=production
+RUN chown nodejs:nodejs /app
 
 # Enable Corepack
 RUN corepack enable
@@ -33,16 +13,45 @@ RUN corepack enable
 # Copy package files
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
-# Install production dependencies using the specified package manager
+# Ganti user jadi non-root
+USER nodejs
+
+# Install dependencies
+RUN npm install --force
+
+# Copy all files
+COPY --chown=nodejs:nodejs . .
+
+# Build the application
+RUN npm run build
+
+
+# ========================
+# Production Stage
+# ========================
+FROM node:18-alpine AS runner
+
+# Tambah user non-root
+RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
+
+WORKDIR /app
+RUN chown nodejs:nodejs /app
+
+ENV NODE_ENV=production
+
+RUN corepack enable
+
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+
+# Install production deps
+USER nodejs
 RUN npm install --production --force
 
-# Copy built application from builder
+# Copy built files
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 
-# Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application
 CMD ["npm", "start"]
