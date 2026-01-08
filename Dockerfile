@@ -14,7 +14,7 @@ RUN corepack enable
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
 # Ganti user jadi non-root
-USER nodejs
+#USER nodejs
 
 # Install dependencies
 RUN npm install --force
@@ -32,10 +32,10 @@ RUN npm run build
 FROM node:18-alpine AS runner
 
 # Tambah user non-root
-RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
+#RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
 
 WORKDIR /app
-RUN chown nodejs:nodejs /app
+#RUN chown nodejs:nodejs /app
 
 ENV NODE_ENV=production
 
@@ -44,7 +44,7 @@ RUN corepack enable
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
 # Install production deps
-USER nodejs
+#USER nodejs
 RUN npm install --production --force
 
 # Copy built files
