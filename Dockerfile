@@ -2,7 +2,6 @@
 FROM node:20.20-alpine AS builder
 # Set working directory
 WORKDIR /app
-RUN chown nodejs:nodejs /app
 
 # Enable Corepack
 RUN corepack enable
@@ -17,7 +16,7 @@ COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN npm install --force
 
 # Copy all files
-COPY --chown=nodejs:nodejs . .
+COPY  . .
 
 # Build the application
 RUN npm run build
