@@ -1,9 +1,6 @@
-FROM node:18-alpine AS builder
-
-# Tambah user non-root
-RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
-
-# Set working directory dan ubah owner-nya
+#FROM node:18-alpine AS builder
+FROM node:20.20-alpine AS builder
+# Set working directory
 WORKDIR /app
 RUN chown nodejs:nodejs /app
 
@@ -25,15 +22,10 @@ COPY --chown=nodejs:nodejs . .
 # Build the application
 RUN npm run build
 
-
-# ========================
-# Production Stage
-# ========================
-FROM node:18-alpine AS runner
-
-# Tambah user non-root
-#RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
-
+# Stage 2: Production image
+#FROM node:18-alpine AS runner
+FROM node:20.20-alpine AS runner
+# Set working directory
 WORKDIR /app
 #RUN chown nodejs:nodejs /app
 
