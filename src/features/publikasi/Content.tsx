@@ -9,11 +9,13 @@ import { publicationTypeMap } from "@/lib/publicationTypeMap";
 import { cdnLoader } from "@/lib/cdnLoader";
 import RuleContent from "./RuleContent";
 import clsx from "clsx";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Content() {
+  const { user } = useAuth();
   const [activeType, setActiveType] = useState<string>("all");
   const { publications, loading, fetchedOnce, setCurrentPage, hasMore } =
-    usePublicPublications(6, activeType);
+    usePublicPublications(6, activeType, undefined, undefined, !!user);
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -32,7 +34,7 @@ export default function Content() {
           setCurrentPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(loaderRef.current);
@@ -95,7 +97,7 @@ export default function Content() {
         <div
           className={clsx(
             "md:w-2/3 md:border-l",
-            activeType !== "4" && "md:pl-5"
+            activeType !== "4" && "md:pl-5",
           )}
         >
           {activeType !== "4" ? (

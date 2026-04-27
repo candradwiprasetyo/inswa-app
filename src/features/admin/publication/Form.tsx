@@ -36,6 +36,7 @@ export default function PublicationForm({
     slug: "",
     rule_type: "",
     links: [] as string[],
+    visibility: "umum",
   });
   const [publicationMonth, setPublicationMonth] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
@@ -68,6 +69,7 @@ export default function PublicationForm({
         links: Array.isArray(initialData.links)
           ? initialData.links
           : JSON.parse(initialData.links || "[]"),
+        visibility: initialData.visibility || "umum",
       });
 
       if (initialData.publication_date) {
@@ -81,7 +83,7 @@ export default function PublicationForm({
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -248,29 +250,46 @@ export default function PublicationForm({
 
         {/* File (PDF) for Book, Report, International */}
         {(isBook || isReportOrInternational) && (
-          <div>
-            <label className="block mb-1 text-sm">File (PDF)</label>
-            <input
-              type="file"
-              accept="application/pdf"
-              onChange={handleFileChange}
-              className="border p-2 rounded w-full"
-            />
-            {fileError && <p className="text-red-500 text-xs">{fileError}</p>}
+          <>
+            <div>
+              <label className="block mb-1 text-sm">File (PDF)</label>
+              <input
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+                className="border p-2 rounded w-full"
+              />
+              {fileError && <p className="text-red-500 text-xs">{fileError}</p>}
 
-            {form.file && !fileObj && (
-              <p className="text-xs mt-1">
-                File sudah diunggah:{" "}
-                <a
-                  href={getFullImageUrl(form.file)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  Lihat File
-                </a>
-              </p>
-            )}
+              {form.file && !fileObj && (
+                <p className="text-xs mt-1">
+                  File sudah diunggah:{" "}
+                  <a
+                    href={getFullImageUrl(form.file)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 underline"
+                  >
+                    Lihat File
+                  </a>
+                </p>
+              )}
+            </div>
+          </>
+        )}
+
+        {isBook && (
+          <div>
+            <label className="block mb-1 text-sm">Akses</label>
+            <select
+              name="visibility"
+              value={form.visibility}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            >
+              <option value="umum">Umum</option>
+              <option value="private">Private</option>
+            </select>
           </div>
         )}
 

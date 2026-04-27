@@ -13,7 +13,7 @@ export async function GET(req: Request) {
 
   const result = await pool.query(
     "SELECT * FROM publications WHERE id = $1 LIMIT 1",
-    [id]
+    [id],
   );
 
   if (result.rows.length === 0) {
@@ -47,14 +47,15 @@ export async function PUT(req: Request) {
     slug,
     rule_type,
     links,
+    visibility,
   } = body;
 
   const result = await pool.query(
     `UPDATE publications SET
       publication_type_id=$1, title=$2, description=$3, file=$4, size=$5, year=$6,
       publisher=$7, author=$8, foreword=$9, edition=$10, isbn=$11, pages=$12, dimension=$13, cover_url=$14,
-      publication_date=$15, slug=$16, rule_type=$17, links=$18, updated_at=NOW()
-    WHERE id=$19 RETURNING *`,
+      publication_date=$15, slug=$16, rule_type=$17, links=$18, visibility=$19, updated_at=NOW()
+    WHERE id=$20 RETURNING *`,
     [
       publication_type_id,
       title,
@@ -74,8 +75,9 @@ export async function PUT(req: Request) {
       slug,
       rule_type,
       links,
+      visibility,
       id,
-    ]
+    ],
   );
 
   if (result.rows.length === 0) {

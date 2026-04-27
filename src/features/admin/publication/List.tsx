@@ -29,6 +29,7 @@ export default function PublicationList({
             <th className="p-4">Judul</th>
             <th className="p-4">Tipe</th>
             <th className="p-4">Tahun</th>
+            <th className="p-4">Akses</th>
             <th className="p-4 w-[200px]">Actions</th>
           </tr>
         </thead>
@@ -45,6 +46,7 @@ export default function PublicationList({
               <td className="border-t p-3">
                 {p.publication_date ? p.publication_date.split("-")[0] : "-"}
               </td>
+              <td className="border-t p-3 capitalize">{p.visibility}</td>
               <td className="border-t p-3 space-x-2 text-center">
                 <button onClick={() => onEdit(p)} className="text-blue-500">
                   <span className="material-symbols-outlined">edit</span>
