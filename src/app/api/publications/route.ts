@@ -18,17 +18,17 @@ export async function GET(req: Request) {
       `SELECT id, publication_type_id, title, description, file, size, year,
           publisher, author, foreword, edition, isbn, pages, dimension,
           cover_url,
-          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links, visibility,
           created_at, updated_at
       FROM publications
       WHERE id = $1
       LIMIT 1`,
-      [id]
+      [id],
     );
     if (result.rows.length === 0) {
       return NextResponse.json(
         { message: "Publikasi tidak ditemukan" },
-        { status: 404 }
+        { status: 404 },
       );
     }
     return NextResponse.json({ data: result.rows[0] });
@@ -37,17 +37,17 @@ export async function GET(req: Request) {
       `SELECT slug, publication_type_id, title, description, file, size, year,
         publisher, author, foreword, edition, isbn, pages, dimension,
         cover_url,
-        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links,
+        TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links, visibility,
         created_at, updated_at
      FROM publications
      WHERE slug = $1
      LIMIT 1`,
-      [slug]
+      [slug],
     );
     if (result.rows.length === 0) {
       return NextResponse.json(
         { message: "Publikasi tidak ditemukan" },
-        { status: 404 }
+        { status: 404 },
       );
     }
     return NextResponse.json({ data: result.rows[0] });
@@ -60,6 +60,7 @@ export async function GET(req: Request) {
   const type = searchParams.get("type");
   const search = searchParams.get("search");
   const excludeId = searchParams.get("excludeId");
+  const visibility = searchParams.get("visibility");
 
   const whereClauses: string[] = [];
   const values: string[] = [];
@@ -81,6 +82,11 @@ export async function GET(req: Request) {
     values.push(excludeId);
   }
 
+  if (visibility) {
+    whereClauses.push(`visibility = $${idx++}`);
+    values.push(visibility);
+  }
+
   if (context === "public") {
     whereClauses.push(`publication_type_id != $${idx++}`);
     values.push("4");
@@ -93,18 +99,18 @@ export async function GET(req: Request) {
     `SELECT id, publication_type_id, title, description, file, size, year,
           publisher, author, foreword, edition, isbn, pages, dimension,
           cover_url,
-          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links,
+          TO_CHAR(publication_date, 'YYYY-MM-DD') AS publication_date, slug, rule_type, links, visibility,
           created_at, updated_at
    FROM publications
    ${whereSQL}
    ORDER BY ${orderBy}
    LIMIT $${idx} OFFSET $${idx + 1}`,
-    [...values, limit, offset]
+    [...values, limit, offset],
   );
 
   const countResult = await pool.query(
     `SELECT COUNT(*) FROM publications ${whereSQL}`,
-    values
+    values,
   );
 
   const total = parseInt(countResult.rows[0].count, 10);
@@ -139,14 +145,15 @@ export async function POST(req: Request) {
     slug,
     rule_type,
     links,
+    visibility,
   } = body;
 
   const result = await pool.query(
     `INSERT INTO publications (
       publication_type_id, title, description, file, size, year,
-      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug, rule_type, links,
+      publisher, author, foreword, edition, isbn, pages, dimension, cover_url, publication_date, slug, rule_type, links, visibility,
       created_at, updated_at
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,NOW(),NOW())
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,NOW(),NOW())
     RETURNING *`,
     [
       publication_type_id,
@@ -167,7 +174,8 @@ export async function POST(req: Request) {
       slug,
       rule_type,
       links,
-    ]
+      visibility,
+    ],
   );
 
   return NextResponse.json(result.rows[0], { status: 201 });

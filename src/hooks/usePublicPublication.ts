@@ -45,14 +45,15 @@ export function usePublicPublications(
   limit = 6,
   type?: string,
   search?: string,
-  excludeId?: string
+  excludeId?: string,
+  isLoggedIn?: boolean,
 ) {
   const [publications, setPublications] = useState<PublicationType[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [debouncedSearch, setDebouncedSearch] = useState<string | undefined>(
-    search
+    search,
   );
   const [hasMore, setHasMore] = useState(true);
   const [fetchedOnce, setFetchedOnce] = useState(false);
@@ -76,13 +77,12 @@ export function usePublicPublications(
     return () => clearTimeout(handler);
   }, [search, debouncedSearch]);
 
-  // reset kalau type/excludeId berubah
   useEffect(() => {
     setCurrentPage(1);
     setPublications([]);
     setHasMore(true);
     setFetchedOnce(false);
-  }, [type, excludeId]);
+  }, [type, excludeId, isLoggedIn]);
 
   const fetchPublications = useCallback(async () => {
     setLoading(true);
@@ -99,6 +99,10 @@ export function usePublicPublications(
         params.append("type", type);
       }
 
+      if (type === "1" && !isLoggedIn) {
+        params.append("visibility", "umum");
+      }
+
       if (debouncedSearch && debouncedSearch.length > 0) {
         params.append("search", debouncedSearch);
       }
@@ -108,7 +112,7 @@ export function usePublicPublications(
       }
 
       const res = await fetch(
-        `/api/publications?${params.toString()}&context=public`
+        `/api/publications?${params.toString()}&context=public`,
       );
       if (!res.ok) throw new Error("Gagal mengambil daftar publikasi");
       const json = await res.json();
@@ -136,7 +140,7 @@ export function usePublicPublications(
         setLoading(false);
       }
     }
-  }, [limit, type, currentPage, debouncedSearch, excludeId]);
+  }, [limit, type, currentPage, debouncedSearch, excludeId, isLoggedIn]);
 
   useEffect(() => {
     fetchPublications();

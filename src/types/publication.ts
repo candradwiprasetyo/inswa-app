@@ -18,4 +18,5 @@ export type PublicationType = {
   slug: string;
   rule_type: string;
   links: string[];
+  visibility: string;
 };
