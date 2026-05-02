@@ -5,8 +5,21 @@ import Link from "next/link";
 import { cdnLoader } from "@/lib/cdnLoader";
 import { usePublicPublicationRules } from "@/hooks/usePublicPublication";
 
-export default function RuleContentDetail({ ruleType }: { ruleType: string }) {
-  const { publications } = usePublicPublicationRules(ruleType);
+type User = {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+};
+
+export default function RuleContentDetail({
+  ruleType,
+  user,
+}: {
+  ruleType: string;
+  user: User | null;
+}) {
+  const { publications } = usePublicPublicationRules(ruleType, !!user);
 
   return (
     <>
