@@ -278,20 +278,18 @@ export default function PublicationForm({
           </>
         )}
 
-        {isBook && (
-          <div>
-            <label className="block mb-1 text-sm">Akses</label>
-            <select
-              name="visibility"
-              value={form.visibility}
-              onChange={handleChange}
-              className="border p-2 rounded w-full"
-            >
-              <option value="umum">Umum</option>
-              <option value="private">Private</option>
-            </select>
-          </div>
-        )}
+        <div>
+          <label className="block mb-1 text-sm">Akses</label>
+          <select
+            name="visibility"
+            value={form.visibility}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          >
+            <option value="umum">Umum</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
 
         {/* URL for Peraturan */}
         {isRegulation && (

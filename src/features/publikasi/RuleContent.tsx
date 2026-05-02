@@ -3,7 +3,14 @@
 import { publicationRuleMap } from "@/lib/publicationRuleMap";
 import RuleContentDetail from "./RuleContentDetail";
 
-export default function RuleContent() {
+type User = {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+};
+
+export default function RuleContent({ user }: { user: User | null }) {
   return (
     <>
       {Object.entries(publicationRuleMap).map(([id, name]) => (
@@ -15,7 +22,7 @@ export default function RuleContent() {
             {name}
           </div>
           <div className="border-r">
-            <RuleContentDetail ruleType={id} />
+            <RuleContentDetail ruleType={id} user={user} />
           </div>
         </div>
       ))}

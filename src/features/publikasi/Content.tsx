@@ -170,7 +170,7 @@ export default function Content() {
               </div>
             </>
           ) : (
-            <RuleContent />
+            <RuleContent user={user} />
           )}
         </div>
       </div>

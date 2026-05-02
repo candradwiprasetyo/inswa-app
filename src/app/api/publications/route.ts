@@ -82,7 +82,11 @@ export async function GET(req: Request) {
     values.push(excludeId);
   }
 
-  if (visibility) {
+  if (visibility === "umum") {
+    whereClauses.push(`(visibility = $${idx} OR visibility IS NULL)`);
+    values.push(visibility);
+    idx++;
+  } else if (visibility) {
     whereClauses.push(`visibility = $${idx++}`);
     values.push(visibility);
   }

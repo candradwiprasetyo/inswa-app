@@ -99,7 +99,7 @@ export function usePublicPublications(
         params.append("type", type);
       }
 
-      if (type === "1" && !isLoggedIn) {
+      if (!isLoggedIn) {
         params.append("visibility", "umum");
       }
 
@@ -157,14 +157,25 @@ export function usePublicPublications(
   };
 }
 
-export function usePublicPublicationRules(rule_type: string) {
+export function usePublicPublicationRules(
+  rule_type: string,
+  isLoggedIn?: boolean,
+) {
   const [publications, setPublications] = useState<PublicationType[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchPublicationRules = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/publication-rules?rule_type=${rule_type}`);
+      const params = new URLSearchParams({
+        rule_type: rule_type.toString(),
+      });
+
+      if (!isLoggedIn) {
+        params.append("visibility", "umum");
+      }
+
+      const res = await fetch(`/api/publication-rules?${params.toString()}`);
       const json = await res.json();
       setPublications(json.data || []);
     } catch (error) {
@@ -172,7 +183,7 @@ export function usePublicPublicationRules(rule_type: string) {
     } finally {
       setLoading(false);
     }
-  }, [rule_type]);
+  }, [rule_type, isLoggedIn]);
 
   useEffect(() => {
     fetchPublicationRules();
