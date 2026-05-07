@@ -24,7 +24,7 @@ export default function PublicationDetailPage() {
     5,
     undefined,
     undefined,
-    slug as string
+    slug as string,
   );
 
   const [openPdf, setOpenPdf] = useState(false);
@@ -71,7 +71,7 @@ export default function PublicationDetailPage() {
 
     const text = publication.title;
     const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      text
+      text,
     )}&url=${encodeURIComponent(currentUrl)}`;
 
     window.open(xUrl, "_blank");
@@ -81,7 +81,7 @@ export default function PublicationDetailPage() {
     if (!publication) return;
 
     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-      currentUrl
+      currentUrl,
     )}`;
 
     window.open(linkedInUrl, "_blank", "noopener,noreferrer");
@@ -135,7 +135,7 @@ export default function PublicationDetailPage() {
               </button>
               <Link
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  currentUrl
+                  currentUrl,
                 )}`}
                 target="_blank"
               >
@@ -183,15 +183,7 @@ export default function PublicationDetailPage() {
             <div className="flex gap-3 mt-5 flex-wrap justify-center md:justify-start">
               {publication.file &&
                 publication.publication_type_id !== 4 &&
-                (!user ? (
-                  <div>
-                    <Button
-                      title="Daftar Member"
-                      customClass="h-8 text-sm w-48 mx-auto md:mx-0"
-                      href="/daftar"
-                    />
-                  </div>
-                ) : (
+                (user || publication.visibility === "umum" ? (
                   <a
                     href={getFullImageUrl(publication.file)}
                     target="_blank"
@@ -201,9 +193,18 @@ export default function PublicationDetailPage() {
                       Open PDF
                     </div>
                   </a>
+                ) : (
+                  <div>
+                    <Button
+                      title="Daftar Member"
+                      customClass="h-8 text-sm w-48 mx-auto md:mx-0"
+                      href="/daftar"
+                    />
+                  </div>
                 ))}
 
-              {Array.isArray(publication.links) &&
+              {(user || publication.visibility === "umum") &&
+                Array.isArray(publication.links) &&
                 publication.links.length > 0 &&
                 publication.links.map((link: string, index: number) => (
                   <a
@@ -212,8 +213,8 @@ export default function PublicationDetailPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="h-8 px-6 text-sm font-semibold flex w-fit items-center justify-center 
-                    rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr 
-                    gap-2 bg-green-gradient"
+                      rounded-tl-[32px] rounded-br-[32px] rounded-bl rounded-tr 
+                      gap-2 bg-green-gradient"
                   >
                     Download {index + 1}
                   </a>
